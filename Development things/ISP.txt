@@ -1,0 +1,6 @@
+ISP
+Android Jetpack: https://developer.android.com/jetpack/
+Android Jetpack talk: https://www.youtube.com/watch?v=pErTyQpA390
+Beginner app tutorial: https://www.youtube.com/watch?v=EOfCEhWq8sg
+Material Design: https://material.io/
+Animation talk: https://www.youtube.com/watch?v=dzB-1VlHJW8
