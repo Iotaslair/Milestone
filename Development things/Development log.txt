@@ -1,0 +1,6 @@
+12/16/2018
+Today I did some work with getting an app in Android Studio that I could put on my phone. There wasn't much more work that I did today because I worked on and off, most of the time was spent goofing off while Android Studio downloaded things. I also spent some time looking into Android Jetpack to see what it offers. As of right now I'm not sure what I'm supposed to do with it.
+12/17/2018
+Today I did a few things. I did some reading on Material Design on how the overall system works. I'm currently working through creating the first app that Google recommends (https://developer.android.com/training/basics/firstapp/). I hope to get the app finished sometime before we start planning our little vacation to NC to see snow. I was able to complete some of the app it now has a text box that stretches to the size of the screen
+12/18/2018
+Nothing was done today, was busy helping dad.
