@@ -8,3 +8,5 @@ Nothing was done today, was busy helping Dad prepare a home proposal.
 Nothing was done today; Did vacation planning and went shopping for said vacation
 12/20/2018
 Did some more work with the first app Android recommended. Found a way to transition between activities and pass information between the two activities.
+12/21/2018 
+Finished the first app (needed to make a small change to the manifest file)
