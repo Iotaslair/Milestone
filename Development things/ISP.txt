@@ -4,3 +4,6 @@ Android Jetpack talk: https://www.youtube.com/watch?v=pErTyQpA390
 Beginner app tutorial: https://www.youtube.com/watch?v=EOfCEhWq8sg
 Material Design: https://material.io/
 Animation talk: https://www.youtube.com/watch?v=dzB-1VlHJW8
+Banner ads: https://www.youtube.com/watch?v=OLLLRUPICcc&list=PLOU2XLYxmsIKX0pUJV3uqp6N3NeHwHh0c
+Publish app: https://www.youtube.com/watch?v=AWawL5HFn64
+Gradle Introduction: https://www.youtube.com/watch?v=OFUEb7pLLXw
