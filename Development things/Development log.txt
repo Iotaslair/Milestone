@@ -11,4 +11,4 @@ Did some more work with the first app Android recommended. Found a way to transi
 12/21/2018 
 Finished the first app (needed to make a small change to the manifest file). Started playing around with the colors on my main app
 12/22/2018
-Found out about Firebase and logged into Android Studio. Watched some of a gentle introduction to gradle (https://www.youtube.com/watch?v=OFUEb7pLLXw) found it to be not useful. Learned how to publish an app. Learned how banner ads are made.
+Found out about Firebase and logged into Android Studio. Watched some of a gentle introduction to gradle (https://www.youtube.com/watch?v=OFUEb7pLLXw) found it to be not useful. Learned how to publish an app. Learned how banner ads are made. Worked on making a new task xml file

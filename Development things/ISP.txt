@@ -6,4 +6,5 @@ Material Design: https://material.io/
 Animation talk: https://www.youtube.com/watch?v=dzB-1VlHJW8
 Banner ads: https://www.youtube.com/watch?v=OLLLRUPICcc&list=PLOU2XLYxmsIKX0pUJV3uqp6N3NeHwHh0c
 Publish app: https://www.youtube.com/watch?v=AWawL5HFn64
+Publish app: https://play.google.com/apps/publish/signup/#
 Gradle Introduction: https://www.youtube.com/watch?v=OFUEb7pLLXw
