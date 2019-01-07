@@ -25,11 +25,6 @@ public class TaskList extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(TaskList.this, NewTask.class);
                 startActivity(intent);
-
-                /*
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                */
             }
         });
     }

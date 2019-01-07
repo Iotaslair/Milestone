@@ -11,4 +11,8 @@ Did some more work with the first app Android recommended. Found a way to transi
 12/21/2018 
 Finished the first app (needed to make a small change to the manifest file). Started playing around with the colors on my main app
 12/22/2018
-Found out about Firebase and logged into Android Studio. Watched some of a gentle introduction to gradle (https://www.youtube.com/watch?v=OFUEb7pLLXw) found it to be not useful. Learned how to publish an app. Learned how banner ads are made. Worked on making a new task xml file
+Found out about Firebase and logged into Android Studio. Watched some of a gentle introduction to gradle (https://www.youtube.com/watch?v=OFUEb7pLLXw) found it to be not useful. Learned how to publish an app. Learned how banner ads are made. Worked on making a new task xml file.
+12/23/2018-1/5/2019
+Nothing due to vacation
+1/6/2018
+Worked on adding and hooking up a lot more labels in the new task activity. I also started making a new class called Task which holds what the tasks are and also made a static class that holds all tasks that have not been completed (singleton).
