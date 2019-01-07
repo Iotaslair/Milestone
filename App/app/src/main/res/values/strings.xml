@@ -3,10 +3,10 @@
     <string name="action_settings">Settings</string>
     
     <string-array name="difficultyList">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-        <item>4</item>
-        <item>5</item>
+        <item>Easy</item>
+        <item>Semi-Easy</item>
+        <item>Average</item>
+        <item>Kinda Hard</item>
+        <item>Difficult</item>
     </string-array>
 </resources>

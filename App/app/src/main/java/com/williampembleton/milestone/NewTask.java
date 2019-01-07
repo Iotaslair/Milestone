@@ -3,9 +3,12 @@ package com.williampembleton.milestone;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.view.View;
+import android.widget.ExpandableListAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +25,9 @@ import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.Date;
 
-public class NewTask extends AppCompatActivity {
+public class NewTask extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+
+    String difficulty = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +38,7 @@ public class NewTask extends AppCompatActivity {
 
         //sets the current date into the due box
         String dueDateString = "" + (1 + currentDate.get(Calendar.MONTH)) + "/";
-        dueDateString += (currentDate.get(Calendar.DAY_OF_MONTH)) + "/";
+        dueDateString += (1 + currentDate.get(Calendar.DAY_OF_MONTH)) + "/";
         dueDateString += currentDate.get(Calendar.YEAR);
         dueDate.setText(dueDateString);
 
@@ -42,13 +47,20 @@ public class NewTask extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.difficultyList,android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
     }
 
     public void saveTask(View view)
     {
         //Title
             TextView titleView = findViewById(R.id.TaskName);
-            String title = (String) titleView.getText();
+            String title =  titleView.getText().toString();
+            if(TextUtils.isEmpty(title))
+            {
+                Toast.makeText(getApplicationContext(), "Title empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
         //Date work and checking for reasonable dates
             EditText dueDate = findViewById(R.id.DueDate);
@@ -69,17 +81,63 @@ public class NewTask extends AppCompatActivity {
             }
 
         //Tags
+
             TextView tagsView = findViewById(R.id.Tags);
-            String tags = (String) tagsView.getText();
+            String tags =  tagsView.getText().toString();
             String[] tagArray = tags.split(",");
             ArrayList<String> tagList = new ArrayList<>();
             Collections.addAll(tagList,tagArray);
 
 
         //Difficulty
+            //done in onItemSelected
 
 
 
-        //Task new = new Task(title,convertedDate,tags,difficulty);
+        //Time To Complete
+
+            TextView TTCView = findViewById(R.id.TimeToComplete);
+            String timeString = TTCView.getText().toString();
+            //if non-numerical exit and return toast failure message
+            if(TextUtils.isEmpty(timeString))
+            {
+                Toast.makeText(getApplicationContext(), "Time to Complete empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(!android.text.TextUtils.isDigitsOnly(timeString))
+            {
+                Toast.makeText(getApplicationContext(), "Time to Complete not a number", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            double TTC = 0.0;
+            try {
+                TTC = Double.parseDouble(timeString);
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(getApplicationContext(), "Insert a valid Time To Complete", Toast.LENGTH_SHORT).show();
+            }
+
+
+
+        //Experience calculation
+
+
+
+
+
+        //Task new = new Task(title,convertedDate,tagList,difficulty,TTC,experience);
+
+        Toast.makeText(getApplicationContext(), "Task Made", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        difficulty = adapterView.getItemAtPosition(i).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 }

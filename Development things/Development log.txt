@@ -16,3 +16,5 @@ Found out about Firebase and logged into Android Studio. Watched some of a gentl
 Nothing due to vacation
 1/6/2018
 Worked on adding and hooking up a lot more labels in the new task activity. I also started making a new class called Task which holds what the tasks are and also made a static class that holds all tasks that have not been completed (singleton).
+1/7/2018
+Changed the due date to tomorrow instead of today. Completed Difficulty. Time To Complete completed. Added error messages if a title is empty and such 

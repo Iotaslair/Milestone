@@ -7,14 +7,20 @@ public class Task{
     private String title;
     private Date date;
     private ArrayList<String> tags;
-    private int difficulty;
+    private String difficulty;
+    private int timeToComplete, experience;
 
-    public Task(String title, Date date, ArrayList<String> tags, int difficulty)
+
+
+
+    public Task(String title, Date date, ArrayList<String> tags, String difficulty, int timeToComplete, int experience)
     {
         this.title = title;
         this.date = date;
         this.tags = tags;
         this.difficulty = difficulty;
+        this.timeToComplete = timeToComplete;
+        this.experience = experience;
     }
 
     public String getTitle() {
@@ -37,12 +43,32 @@ public class Task{
         return tags;
     }
 
-    public int getDifficulty() {
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
+    }
+
+    public String getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(int difficulty) {
+    public void setDifficulty(String difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public int getTimeToComplete() {
+        return timeToComplete;
+    }
+
+    public void setTimeToComplete(int timeToComplete) {
+        this.timeToComplete = timeToComplete;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
     }
 
 }
