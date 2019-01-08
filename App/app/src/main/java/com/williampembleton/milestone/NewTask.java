@@ -1,6 +1,7 @@
 package com.williampembleton.milestone;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -101,34 +102,41 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             //if non-numerical exit and return toast failure message
             if(TextUtils.isEmpty(timeString))
             {
-                Toast.makeText(getApplicationContext(), "Time to Complete empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Time to Complete is empty", Toast.LENGTH_SHORT).show();
                 return;
             }
             if(!android.text.TextUtils.isDigitsOnly(timeString))
             {
-                Toast.makeText(getApplicationContext(), "Time to Complete not a number", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Time to Complete not a number or negative", Toast.LENGTH_SHORT).show();
                 return;
             }
             double TTC = 0.0;
             try {
                 TTC = Double.parseDouble(timeString);
+                if(TTC > 3) {
+                    Toast.makeText(getApplicationContext(), "Try separating this task into separate tasks", Toast.LENGTH_SHORT).show();
+                    return;
+                }
             }
             catch (Exception e)
             {
                 Toast.makeText(getApplicationContext(), "Insert a valid Time To Complete", Toast.LENGTH_SHORT).show();
             }
 
-
+            
+        Task newTask = new Task(title,convertedDate,tagList,difficulty,TTC);
 
         //Experience calculation
 
+            double experience = 100 * (newTask.getIntDifficulty( getApplicationContext()) ) * (Math.pow(TTC,.5) + (.2*TTC) );
 
+            newTask.setExperience( (int) experience);
 
+        AllTasks.addTask(newTask);
 
-
-        //Task new = new Task(title,convertedDate,tagList,difficulty,TTC,experience);
-
-        Toast.makeText(getApplicationContext(), "Task Made", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Task is worth " + (int) experience + " XP", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(NewTask.this, TaskList.class);
+        startActivity(intent);
     }
 
     @Override

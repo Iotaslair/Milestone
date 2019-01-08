@@ -8,3 +8,8 @@ Banner ads: https://www.youtube.com/watch?v=OLLLRUPICcc&list=PLOU2XLYxmsIKX0pUJV
 Publish app: https://www.youtube.com/watch?v=AWawL5HFn64
 Publish app: https://play.google.com/apps/publish/signup/#
 Gradle Introduction: https://www.youtube.com/watch?v=OFUEb7pLLXw
+
+
+
+Look at later:
+Animation when hitting FAB: https://stackoverflow.com/questions/31624935/floatingactionbutton-expand-into-a-new-activity

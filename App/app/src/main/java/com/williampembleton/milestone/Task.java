@@ -1,5 +1,8 @@
 package com.williampembleton.milestone;
 
+import android.content.Context;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -8,19 +11,19 @@ public class Task{
     private Date date;
     private ArrayList<String> tags;
     private String difficulty;
-    private int timeToComplete, experience;
+    private double timeToComplete;
+    private int experience;
 
 
 
 
-    public Task(String title, Date date, ArrayList<String> tags, String difficulty, int timeToComplete, int experience)
+    public Task(String title, Date date, ArrayList<String> tags, String difficulty, double timeToComplete)
     {
         this.title = title;
         this.date = date;
         this.tags = tags;
         this.difficulty = difficulty;
         this.timeToComplete = timeToComplete;
-        this.experience = experience;
     }
 
     public String getTitle() {
@@ -55,11 +58,11 @@ public class Task{
         this.difficulty = difficulty;
     }
 
-    public int getTimeToComplete() {
+    public double getTimeToComplete() {
         return timeToComplete;
     }
 
-    public void setTimeToComplete(int timeToComplete) {
+    public void setTimeToComplete(double timeToComplete) {
         this.timeToComplete = timeToComplete;
     }
 
@@ -69,6 +72,26 @@ public class Task{
 
     public void setExperience(int experience) {
         this.experience = experience;
+    }
+
+    public int getIntDifficulty(Context context)
+    {
+        switch (difficulty)
+        {
+            case "Easy":
+                return 1;
+            case "Semi-Easy":
+                return 2;
+            case "Average":
+                return 3;
+            case "Kinda Hard":
+                return 4;
+            case "Difficult":
+                return 5;
+            default:
+                Toast.makeText(context, "You forgot to change the strings for difficulty in getIntDifficulty in Task.java", Toast.LENGTH_SHORT).show();
+                return 0;
+        }
     }
 
 }

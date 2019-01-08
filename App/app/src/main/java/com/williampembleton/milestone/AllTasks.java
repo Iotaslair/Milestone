@@ -5,19 +5,18 @@ public class AllTasks {
 
     static ArrayList<Task> Tasks = new ArrayList<>();
 
-    AllTasks allTasks = null;
+    static AllTasks allTasks = null;
 
     private AllTasks()
     {
 
     }
 
-    public AllTasks getInstance()
+    public static AllTasks getInstance()
     {
         if (allTasks == null)
-            return new AllTasks();
-        else
-            return allTasks;
+            allTasks =  new AllTasks();
+        return allTasks;
     }
 
     public static void addTask(Task inTask)
