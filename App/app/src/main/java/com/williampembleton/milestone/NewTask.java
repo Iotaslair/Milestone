@@ -123,7 +123,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
                 Toast.makeText(getApplicationContext(), "Insert a valid Time To Complete", Toast.LENGTH_SHORT).show();
             }
 
-            
+
         Task newTask = new Task(title,convertedDate,tagList,difficulty,TTC);
 
         //Experience calculation
