@@ -14,9 +14,6 @@ public class Task{
     private double timeToComplete;
     private int experience;
 
-
-
-
     public Task(String title, Date date, ArrayList<String> tags, String difficulty, double timeToComplete)
     {
         this.title = title;
@@ -92,6 +89,11 @@ public class Task{
                 Toast.makeText(context, "You forgot to change the strings for difficulty in getIntDifficulty in Task.java", Toast.LENGTH_SHORT).show();
                 return 0;
         }
+    }
+
+    public String toString()
+    {
+        return getTitle();
     }
 
 }

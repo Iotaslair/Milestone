@@ -1,9 +1,10 @@
 package com.williampembleton.milestone;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class AllTasks {
 
-    static ArrayList<Task> Tasks = new ArrayList<>();
+    static ArrayList<Task> tasks = new ArrayList<>();
 
     static AllTasks allTasks = null;
 
@@ -21,12 +22,22 @@ public class AllTasks {
 
     public static void addTask(Task inTask)
     {
-        Tasks.add(inTask);
+        tasks.add(inTask);
     }
 
     public static void removeTask(Task inTask)
     {
-        Tasks.remove(inTask);
+        tasks.remove(inTask);
+    }
+
+    public static Task getTask(int position)
+    {
+        return tasks.get(position);
+    }
+
+    public static Iterator iterator()
+    {
+        return tasks.iterator();
     }
 }
 

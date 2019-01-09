@@ -134,6 +134,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
 
         AllTasks.addTask(newTask);
 
+
         Toast.makeText(getApplicationContext(), "Task is worth " + (int) experience + " XP", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(NewTask.this, TaskList.class);
         startActivity(intent);
