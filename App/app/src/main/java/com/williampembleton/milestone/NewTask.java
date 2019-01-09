@@ -9,19 +9,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.view.View;
-import android.widget.ExpandableListAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.Date;
@@ -35,12 +28,12 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
         EditText dueDate = findViewById(R.id.DueDate);
-        Calendar currentDate = GregorianCalendar.getInstance();
+        java.util.Calendar currentDate = GregorianCalendar.getInstance();
 
         //sets the current date into the due box
-        String dueDateString = "" + (1 + currentDate.get(Calendar.MONTH)) + "/";
-        dueDateString += (1 + currentDate.get(Calendar.DAY_OF_MONTH)) + "/";
-        dueDateString += currentDate.get(Calendar.YEAR);
+        String dueDateString = "" + (1 + currentDate.get(java.util.Calendar.MONTH)) + "/";
+        dueDateString += (1 + currentDate.get(java.util.Calendar.DAY_OF_MONTH)) + "/";
+        dueDateString += currentDate.get(java.util.Calendar.YEAR);
         dueDate.setText(dueDateString);
 
         //sets up the spinner
@@ -136,7 +129,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
 
 
         Toast.makeText(getApplicationContext(), "Task is worth " + (int) experience + " XP", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(NewTask.this, TaskList.class);
+        Intent intent = new Intent(NewTask.this, Calendar.class);
         startActivity(intent);
     }
 
