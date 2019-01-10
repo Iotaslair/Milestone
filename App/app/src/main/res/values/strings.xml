@@ -9,7 +9,7 @@
         <item>Kinda Hard</item>
         <item>Difficult</item>
     </string-array>
-    <string name="title_activity_task_list">TaskList</string>
+    <string name="title_activity_task_list">Task List</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
