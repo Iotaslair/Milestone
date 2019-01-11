@@ -22,3 +22,8 @@ Changed the due date to tomorrow instead of today. Completed Difficulty. Time To
 Nothing was completed on the project, instead I worked on updating my resume and returning my old phone. 
 1/9/18
 Learned how the android manifest file works, Learned an important lesson that git is very useful to test something and go back to what you had easily. Nothing substantial was done today, just kinda felt crappy.
+1/10/18
+Learned a lot about how to make the task list. I learned how to build a custom adapter so that I can build custom bits of xml that looks like a task. 
+
+
+Format date correctly!!!! and get toolbar working

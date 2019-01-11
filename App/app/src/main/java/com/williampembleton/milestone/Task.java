@@ -93,7 +93,7 @@ public class Task{
 
     public String toString()
     {
-        return getTitle();
+        return getTitle() + "∟" + getDate() + "∟" + getTags() + "∟"+ getTimeToComplete() + "∟" + getDifficulty() + "∟" + getExperience();
     }
 
 }

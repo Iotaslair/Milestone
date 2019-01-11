@@ -39,4 +39,13 @@
         app:layout_anchor="@+id/include"
         app:layout_anchorGravity="right|center" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:layout_anchor="@+id/include"
+        app:layout_anchorGravity="left|bottom"
+        app:srcCompat="@android:drawable/arrow_down_float" />
+
 </android.support.design.widget.CoordinatorLayout>

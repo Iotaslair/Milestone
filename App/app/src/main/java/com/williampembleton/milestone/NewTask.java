@@ -42,7 +42,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
-
+        
     }
 
     public void saveTask(View view)
@@ -64,7 +64,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             try {
                 formatter = new SimpleDateFormat("MM/ddd/yyyy");
                 formatter.setLenient(false);
-                convertedDate = (Date) formatter.parse(stringDateFormat);
+                convertedDate = formatter.parse(stringDateFormat);
             } catch (Exception e) {
                 Context context = getApplicationContext();
                 CharSequence text = "Insert a valid date";
