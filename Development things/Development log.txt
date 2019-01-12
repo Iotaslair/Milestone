@@ -30,11 +30,11 @@ Got date formatted correctly, task list looks well enough and TTC now accepts de
 Alligned fab in task list correctly
 
 To Do: 
-Make fab on task list
-get rid of spaces in tags at start and end
 Make a nice way to get to task list
 Put tasks on Calendar
 Click task on calendar and get all tasks on that date
+Put material under task list 
 Material design
 Checkbox in task list with animations
 Exp/ profile
+Hold info after app close

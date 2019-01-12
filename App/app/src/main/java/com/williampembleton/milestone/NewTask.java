@@ -79,6 +79,18 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             TextView tagsView = findViewById(R.id.Tags);
             String tags =  tagsView.getText().toString();
             String[] tagArray = tags.split(",");
+
+            for(int i = 0; i < tagArray.length; i++)
+            {
+                if(!tagArray[i].isEmpty()) {
+                    if (tagArray[i].charAt(0) == ' ') {
+                        tagArray[i] = tagArray[i].substring(1, tagArray[i].length());
+                    }
+                    if (tagArray[i].charAt(tagArray[i].length() - 1) == ' ') {
+                        tagArray[i] = tagArray[i].substring(0, tagArray[i].length() - 1);
+                    }
+                }
+            }
             ArrayList<String> tagList = new ArrayList<>();
             Collections.addAll(tagList,tagArray);
 
