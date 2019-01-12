@@ -28,7 +28,7 @@ public class Calendar extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab2 = findViewById(R.id.fab2);
+        FloatingActionButton fab2 = findViewById(R.id.listfab);
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

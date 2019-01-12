@@ -21,16 +21,33 @@ public class TaskAdapter extends ArrayAdapter<String>
         View view = inflater.inflate(R.layout.tasklistrow,parent,false);
 
 
-        TextView Title = view.findViewById(R.id.Title);
-        TextView Tag1 = view.findViewById(R.id.Tag1);
-        TextView Tag2 = view.findViewById(R.id.Tag2);
-        TextView Tag3 = view.findViewById(R.id.Tag3);
-        TextView Tag4 = view.findViewById(R.id.Tag4);
-        TextView TTC = view.findViewById(R.id.TimeToComplete);
-        TextView Difficulty = view.findViewById(R.id.Difficulty);
-        TextView Exp = view.findViewById(R.id.Experience);
+        TextView title = view.findViewById(R.id.Title);
+        TextView date = view.findViewById(R.id.Date);
+        TextView ttc = view.findViewById(R.id.TimeToComplete);
+        TextView difficulty = view.findViewById(R.id.Difficulty);
+        TextView exp = view.findViewById(R.id.Experience);
+        TextView tag1 = view.findViewById(R.id.Tag1);
+        TextView tag2 = view.findViewById(R.id.Tag2);
+        TextView tag3 = view.findViewById(R.id.Tag3);
+        TextView tag4 = view.findViewById(R.id.Tag4);
 
-        String task = getItem(position);
+        String taskStr = getItem(position);
+
+        String[] task = taskStr.split("∟");
+
+        title.setText(task[0]);
+        date.setText("Due: " + task[1]);
+        ttc.setText(task[2] + " hours");
+        difficulty.setText(task[3]);
+        exp.setText(task[4] + " xp");
+
+        try {tag1.setText(task[5]); }catch (Exception e) {tag1.setText("Tags go here");}
+        try {tag2.setText(task[6]); }catch (Exception e) {tag2.setText("");}
+        try {tag3.setText(task[7]); }catch (Exception e) {tag3.setText("");}
+        try {tag4.setText(task[8]); }catch (Exception e) {tag4.setText("");}
+
+
+
 
 
         return view;

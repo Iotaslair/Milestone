@@ -98,7 +98,10 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
                 Toast.makeText(getApplicationContext(), "Time to Complete is empty", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if(!android.text.TextUtils.isDigitsOnly(timeString))
+            //checks to see if time is in hours (includes things like 2.5 hours
+            String regExp = "[\\x00-\\x20]*[+-]?(((((\\p{Digit}+)(\\.)?((\\p{Digit}+)?)([eE][+-]?(\\p{Digit}+))?)|(\\.((\\p{Digit}+))([eE][+-]?(\\p{Digit}+))?)|(((0[xX](\\p{XDigit}+)(\\.)?)|(0[xX](\\p{XDigit}+)?(\\.)(\\p{XDigit}+)))[pP][+-]?(\\p{Digit}+)))[fFdD]?))[\\x00-\\x20]*";
+            boolean matches = timeString.matches(regExp);
+            if(!matches)
             {
                 Toast.makeText(getApplicationContext(), "Time to Complete not a number or negative", Toast.LENGTH_SHORT).show();
                 return;

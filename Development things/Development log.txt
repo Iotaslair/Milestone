@@ -24,6 +24,17 @@ Nothing was completed on the project, instead I worked on updating my resume and
 Learned how the android manifest file works, Learned an important lesson that git is very useful to test something and go back to what you had easily. Nothing substantial was done today, just kinda felt crappy.
 1/10/18
 Learned a lot about how to make the task list. I learned how to build a custom adapter so that I can build custom bits of xml that looks like a task. 
+1/11/18
+Got date formatted correctly, task list looks well enough and TTC now accepts decimal times. Also updated the toString for tasks to be better formatted
+1/12/18
+Alligned fab in task list correctly
 
-
-Format date correctly!!!! and get toolbar working
+To Do: 
+Make fab on task list
+get rid of spaces in tags at start and end
+Make a nice way to get to task list
+Put tasks on Calendar
+Click task on calendar and get all tasks on that date
+Material design
+Checkbox in task list with animations
+Exp/ profile

@@ -7,6 +7,7 @@
     tools:context=".Calendar">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -37,10 +38,10 @@
         android:layout_width="match_parent"
         android:layout_height="481dp"
         app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="right|center" />
+        app:layout_anchorGravity="left|center" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab2"
+        android:id="@+id/listfab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"

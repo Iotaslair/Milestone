@@ -3,6 +3,7 @@ package com.williampembleton.milestone;
 import android.content.Context;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -93,7 +94,17 @@ public class Task{
 
     public String toString()
     {
-        return getTitle() + "∟" + getDate() + "∟" + getTags() + "∟"+ getTimeToComplete() + "∟" + getDifficulty() + "∟" + getExperience();
+        String datePattern = "MM/dd/yy";
+        SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
+        String str = getTitle() + "∟";
+        Date dueDate = getDate();
+        str = str + formatter.format(dueDate);
+        str = str + "∟"+ getTimeToComplete() + "∟" + getDifficulty() + "∟" + getExperience() + "∟";
+        for(int i = 0; i < tags.size(); i++)
+        {
+            str = str + tags.get(i) +"∟";
+        }
+        return str;
     }
 
 }
