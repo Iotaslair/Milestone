@@ -27,7 +27,9 @@ Learned a lot about how to make the task list. I learned how to build a custom a
 1/11/18
 Got date formatted correctly, task list looks well enough and TTC now accepts decimal times. Also updated the toString for tasks to be better formatted
 1/12/18
-Alligned fab in task list correctly
+Made a few small changes like making fab on task list work and small changes to how tags are handled when a task is created.
+1/13/18
+Got rid of app bar for a custom one.
 
 To Do: 
 Make a nice way to get to task list

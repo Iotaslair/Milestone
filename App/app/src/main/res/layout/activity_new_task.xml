@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".NewTask">
 
+    <include
+        android:id="@+id/app_bar"
+        layout="@layout/app_bar"
+    />
+
     <TextView
         android:id="@+id/dueLabel"
         android:layout_width="64dp"
