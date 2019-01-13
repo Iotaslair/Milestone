@@ -1,4 +1,8 @@
 package com.williampembleton.milestone;
+import android.content.SharedPreferences;
+
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -20,9 +24,16 @@ public class AllTasks {
         return allTasks;
     }
 
-    public static void addTask(Task inTask)
+    public static void addTask(Task inTask,SharedPreferences sharedPreferences)
     {
         tasks.add(inTask);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(tasks);
+        editor.putString("task list", json);
+        editor.apply();
+
     }
 
     public static void removeTask(Task inTask)
@@ -33,6 +44,11 @@ public class AllTasks {
     public static Task getTask(int position)
     {
         return tasks.get(position);
+    }
+
+    public static void setList(ArrayList<Task> list)
+    {
+        tasks = list;
     }
 
     public static Iterator iterator()

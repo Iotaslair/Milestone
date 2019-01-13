@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -145,7 +144,8 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
 
             newTask.setExperience( (int) experience);
 
-        AllTasks.addTask(newTask);
+        AllTasks.addTask(newTask,getSharedPreferences("shared preferences", MODE_PRIVATE));
+
 
 
         Toast.makeText(getApplicationContext(), "Task is worth " + (int) experience + " XP", Toast.LENGTH_SHORT).show();

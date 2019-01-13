@@ -29,7 +29,7 @@ Got date formatted correctly, task list looks well enough and TTC now accepts de
 1/12/18
 Made a few small changes like making fab on task list work and small changes to how tags are handled when a task is created.
 1/13/18
-Got rid of app bar for a custom one. Learned a lot about how toolbars works and the power of building a general thing and allowing the other acivities to use the general thing.
+Got rid of app bar for a custom one. Learned a lot about how toolbars works and the power of building a general thing and allowing the other acivities to use the general thing. Learned how to save data in the app (so when a user closes the app it doesn't restart). Made a SharedData object and used Gson (google's library to help with json) to convert the array of tasks into json then saved that as a string that SharedData can handle. 
 
 To Do: 
 Make a nice way to get to task list
