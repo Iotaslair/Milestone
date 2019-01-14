@@ -33,10 +33,18 @@ Got rid of app bar for a custom one. Learned a lot about how toolbars works and 
 
 To Do: 
 Make a nice way to get to task list
+
 Put tasks on Calendar
+Task completed counter, goes to 0 when task fails
 Click task on calendar and get all tasks on that date
+
+Searchable on calendar and task list
+
 Put material under task list 
+
 Material design
+
 Checkbox in task list with animations
+
 Exp/ profile
-Hold info after app close
+Write Readme
