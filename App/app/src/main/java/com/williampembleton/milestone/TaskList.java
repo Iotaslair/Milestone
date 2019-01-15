@@ -1,14 +1,10 @@
 package com.williampembleton.milestone;
 
-import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -22,28 +18,21 @@ public class TaskList extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fabToNewTask = findViewById(R.id.fabToNewTask);
-        fabToNewTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(TaskList.this, NewTask.class);
-                startActivity(intent);
-            }
-        });
 
-        ArrayList<String> tasksAL = new ArrayList();
+        RecyclerView recyclerView = findViewById(R.id.RecyclerView);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+
+        ArrayList<Task> tasksAL = new ArrayList();
         Iterator<Task> iterator = AllTasks.iterator();
         while(iterator.hasNext())
         {
-            tasksAL.add(iterator.next().toString());
+            tasksAL.add(iterator.next());
         }
 
-        String[] tasks = new String[tasksAL.size()];
-        tasks = tasksAL.toArray(tasks);
+        RecyclerView.Adapter adapter = new TaskAdapter(tasksAL);
 
-
-        ListAdapter adapter = new TaskAdapter(this,tasks);
-        ListView listView = findViewById(R.id.Tasks);
-        listView.setAdapter(adapter);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
     }
 }
