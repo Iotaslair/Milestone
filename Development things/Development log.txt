@@ -32,19 +32,20 @@ Made a few small changes like making fab on task list work and small changes to 
 Got rid of app bar for a custom one. Learned a lot about how toolbars works and the power of building a general thing and allowing the other acivities to use the general thing. Learned how to save data in the app (so when a user closes the app it doesn't restart). Made a SharedData object and used Gson (google's library to help with json) to convert the array of tasks into json then saved that as a string that SharedData can handle. 
 
 To Do: 
-Make a nice way to get to task list
+Recycler View
+Put material under task list 
+
+3bar menu
 
 Put tasks on Calendar
-Task completed counter, goes to 0 when task fails
 Click task on calendar and get all tasks on that date
 
 Searchable on calendar and task list
-
-Put material under task list 
 
 Material design
 
 Checkbox in task list with animations
 
 Exp/ profile
+Task completed counter, goes to 0 when task fails
 Write Readme
