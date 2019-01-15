@@ -39,7 +39,7 @@ public class Calendar extends AppCompatActivity {
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Calendar.this, TaskList.class);
+                Intent intent = new Intent(Calendar.this, TaskList2.class);
                 startActivity(intent);
             }
         });

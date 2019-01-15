@@ -33,6 +33,7 @@ Got rid of app bar for a custom one. Learned a lot about how toolbars works and 
 
 To Do: 
 Recycler View
+Try out ArrayAdapter instead of CardAdapter
 Put material under task list 
 
 3bar menu
