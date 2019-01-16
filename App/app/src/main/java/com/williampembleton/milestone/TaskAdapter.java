@@ -10,6 +10,54 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
+    private OnItemClickListener mListener;
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView title;
+        TextView date;
+        TextView ttc;
+        TextView difficulty;
+        TextView exp;
+        TextView tag1;
+        TextView tag2;
+        TextView tag3;
+        TextView tag4;
+
+        public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
+            super(itemView);
+            title = itemView.findViewById(R.id.Title);
+            date = itemView.findViewById(R.id.Date);
+            ttc = itemView.findViewById(R.id.TimeToComplete);
+            difficulty = itemView.findViewById(R.id.Difficulty);
+            exp = itemView.findViewById(R.id.Experience);
+            tag1 = itemView.findViewById(R.id.Tag1);
+            tag2 = itemView.findViewById(R.id.Tag2);
+            tag3 = itemView.findViewById(R.id.Tag3);
+            tag4 = itemView.findViewById(R.id.Tag4);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(listener != null)
+                    {
+                        int position = getAdapterPosition();
+                        if(position != RecyclerView.NO_POSITION)
+                        {
+                            listener.onItemClick(position);
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
 
     ArrayList<Task> tasks = null;
 
@@ -17,7 +65,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.tasklistrow, parent, false);
-        ViewHolder vh = new ViewHolder(v);
+        ViewHolder vh = new ViewHolder(v,mListener);
         return vh;
     }
 
@@ -35,10 +83,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         viewHolder.difficulty.setText(task[3]);
         viewHolder.exp.setText(task[4] + " xp");
 
-        try {viewHolder.tag1.setText(task[5]); }catch (Exception e) {viewHolder.tag1.setText("Tags go here");}
-        try {viewHolder.tag2.setText(task[6]); }catch (Exception e) {viewHolder.tag2.setText("");}
-        try {viewHolder.tag3.setText(task[7]); }catch (Exception e) {viewHolder.tag3.setText("");}
-        try {viewHolder.tag4.setText(task[8]); }catch (Exception e) {viewHolder.tag4.setText("");}
+        try {viewHolder.tag1.setText(task[5]); } catch (Exception e) { viewHolder.tag1.setText("Tags go here"); }
+        try {viewHolder.tag2.setText(task[6]); } catch (Exception e) { viewHolder.tag2.setText(""); }
+        try {viewHolder.tag3.setText(task[7]); } catch (Exception e) { viewHolder.tag3.setText("");}
+        try {viewHolder.tag4.setText(task[8]); } catch (Exception e) { viewHolder.tag4.setText(""); }
     }
 
     public TaskAdapter(ArrayList<Task> taskArrayList) {
@@ -50,29 +98,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         return tasks.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView title;
-        TextView date;
-        TextView ttc;
-        TextView difficulty;
-        TextView exp;
-        TextView tag1;
-        TextView tag2;
-        TextView tag3;
-        TextView tag4;
 
-        public ViewHolder(@NonNull View view) {
-            super(view);
-            title = view.findViewById(R.id.Title);
-            date = view.findViewById(R.id.Date);
-            ttc = view.findViewById(R.id.TimeToComplete);
-            difficulty = view.findViewById(R.id.Difficulty);
-            exp = view.findViewById(R.id.Experience);
-            tag1 = view.findViewById(R.id.Tag1);
-            tag2 = view.findViewById(R.id.Tag2);
-            tag3 = view.findViewById(R.id.Tag3);
-            tag4 = view.findViewById(R.id.Tag4);
-        }
-    }
 
 }

@@ -30,7 +30,7 @@ public class TaskList extends AppCompatActivity {
             tasksAL.add(iterator.next());
         }
 
-        RecyclerView.Adapter adapter = new TaskAdapter(tasksAL);
+        TaskAdapter adapter = new TaskAdapter(tasksAL);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
