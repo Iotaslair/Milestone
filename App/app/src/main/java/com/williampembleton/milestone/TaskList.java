@@ -2,6 +2,7 @@ package com.williampembleton.milestone;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -12,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -28,6 +30,7 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
         setSupportActionBar(toolbar);
 
         setupRecyclerView();
+        setupFab();
         setupDrawer(savedInstanceState, toolbar);
 
     }
@@ -48,6 +51,20 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+    }
+
+    //sets up the fab in the calendar activity
+    public void setupFab()
+    {
+        FloatingActionButton fab = findViewById(R.id.fabToNewTask);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(getApplicationContext(), "Going to NewTask", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(TaskList.this, NewTask.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //sets up the navigation drawer (thing you pull in from the left)
