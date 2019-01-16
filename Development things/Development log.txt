@@ -34,6 +34,8 @@ Got rid of app bar for a custom one. Learned a lot about how toolbars works and 
 Nothing happened because I went on a 20k bike ride
 1/15/18
 Converted ListView in tasklist for a RecyclerView which works a lot faster and has a better design. 
+1/16/18
+Finished making the 3 bar menu. Continued my learning on how the tool bar works.
 
 To Do: 
 3bar menu
@@ -42,11 +44,16 @@ Put tasks on Calendar
 Click task on calendar and get all tasks on that date
 
 Searchable on calendar and task list
+https://www.youtube.com/watch?v=sJ-Z9G0SDhc
 
 Material design
 
 Checkbox in task list with animations
+https://www.youtube.com/watch?v=HMjI7cLsyfw&index=5&list=PLrnPJCHvNZuBtTYUuc5Pyo4V7xZ2HNtf4
 
 Exp/ profile
+xp bar goes in nav_header under layout
 Task completed counter, goes to 0 when task fails
 Write Readme
+
+Maybe let people change name and upload image for profile
