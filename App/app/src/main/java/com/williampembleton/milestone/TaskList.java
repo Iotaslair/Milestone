@@ -23,10 +23,17 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_list);
+        //sets up toolbar
         Toolbar toolbar = findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
+        setupRecyclerView();
+        setupDrawer(savedInstanceState, toolbar);
 
+    }
+
+    //sets up the list of all the tasks
+    public void setupRecyclerView() {
         RecyclerView recyclerView = findViewById(R.id.RecyclerView);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -41,7 +48,10 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+    }
 
+    //sets up the navigation drawer (thing you pull in from the left)
+    public void setupDrawer(Bundle savedInstanceState, Toolbar toolbar) {
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -53,9 +63,8 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
         if (savedInstanceState == null) {
             navigationView.setCheckedItem(R.id.nav_task_list);
         }
-
     }
-
+    //used for navigation menu so when something is clicked I can do stuff with it
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
@@ -77,6 +86,7 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
         return true;
     }
 
+    //when back is pressed and the drawer is pressed you close the navigation drawer instead of exit the activity
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -84,4 +94,6 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
         } else
             super.onBackPressed();
     }
+
+
 }

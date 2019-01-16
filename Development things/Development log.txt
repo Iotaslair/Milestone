@@ -38,15 +38,15 @@ Converted ListView in tasklist for a RecyclerView which works a lot faster and h
 Finished making the 3 bar menu. Continued my learning on how the tool bar works. Cleaned out Fab to get to task list
 
 To Do: 
-3bar menu
+Fix Task List's fab and toolbar
 
 Put tasks on Calendar
 Click task on calendar and get all tasks on that date
-
 Searchable on calendar and task list
 https://www.youtube.com/watch?v=sJ-Z9G0SDhc
 
 Material design
+Put save button in toolbar of new task
 
 Checkbox in task list with animations
 https://www.youtube.com/watch?v=HMjI7cLsyfw&index=5&list=PLrnPJCHvNZuBtTYUuc5Pyo4V7xZ2HNtf4

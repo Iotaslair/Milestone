@@ -28,9 +28,18 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+        //sets up toolbar
         Toolbar toolbar = findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
+        setupFab();
+        loadData();
+        setupDrawer(savedInstanceState,toolbar);
+    }
+
+    //sets up the fab in the calendar activity
+    public void setupFab()
+    {
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,9 +49,24 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(intent);
             }
         });
+    }
 
-        loadData();
+    //loads tasks from the last time the app has been loaded
+    public void loadData() {
+        ArrayList<Task> allTasksList = null;
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("task list", null);
+        Type type = new TypeToken<ArrayList<Task>>(){}.getType();
+        allTasksList = gson.fromJson(json, type);
+        if (allTasksList == null)
+            allTasksList = new ArrayList<>();
+        AllTasks.setList(allTasksList);
+    }
 
+    //sets up the navigation drawer (thing you pull in from the left)
+    public void setupDrawer(Bundle savedInstanceState,Toolbar toolbar)
+    {
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -54,9 +78,9 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         if(savedInstanceState == null) {
             navigationView.setCheckedItem(R.id.nav_calendar);
         }
-
     }
 
+    //used for navigation menu so when something is clicked I can do stuff with it
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
@@ -78,6 +102,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         return true;
     }
 
+    //when back is pressed and the drawer is pressed you close the navigation drawer instead of exit the activity
     @Override
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -106,17 +131,5 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void loadData() {
-        ArrayList<Task> allTasksList = null;
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("task list", null);
-        Type type = new TypeToken<ArrayList<Task>>(){}.getType();
-        allTasksList = gson.fromJson(json, type);
-        if (allTasksList == null)
-            allTasksList = new ArrayList<>();
-        AllTasks.setList(allTasksList);
     }
 }

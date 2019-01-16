@@ -34,69 +34,17 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
+        //sets up toolBar
         Toolbar toolbar = findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
-
-        EditText dueDate = findViewById(R.id.DueDate);
-        java.util.Calendar currentDate = GregorianCalendar.getInstance();
-
-        //sets the current date into the due box
-        String dueDateString = "" + (1 + currentDate.get(java.util.Calendar.MONTH)) + "/";
-        dueDateString += (1 + currentDate.get(java.util.Calendar.DAY_OF_MONTH)) + "/";
-        dueDateString += currentDate.get(java.util.Calendar.YEAR);
-        dueDate.setText(dueDateString);
-
-        //sets up the spinner
-        Spinner spinner = findViewById(R.id.DifficultySelector);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.difficultyList,android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-
-        drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        if(savedInstanceState == null) {
-            navigationView.setCheckedItem(R.id.nav_new_task);
-        }
+        setupDate();
+        setupSpinner();
+        setupDrawer(savedInstanceState,toolbar);
 
     }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.nav_calendar: {
-                Intent intent = new Intent(NewTask.this, Calendar.class);
-                startActivity(intent);
-                break;
-            }
-            case R.id.nav_new_task: {
-                break;
-            }
-            case R.id.nav_task_list: {
-                Intent intent = new Intent(NewTask.this, TaskList.class);
-                startActivity(intent);
-                break;
-            }
-        }
-        drawerLayout.closeDrawer(GravityCompat.START);
-        return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-        } else
-            super.onBackPressed();
-    }
-
+    //this is what happens when someone clicks the save button (does a bunch of checks to make sure the task is valid
     public void saveTask(View view)
     {
         //Title
@@ -127,7 +75,6 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             }
 
         //Tags
-
             TextView tagsView = findViewById(R.id.Tags);
             String tags =  tagsView.getText().toString();
             String[] tagArray = tags.split(",");
@@ -153,7 +100,6 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
 
 
         //Time To Complete
-
             TextView TTCView = findViewById(R.id.TimeToComplete);
             String timeString = TTCView.getText().toString();
             //if non-numerical exit and return toast failure message
@@ -184,30 +130,96 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             }
 
 
-        Task newTask = new Task(title,convertedDate,tagList,difficulty,TTC);
 
         //Experience calculation
-
+            Task newTask = new Task(title,convertedDate,tagList,difficulty,TTC);
             double experience = 100 * (newTask.getIntDifficulty( getApplicationContext()) ) * (Math.pow(TTC,.5) + (.2*TTC) );
-
             newTask.setExperience( (int) experience);
 
         AllTasks.addTask(newTask,getSharedPreferences("shared preferences", MODE_PRIVATE));
 
 
-
+        //Says task made successfully and launches into Calendar
         Toast.makeText(getApplicationContext(), "Task is worth " + (int) experience + " XP", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(NewTask.this, Calendar.class);
         startActivity(intent);
     }
 
+    //sets difficulty
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         difficulty = adapterView.getItemAtPosition(i).toString();
     }
 
+    //used for difficulty but not used
     @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+    public void onNothingSelected(AdapterView<?> adapterView) {}
 
+    public void setupDate()
+    {
+        EditText dueDate = findViewById(R.id.DueDate);
+        java.util.Calendar currentDate = GregorianCalendar.getInstance();
+        String dueDateString = "" + (1 + currentDate.get(java.util.Calendar.MONTH)) + "/";
+        dueDateString += (1 + currentDate.get(java.util.Calendar.DAY_OF_MONTH)) + "/";
+        dueDateString += currentDate.get(java.util.Calendar.YEAR);
+        dueDate.setText(dueDateString);
+    }
+
+    //sets up the spinner (difficulty)
+    public void setupSpinner()
+    {
+        //sets up the spinner
+        Spinner spinner = findViewById(R.id.DifficultySelector);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.difficultyList,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+    }
+
+    //sets up the navigation drawer (thing you pull in from the left)
+    public void setupDrawer(Bundle savedInstanceState,Toolbar toolbar)
+    {
+        drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        if(savedInstanceState == null) {
+            navigationView.setCheckedItem(R.id.nav_new_task);
+        }
+    }
+
+    //used for navigation menu so when something is clicked I can do stuff with it
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.nav_calendar: {
+                Intent intent = new Intent(NewTask.this, Calendar.class);
+                startActivity(intent);
+                break;
+            }
+            case R.id.nav_new_task: {
+                break;
+            }
+            case R.id.nav_task_list: {
+                Intent intent = new Intent(NewTask.this, TaskList.class);
+                startActivity(intent);
+                break;
+            }
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    //when back is pressed and the drawer is pressed you close the navigation drawer instead of exit the activity
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else
+            super.onBackPressed();
     }
 }

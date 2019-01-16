@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- This is a list of all items in the navigation drawer-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
@@ -16,7 +17,6 @@
             android:id="@+id/nav_new_task"
             android:icon="@drawable/ic_new_task"
             android:title="New Task" />
-
     </group>
 
 </menu>
