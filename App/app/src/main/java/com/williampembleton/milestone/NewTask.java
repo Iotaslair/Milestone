@@ -104,7 +104,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             String title =  titleView.getText().toString();
             if(TextUtils.isEmpty(title))
             {
-                Toast.makeText(getApplicationContext(), "Title empty", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Title empty", Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -136,7 +136,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             {
                 if(!tagArray[i].isEmpty()) {
                     if (tagArray[i].charAt(0) == ' ') {
-                        tagArray[i] = tagArray[i].substring(1, tagArray[i].length());
+                        tagArray[i] = tagArray[i].substring(1);
                     }
                     if (tagArray[i].charAt(tagArray[i].length() - 1) == ' ') {
                         tagArray[i] = tagArray[i].substring(0, tagArray[i].length() - 1);
@@ -167,20 +167,20 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             boolean matches = timeString.matches(regExp);
             if(!matches)
             {
-                Toast.makeText(getApplicationContext(), "Time to Complete not a number or negative", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Time to Complete not a number or negative", Toast.LENGTH_LONG).show();
                 return;
             }
             double TTC = 0.0;
             try {
                 TTC = Double.parseDouble(timeString);
                 if(TTC > 3) {
-                    Toast.makeText(getApplicationContext(), "Try separating this task into separate tasks", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Try separating this task into separate tasks", Toast.LENGTH_LONG).show();
                     return;
                 }
             }
             catch (Exception e)
             {
-                Toast.makeText(getApplicationContext(), "Insert a valid Time To Complete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Insert a valid Time To Complete", Toast.LENGTH_LONG).show();
             }
 
 

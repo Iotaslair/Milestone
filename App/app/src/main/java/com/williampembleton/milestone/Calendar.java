@@ -41,15 +41,6 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
             }
         });
 
-        FloatingActionButton fab2 = findViewById(R.id.listfab);
-        fab2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Calendar.this, TaskList.class);
-                startActivity(intent);
-            }
-        });
-
         loadData();
 
         drawerLayout = findViewById(R.id.drawer_layout);
