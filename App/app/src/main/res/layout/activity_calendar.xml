@@ -17,12 +17,45 @@
             android:id="@+id/app_bar"
             layout="@layout/app_bar" />
 
-        <CalendarView
-            android:id="@+id/calendarView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="32dp"
+        <TextView
+            android:id="@+id/month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Month"
+            android:textColor="@color/colorLightGrey"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/compactcalendar_view"
+            app:layout_constraintStart_toStartOf="@+id/compactcalendar_view"
+            app:layout_constraintTop_toBottomOf="@+id/app_bar" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:id="@+id/today"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/ic_today"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/month" />
+
+        <com.github.sundeepk.compactcalendarview.CompactCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/compactcalendar_view"
+            android:layout_width="fill_parent"
+            android:layout_height="250dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="8dp"
+            app:compactCalendarBackgroundColor="?android:colorBackground"
+            app:compactCalendarCurrentDayBackgroundColor="@color/colorAccent"
+            app:compactCalendarCurrentSelectedDayBackgroundColor="@color/colorAccentLight"
+            app:compactCalendarMultiEventIndicatorColor="#fff"
+            app:compactCalendarTargetHeight="250dp"
+            app:compactCalendarTextColor="@color/colorLightGrey"
+            app:compactCalendarTextSize="12sp"
             app:layout_anchorGravity="left|center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/app_bar" />
 
         <android.support.design.widget.FloatingActionButton

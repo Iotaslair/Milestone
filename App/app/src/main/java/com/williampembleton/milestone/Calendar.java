@@ -2,6 +2,8 @@ package com.williampembleton.milestone;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -14,15 +16,27 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class Calendar extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
+    ArrayList<Task> allTasksList = null;
+    CompactCalendarView compactCalendarView;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM- yyyy", Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +49,9 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         setupFab();
         loadData();
         setupDrawer(savedInstanceState,toolbar);
+        setupCalendar();
+        setupTodaySetter();
+
     }
 
     //sets up the fab in the calendar activity
@@ -53,7 +70,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
 
     //loads tasks from the last time the app has been loaded
     public void loadData() {
-        ArrayList<Task> allTasksList = null;
+
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("task list", null);
@@ -78,6 +95,66 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         if(savedInstanceState == null) {
             navigationView.setCheckedItem(R.id.nav_calendar);
         }
+    }
+
+    public void setupCalendar()
+    {
+        compactCalendarView = findViewById(R.id.compactcalendar_view);
+        compactCalendarView.setUseThreeLetterAbbreviation(true);
+
+        //sets up month textview
+        TextView monthTextView = findViewById(R.id.month);
+        Date currentDate = new Date();
+        SimpleDateFormat monthFormatter = new SimpleDateFormat("MMMM YYYY");
+        monthTextView.setText(monthFormatter.format(currentDate));
+
+                //setup events
+        for(Task x : allTasksList) {
+            String[] task = x.toString().split("∟");
+
+            String dateString = task[1];
+
+            SimpleDateFormat formatter = null;
+            Date convertedDate = null;
+            try {
+                formatter = new SimpleDateFormat("MM/dd/yy");
+                formatter.setLenient(false);
+                convertedDate = formatter.parse(dateString);
+            } catch (Exception e) {
+                Toast.makeText(getApplicationContext(), "Failure formatting the date in Calendar.setupCalendar", Toast.LENGTH_LONG).show();
+            }
+
+            Event event = new Event(Color.RED, convertedDate.getTime(), task[0]);
+            compactCalendarView.addEvent(event);
+        }
+
+        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            @Override
+            public void onDayClick(Date dateClicked) {
+                List<Event> events = compactCalendarView.getEvents(dateClicked);
+                Toast.makeText(getApplicationContext(), "Day was clicked: " + dateClicked + " with events " + events, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+                TextView monthTextView = findViewById(R.id.month);
+                SimpleDateFormat monthFormatter = new SimpleDateFormat("MMMM YYYY");
+                monthTextView.setText(monthFormatter.format(firstDayOfNewMonth));
+            }
+        });
+    }
+
+    public void setupTodaySetter()
+    {
+        ImageView today = findViewById(R.id.today);
+        today.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                compactCalendarView.setCurrentDate(new Date());
+                compactCalendarView.scrollLeft();
+                compactCalendarView.scrollRight();
+            }
+        });
     }
 
     //used for navigation menu so when something is clicked I can do stuff with it

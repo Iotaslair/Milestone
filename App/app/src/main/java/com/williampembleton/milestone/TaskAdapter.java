@@ -98,7 +98,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             formatter.setLenient(false);
             convertedDate = formatter.parse(dateString);
         } catch (Exception e) {
-            Toast.makeText(context, "Failure formatting the date in TaskAdapter.onBindViewHolder", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Failure formatting the date in TaskAdapter.onBindViewHolder", Toast.LENGTH_LONG).show();
         }
         if (currentDate.after(convertedDate)) {
             viewHolder.date.setTextColor(Color.RED);

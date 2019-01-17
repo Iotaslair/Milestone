@@ -38,6 +38,8 @@ Converted ListView in tasklist for a RecyclerView which works a lot faster and h
 Finished making the 3 bar menu. Continued my learning on how the tool bar works. Fixed up the Fab and toolbar on TaskList because they were acting up.
 
 To Do: 
+Make month show up 
+Show events on today
 Put tasks on Calendar
 Click task on calendar and get all tasks on that date
 Searchable on calendar and task list
@@ -54,5 +56,7 @@ Exp/ profile
 xp bar goes in nav_header under layout
 Task completed counter, goes to 0 when task fails
 Write Readme
+
+make a function that refreshes the calendar when deleteing the task
 
 Maybe let people change name and upload image for profile
