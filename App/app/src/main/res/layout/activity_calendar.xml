@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Calendar">
@@ -45,7 +45,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="8dp"
-            app:compactCalendarBackgroundColor="?android:colorBackground"
+            app:compactCalendarBackgroundColor="@color/colorWhite"
             app:compactCalendarCurrentDayBackgroundColor="@color/colorAccent"
             app:compactCalendarCurrentSelectedDayBackgroundColor="@color/colorAccentLight"
             app:compactCalendarMultiEventIndicatorColor="#fff"
@@ -67,6 +67,24 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_plus" />
+
+        <ImageView
+            android:id="@+id/left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/month"
+            app:layout_constraintTop_toTopOf="@+id/month"
+            app:srcCompat="@drawable/ic_left" />
+
+        <ImageView
+            android:id="@+id/right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/month"
+            app:layout_constraintTop_toTopOf="@+id/month"
+            app:srcCompat="@drawable/ic_right" />
 
 
     </android.support.constraint.ConstraintLayout>

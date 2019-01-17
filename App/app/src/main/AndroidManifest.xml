@@ -9,6 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".TaskListSearched"
+            android:label="Task List"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <activity
             android:name=".Calendar"
             android:label="Calendar"
@@ -19,7 +24,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewTask" />
+
+        <activity android:name=".NewTask"
+            android:label="New Task"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
             android:name=".TaskList"
             android:label="Task List"

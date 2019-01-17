@@ -36,15 +36,11 @@ Nothing happened because I went on a 20k bike ride
 Converted ListView in tasklist for a RecyclerView which works a lot faster and has a better design. 
 1/16/18
 Finished making the 3 bar menu. Continued my learning on how the tool bar works. Fixed up the Fab and toolbar on TaskList because they were acting up.
+1/17/18
+Lots of work on the Calendar. I used someone else's calendarview so that when a day is clicked it takes you to a task list with only tasks for that day.
+
 
 To Do: 
-Make month show up 
-Show events on today
-Put tasks on Calendar
-Click task on calendar and get all tasks on that date
-Searchable on calendar and task list
-https://www.youtube.com/watch?v=sJ-Z9G0SDhc
-
 Material design
 Put save button in toolbar of new task
 Fix name of app from app drawer
@@ -58,5 +54,6 @@ Task completed counter, goes to 0 when task fails
 Write Readme
 
 make a function that refreshes the calendar when deleteing the task
+make new task scrollable (so it works in landscape)
 
 Maybe let people change name and upload image for profile

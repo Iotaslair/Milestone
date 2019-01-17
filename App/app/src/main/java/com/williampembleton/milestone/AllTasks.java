@@ -9,6 +9,7 @@ import java.util.Iterator;
 public class AllTasks {
 
     static ArrayList<Task> tasks = new ArrayList<>();
+    static ArrayList<Task> searchableTasks = new ArrayList<>();
 
     static AllTasks allTasks = null;
 
@@ -55,5 +56,11 @@ public class AllTasks {
     {
         return tasks.iterator();
     }
+
+    public static ArrayList<Task> getSearchableTasks() { return searchableTasks; }
+
+    public static void setSearchableTasks(ArrayList<Task> searchableTasks) { AllTasks.searchableTasks = searchableTasks; }
+
+    public static Iterator<Task> searchableIterator(){return searchableTasks.iterator();}
 }
 

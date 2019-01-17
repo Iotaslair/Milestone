@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -29,6 +30,7 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -51,6 +53,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         setupDrawer(savedInstanceState,toolbar);
         setupCalendar();
         setupTodaySetter();
+        setupArrows();
 
     }
 
@@ -131,12 +134,32 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {
+                compactCalendarView.setCurrentSelectedDayBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccentLight));
+                //sets current day to normal color to stop it appearing that it's selected
+                compactCalendarView.setCurrentDayBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
                 List<Event> events = compactCalendarView.getEvents(dateClicked);
-                Toast.makeText(getApplicationContext(), "Day was clicked: " + dateClicked + " with events " + events, Toast.LENGTH_SHORT).show();
+                if(!events.isEmpty()) {
+                    ArrayList<Task> finalTasks = new ArrayList<>();
+                    Iterator<Task> tempTasks = AllTasks.iterator();
+                    for (Event event : events) {
+                        while (tempTasks.hasNext()) {
+                            Task temp = tempTasks.next();
+                            if (temp.getDate().getTime() == event.getTimeInMillis()) {
+                                finalTasks.add(temp);
+                            }
+                        }
+                    }
+                    AllTasks.setSearchableTasks(finalTasks);
+                    Intent intent = new Intent(Calendar.this, TaskListSearched.class);
+                    startActivity(intent);
+                }
             }
 
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
+                compactCalendarView.setCurrentSelectedDayBackgroundColor(Color.WHITE);
+                //sets current day to bright color so it seems like it is selected
+                compactCalendarView.setCurrentDayBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccentLight));
                 TextView monthTextView = findViewById(R.id.month);
                 SimpleDateFormat monthFormatter = new SimpleDateFormat("MMMM YYYY");
                 monthTextView.setText(monthFormatter.format(firstDayOfNewMonth));
@@ -152,6 +175,27 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
             public void onClick(View view) {
                 compactCalendarView.setCurrentDate(new Date());
                 compactCalendarView.scrollLeft();
+                compactCalendarView.scrollRight();
+                compactCalendarView.setCurrentSelectedDayBackgroundColor(Color.WHITE);
+                //sets current day to bright color so it seems like it is selected
+                compactCalendarView.setCurrentDayBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccentLight));
+            }
+        });
+    }
+
+    public void setupArrows()
+    {
+        ImageView left = findViewById(R.id.left);
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                compactCalendarView.scrollLeft();
+            }
+        });
+        ImageView right = findViewById(R.id.right);
+        right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 compactCalendarView.scrollRight();
             }
         });
