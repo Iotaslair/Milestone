@@ -51,6 +51,7 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
         TaskAdapter adapter = new TaskAdapter(tasksAL);
 
         recyclerView.setLayoutManager(layoutManager);
+        adapter.setContext(getApplicationContext());
         recyclerView.setAdapter(adapter);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

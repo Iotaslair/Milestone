@@ -44,6 +44,43 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
 
     }
 
+    public void setupDate()
+    {
+        EditText dueDate = findViewById(R.id.DueDate);
+        java.util.Calendar currentDate = GregorianCalendar.getInstance();
+        String dueDateString = "" + (1 + currentDate.get(java.util.Calendar.MONTH)) + "/";
+        dueDateString += (1 + currentDate.get(java.util.Calendar.DAY_OF_MONTH)) + "/";
+        dueDateString += currentDate.get(java.util.Calendar.YEAR);
+        dueDate.setText(dueDateString);
+    }
+
+    //sets up the spinner (difficulty)
+    public void setupSpinner()
+    {
+        //sets up the spinner
+        Spinner spinner = findViewById(R.id.DifficultySelector);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.difficultyList,android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+    }
+
+    //sets up the navigation drawer (thing you pull in from the left)
+    public void setupDrawer(Bundle savedInstanceState,Toolbar toolbar)
+    {
+        drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        if(savedInstanceState == null) {
+            navigationView.setCheckedItem(R.id.nav_new_task);
+        }
+    }
+
     //this is what happens when someone clicks the save button (does a bunch of checks to make sure the task is valid
     public void saveTask(View view)
     {
@@ -155,42 +192,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {}
 
-    public void setupDate()
-    {
-        EditText dueDate = findViewById(R.id.DueDate);
-        java.util.Calendar currentDate = GregorianCalendar.getInstance();
-        String dueDateString = "" + (1 + currentDate.get(java.util.Calendar.MONTH)) + "/";
-        dueDateString += (1 + currentDate.get(java.util.Calendar.DAY_OF_MONTH)) + "/";
-        dueDateString += currentDate.get(java.util.Calendar.YEAR);
-        dueDate.setText(dueDateString);
-    }
 
-    //sets up the spinner (difficulty)
-    public void setupSpinner()
-    {
-        //sets up the spinner
-        Spinner spinner = findViewById(R.id.DifficultySelector);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.difficultyList,android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
-    }
-
-    //sets up the navigation drawer (thing you pull in from the left)
-    public void setupDrawer(Bundle savedInstanceState,Toolbar toolbar)
-    {
-        drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-        if(savedInstanceState == null) {
-            navigationView.setCheckedItem(R.id.nav_new_task);
-        }
-    }
 
     //used for navigation menu so when something is clicked I can do stuff with it
     @Override
