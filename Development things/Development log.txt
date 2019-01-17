@@ -35,9 +35,11 @@ Nothing happened because I went on a 20k bike ride
 1/15/18
 Converted ListView in tasklist for a RecyclerView which works a lot faster and has a better design. 
 1/16/18
-Finished making the 3 bar menu. Continued my learning on how the tool bar works. Fixed up the Fab and toolbar on TaskList because they were acting up
+Finished making the 3 bar menu. Continued my learning on how the tool bar works. Fixed up the Fab and toolbar on TaskList because they were acting up.
 
 To Do: 
+Past Due
+
 Put tasks on Calendar
 Click task on calendar and get all tasks on that date
 Searchable on calendar and task list
