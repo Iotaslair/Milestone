@@ -8,7 +8,7 @@
         android:label="New Task"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".TaskListSearched"
             android:label="Task List"
             android:theme="@style/AppTheme.NoActionBar">
