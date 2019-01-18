@@ -47,6 +47,7 @@ Material design
 
 Checkbox in task list with animations
 https://www.youtube.com/watch?v=HMjI7cLsyfw&index=5&list=PLrnPJCHvNZuBtTYUuc5Pyo4V7xZ2HNtf4
+delete task
 
 Exp/ profile
 50 health

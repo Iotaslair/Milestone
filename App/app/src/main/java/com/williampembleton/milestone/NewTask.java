@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -179,8 +181,8 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
 
 
         //Says task made successfully and launches into Calendar
-        Snackbar.make(drawerLayout, "Task is worth " + (int) experience + " XP", Snackbar.LENGTH_SHORT).show();
-        //Toast.makeText(getApplicationContext(), "Task is worth " + (int) experience + " XP", Toast.LENGTH_SHORT).show();
+        //Snackbar.make(drawerLayout, "Task is worth " + (int) experience + " XP", Snackbar.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Task is worth " + (int) experience + " XP", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(NewTask.this, Calendar.class);
         startActivity(intent);
     }
