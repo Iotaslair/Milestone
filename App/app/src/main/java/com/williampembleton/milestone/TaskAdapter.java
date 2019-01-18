@@ -3,12 +3,12 @@ package com.williampembleton.milestone;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.Date;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     private OnItemClickListener mListener;
-    private Context context = null;
+    private View view = null;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView title;
@@ -73,8 +73,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         return vh;
     }
 
-    public void setContext(Context context) {
-        this.context = context;
+    public void setView(View view) {
+        this.view = view;
     }
 
     @Override
@@ -98,7 +98,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             formatter.setLenient(false);
             convertedDate = formatter.parse(dateString);
         } catch (Exception e) {
-            Toast.makeText(context, "Failure formatting the date in TaskAdapter.onBindViewHolder", Toast.LENGTH_LONG).show();
+            Snackbar.make(view, "Failure formatting the date in TaskAdapter.onBindViewHolder", Snackbar.LENGTH_LONG).show();
+            //Toast.makeText(context, "Failure formatting the date in TaskAdapter.onBindViewHolder", Toast.LENGTH_LONG).show();
         }
         if (currentDate.after(convertedDate)) {
             viewHolder.date.setTextColor(Color.RED);

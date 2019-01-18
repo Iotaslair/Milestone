@@ -38,12 +38,12 @@ Converted ListView in tasklist for a RecyclerView which works a lot faster and h
 Finished making the 3 bar menu. Continued my learning on how the tool bar works. Fixed up the Fab and toolbar on TaskList because they were acting up.
 1/17/18
 Lots of work on the Calendar. I used someone else's calendarview so that when a day is clicked it takes you to a task list with only tasks for that day.
+1/18/18
+I have the save button in the correct position now. Uses snackbars instead of toast messages to make things more pretty. I previously made a simple mistake where the app's name got messed up with the toolbar's name.
 
 
 To Do: 
 Material design
-Put save button in toolbar of new task
-Fix name of app from app drawer
 
 Checkbox in task list with animations
 https://www.youtube.com/watch?v=HMjI7cLsyfw&index=5&list=PLrnPJCHvNZuBtTYUuc5Pyo4V7xZ2HNtf4

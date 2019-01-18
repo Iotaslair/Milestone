@@ -51,7 +51,7 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
         TaskAdapter adapter = new TaskAdapter(tasksAL);
 
         recyclerView.setLayoutManager(layoutManager);
-        adapter.setContext(getApplicationContext());
+        adapter.setView(drawerLayout);
         recyclerView.setAdapter(adapter);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -82,7 +82,6 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(getApplicationContext(), "Going to NewTask", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(TaskList.this, NewTask.class);
                 startActivity(intent);
             }

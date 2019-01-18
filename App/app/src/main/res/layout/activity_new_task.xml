@@ -17,7 +17,7 @@
 
         <include
             android:id="@+id/app_bar"
-            layout="@layout/app_bar" />
+            layout="@layout/new_task_bar" />
 
         <TextView
             android:id="@+id/dueLabel"
@@ -76,19 +76,6 @@
             app:layout_constraintHorizontal_bias="0.508"
             app:layout_constraintStart_toEndOf="@+id/dueLabel"
             app:layout_constraintTop_toBottomOf="@+id/TaskName" />
-
-        <Button
-            android:id="@+id/SaveButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="8dp"
-            android:onClick="saveTask"
-            android:text="Save"
-            app:layout_constraintBottom_toTopOf="@+id/TaskName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/TagsLabel"

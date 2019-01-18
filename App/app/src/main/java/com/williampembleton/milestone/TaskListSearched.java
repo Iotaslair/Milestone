@@ -51,7 +51,7 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
         TaskAdapter adapter = new TaskAdapter(tasksAL);
 
         recyclerView.setLayoutManager(layoutManager);
-        adapter.setContext(getApplicationContext());
+        adapter.setView(drawerLayout);
         recyclerView.setAdapter(adapter);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

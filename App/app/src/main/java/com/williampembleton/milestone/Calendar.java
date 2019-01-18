@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,7 +20,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
@@ -47,6 +47,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         //sets up toolbar
         Toolbar toolbar = findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Calendar");
 
         setupFab();
         loadData();
@@ -64,7 +65,6 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(getApplicationContext(), "Going to NewTask", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Calendar.this, NewTask.class);
                 startActivity(intent);
             }
@@ -124,7 +124,8 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
                 formatter.setLenient(false);
                 convertedDate = formatter.parse(dateString);
             } catch (Exception e) {
-                Toast.makeText(getApplicationContext(), "Failure formatting the date in Calendar.setupCalendar", Toast.LENGTH_LONG).show();
+                Snackbar.make(drawerLayout, "Failure formatting the date in Calendar.setupCalendar", Snackbar.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Failure formatting the date in Calendar.setupCalendar", Toast.LENGTH_LONG).show();
             }
 
             Event event = new Event(Color.RED, convertedDate.getTime(), task[0]);

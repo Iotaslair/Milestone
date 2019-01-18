@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,7 +19,6 @@ import android.widget.EditText;
 import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -89,7 +89,8 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             String title =  titleView.getText().toString();
             if(TextUtils.isEmpty(title))
             {
-                Toast.makeText(getApplicationContext(), "Title empty", Toast.LENGTH_LONG).show();
+                Snackbar.make(drawerLayout, "Title empty", Snackbar.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Title empty", Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -103,11 +104,8 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
                 formatter.setLenient(false);
                 convertedDate = formatter.parse(stringDateFormat);
             } catch (Exception e) {
-                Context context = getApplicationContext();
-                CharSequence text = "Insert a valid date";
-                int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+                Snackbar.make(drawerLayout, "Insert a valid date", Snackbar.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Insert a valid date", Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -142,7 +140,8 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             //if non-numerical exit and return toast failure message
             if(TextUtils.isEmpty(timeString))
             {
-                Toast.makeText(getApplicationContext(), "Time to Complete is empty", Toast.LENGTH_SHORT).show();
+                Snackbar.make(drawerLayout, "Time to Complete is empty", Snackbar.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Time to Complete is empty", Toast.LENGTH_SHORT).show();
                 return;
             }
             //checks to see if time is in hours (includes things like 2.5 hours
@@ -150,20 +149,23 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             boolean matches = timeString.matches(regExp);
             if(!matches)
             {
-                Toast.makeText(getApplicationContext(), "Time to Complete not a number or negative", Toast.LENGTH_LONG).show();
+                Snackbar.make(drawerLayout, "Time to Complete not a number or negative", Snackbar.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Time to Complete not a number or negative", Toast.LENGTH_LONG).show();
                 return;
             }
             double TTC = 0.0;
             try {
                 TTC = Double.parseDouble(timeString);
                 if(TTC > 3) {
-                    Toast.makeText(getApplicationContext(), "Try separating this task into separate tasks", Toast.LENGTH_LONG).show();
+                    Snackbar.make(drawerLayout, "Try separating this task into separate tasks", Snackbar.LENGTH_LONG).show();
+                    //Toast.makeText(getApplicationContext(), "Try separating this task into separate tasks", Toast.LENGTH_LONG).show();
                     return;
                 }
             }
             catch (Exception e)
             {
-                Toast.makeText(getApplicationContext(), "Insert a valid Time To Complete", Toast.LENGTH_LONG).show();
+                Snackbar.make(drawerLayout, "Insert a valid Time To Complete", Snackbar.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Insert a valid Time To Complete", Toast.LENGTH_LONG).show();
             }
 
 
@@ -177,7 +179,8 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
 
 
         //Says task made successfully and launches into Calendar
-        Toast.makeText(getApplicationContext(), "Task is worth " + (int) experience + " XP", Toast.LENGTH_SHORT).show();
+        Snackbar.make(drawerLayout, "Task is worth " + (int) experience + " XP", Snackbar.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Task is worth " + (int) experience + " XP", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(NewTask.this, Calendar.class);
         startActivity(intent);
     }
