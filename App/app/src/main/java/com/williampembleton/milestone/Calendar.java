@@ -40,6 +40,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
     ArrayList<Task> allTasksList = null;
     CompactCalendarView compactCalendarView;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM- yyyy", Locale.getDefault());
+    static SharedPreferences sharedPreferences = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +75,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
 
     //loads tasks from the last time the app has been loaded
     public void loadData() {
-
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("task list", null);
         Type type = new TypeToken<ArrayList<Task>>(){}.getType();

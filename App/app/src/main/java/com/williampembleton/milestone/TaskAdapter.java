@@ -1,5 +1,6 @@
 package com.williampembleton.milestone;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -7,17 +8,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
     private OnItemClickListener mListener;
     private View view = null;
+    private Context context = null;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder{
         TextView title;
         TextView date;
         TextView ttc;
@@ -27,6 +33,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         TextView tag2;
         TextView tag3;
         TextView tag4;
+        CheckBox checkBox;
 
         public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -39,6 +46,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             tag2 = itemView.findViewById(R.id.Tag2);
             tag3 = itemView.findViewById(R.id.Tag3);
             tag4 = itemView.findViewById(R.id.Tag4);
+            checkBox = itemView.findViewById(R.id.checkBox);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -51,6 +59,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                     }
                 }
             });
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    removeAt(getAdapterPosition());
+                }
+            });
+        }
+
+        public void removeAt(int position)
+        {
+            AllTasks.removeTask(AllTasks.getTask(position));
+            notifyItemRemoved(position);
         }
     }
 
@@ -72,13 +92,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         return vh;
     }
 
-    public void setView(View view) {
+    public void setViewAndContext(View view, Context context) {
         this.view = view;
+        this.context = context;
     }
 
     @Override
     public void onBindViewHolder(@NonNull TaskAdapter.ViewHolder viewHolder, int i) {
-        Task currentItem = tasks.get(i);
+        final Task currentItem = tasks.get(i);
 
         String taskStr = currentItem.toString();
 
@@ -86,27 +107,22 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
         viewHolder.title.setText(task[0]);
 
-        String dateString = task[1];
-
         //used to make a past due system
-        SimpleDateFormat formatter = null;
         Date currentDate = new Date();
-        Date convertedDate = null;
-        try {
-            formatter = new SimpleDateFormat("MM/dd/yy");
-            formatter.setLenient(false);
-            convertedDate = formatter.parse(dateString);
-        } catch (Exception e) {
-            Snackbar.make(view, "Failure formatting the date in TaskAdapter.onBindViewHolder", Snackbar.LENGTH_LONG).show();
-            //Toast.makeText(context, "Failure formatting the date in TaskAdapter.onBindViewHolder", Toast.LENGTH_LONG).show();
-        }
-        if (currentDate.after(convertedDate)) {
+        Date convertedDate = currentItem.getDate();
+        //adds one to the day so that players aren't punished as soon the day starts
+        long plusOneDay = convertedDate.getTime() + (24*60*60*1000);
+        Date convertedDatePlusOne=new Date(plusOneDay);
+        
+        if (currentDate.after(convertedDatePlusOne)) {
+            //past due
             viewHolder.date.setTextColor(Color.RED);
-            viewHolder.date.setText("Past Due " + task[1]);
-        } else {
-            viewHolder.date.setText("Due: " + task[1]);
         }
-
+        else {
+            //on time
+            viewHolder.date.setTextColor(Color.BLACK);
+        }
+        viewHolder.date.setText("Due: " + task[1]);
 
         viewHolder.ttc.setText(task[2] + " hours");
         viewHolder.difficulty.setText(task[3]);
@@ -118,14 +134,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         try {viewHolder.tag4.setText(task[8]); } catch (Exception e) {viewHolder.tag4.setText(""); }
     }
 
-    public TaskAdapter(ArrayList<Task> taskArrayList) {
-        tasks = taskArrayList;
-    }
+
+
+    public TaskAdapter(ArrayList<Task> tasks) { this.tasks = tasks;}
 
     @Override
-    public int getItemCount() {
-        return tasks.size();
-    }
+    public int getItemCount() {return AllTasks.size();}
 
 
 }

@@ -55,10 +55,12 @@ Soft level cap at 100
 Loot boxes that give 2x xp and health 
 xp bar goes in nav_header under layout
 Task completed counter, goes to 0 when task fails
-Write Readme
+
 
 make a function that refreshes the calendar when deleteing the task
 make new task scrollable (so it works in landscape)
+Refactor
 Google Play achievements
+Write Readme
 
 Maybe let people change name and upload image for profile

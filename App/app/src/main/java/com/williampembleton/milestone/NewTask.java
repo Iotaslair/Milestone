@@ -176,7 +176,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             double experience = 100 * (newTask.getIntDifficulty( getApplicationContext()) ) * (Math.pow(TTC,.5) + (.2*TTC) );
             newTask.setExperience( (int) experience);
 
-        AllTasks.addTask(newTask,getSharedPreferences("shared preferences", MODE_PRIVATE));
+        AllTasks.addTask(newTask);
 
 
         //Says task made successfully and launches into Calendar

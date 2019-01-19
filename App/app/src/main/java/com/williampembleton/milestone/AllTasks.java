@@ -6,10 +6,13 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class AllTasks {
 
     static ArrayList<Task> tasks = new ArrayList<>();
     static ArrayList<Task> searchableTasks = new ArrayList<>();
+    static SharedPreferences sharedPreferences;
 
     static AllTasks allTasks = null;
 
@@ -25,10 +28,11 @@ public class AllTasks {
         return allTasks;
     }
 
-    public static void addTask(Task inTask,SharedPreferences sharedPreferences)
+    public static void addTask(Task inTask)
     {
         tasks.add(inTask);
 
+        SharedPreferences sharedPreferences = Calendar.sharedPreferences;
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(tasks);
@@ -40,6 +44,13 @@ public class AllTasks {
     public static void removeTask(Task inTask)
     {
         tasks.remove(inTask);
+
+        SharedPreferences sharedPreferences = Calendar.sharedPreferences;
+        SharedPreferences.Editor editor =  sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(AllTasks.getList());
+        editor.putString("task list", json);
+        editor.apply();
     }
 
     public static Task getTask(int position)
@@ -62,5 +73,9 @@ public class AllTasks {
     public static void setSearchableTasks(ArrayList<Task> searchableTasks) { AllTasks.searchableTasks = searchableTasks; }
 
     public static Iterator<Task> searchableIterator(){return searchableTasks.iterator();}
+
+    public static int size(){return tasks.size();}
+
+    public static ArrayList<Task> getList(){return tasks;}
 }
 
