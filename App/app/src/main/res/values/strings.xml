@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Milestone</string>
-    <string name="action_settings">Settings</string>
 
     <string-array name="difficultyList">
         <item>Easy</item>
@@ -9,6 +8,7 @@
         <item>Kinda Hard</item>
         <item>Difficult</item>
     </string-array>
+
     <string name="title_activity_task_list">Task List</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

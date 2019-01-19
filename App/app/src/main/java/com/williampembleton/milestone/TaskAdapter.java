@@ -1,6 +1,5 @@
 package com.williampembleton.milestone;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;

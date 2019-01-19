@@ -39,11 +39,12 @@ Finished making the 3 bar menu. Continued my learning on how the tool bar works.
 1/17/18
 Lots of work on the Calendar. I used someone else's calendarview so that when a day is clicked it takes you to a task list with only tasks for that day.
 1/18/18
-I have the save button in the correct position now. Uses snackbars instead of toast messages to make things more pretty. I previously made a simple mistake where the app's name got messed up with the toolbar's name.
+I have the save button in the correct position now. Uses snackbars instead of toast messages to make things more pretty. I previously made a simple mistake where the app's name got messed up with the toolbar's name. I also made a searching system and learned how menus can be used in Toolbars.
 
 
 To Do: 
 Material design
+Search
 
 Checkbox in task list with animations
 https://www.youtube.com/watch?v=HMjI7cLsyfw&index=5&list=PLrnPJCHvNZuBtTYUuc5Pyo4V7xZ2HNtf4
