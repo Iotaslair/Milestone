@@ -40,13 +40,11 @@ Finished making the 3 bar menu. Continued my learning on how the tool bar works.
 Lots of work on the Calendar. I used someone else's calendarview so that when a day is clicked it takes you to a task list with only tasks for that day.
 1/18/18
 I have the save button in the correct position now. Uses snackbars instead of toast messages to make things more pretty. I previously made a simple mistake where the app's name got messed up with the toolbar's name. I also made a searching system and learned how menus can be used in Toolbars.
+1/19/18
+Today the main thing that I completed was making it so that tasks can be completed, I wasn't able to do a star exploding animation like I wanted when a task is complete. I also didn't get around to making a way for a task to be deleted. I want to allow players to delete tasks by the time the app is released but I'm not certain about doing the animation because I see it as extra work that's not super necessary.
 
 
 To Do: 
-Checkbox in task list with animations
-https://www.youtube.com/watch?v=HMjI7cLsyfw&index=5&list=PLrnPJCHvNZuBtTYUuc5Pyo4V7xZ2HNtf4
-delete task
-
 Exp/ profile
 50 health
 Lose 5 levels per death
@@ -60,7 +58,10 @@ Task completed counter, goes to 0 when task fails
 make a function that refreshes the calendar when deleteing the task
 make new task scrollable (so it works in landscape)
 Refactor
+
 Google Play achievements
+Roboto font everywhere
+delete tasks
 Write Readme
 
 Maybe let people change name and upload image for profile
