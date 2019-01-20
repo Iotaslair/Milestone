@@ -65,7 +65,7 @@ public class Player {
         String json = gson.toJson(playerInfo);
         editor.putString("player info", json);
         editor.apply();
-        Log.d("ME TESTING", playerInfo.toString());
+        Log.d("Saving player info", playerInfo.toString());
     }
 
     public static void loadPlayerInfo() {
@@ -82,6 +82,7 @@ public class Player {
             playerInfo.add(maxExp);
             playerInfo.add(level);
         }
+        Log.d("Loading player info", playerInfo.toString());
     }
 
 
