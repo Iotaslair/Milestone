@@ -21,8 +21,10 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Locale;
 
 public class TaskListSearched extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawerLayout;
@@ -103,10 +105,15 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
         ProgressBar healthBar = headerView.findViewById(R.id.healthBar);
         ProgressBar expBar = headerView.findViewById(R.id.expBar);
         TextView levelText = headerView.findViewById(R.id.playerLevel);
+        TextView healthText = headerView.findViewById(R.id.healthText);
+        TextView expText = headerView.findViewById(R.id.experienceText);
         healthBar.setProgress(Player.playerInfo.get(0));
         expBar.setProgress(Player.playerInfo.get(1),false);
         expBar.setMax(Player.playerInfo.get(2));
-        levelText.setText("Player level " + Player.playerInfo.get(3));
+        levelText.setText("Player Level " + Player.playerInfo.get(3));
+        healthText.setText("" + Player.playerInfo.get(0)+"/50");
+        NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
+        expText.setText("" + numberFormat.format(Player.playerInfo.get(1)) + "/" + numberFormat.format(Player.playerInfo.get(2)));
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);

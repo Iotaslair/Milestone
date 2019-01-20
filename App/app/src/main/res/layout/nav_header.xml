@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This is the header for the navigation drawer-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="176dp"
     android:background="@color/colorPrimary"
@@ -10,52 +12,94 @@
     android:orientation="vertical">
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
+        android:contentDescription="Player Icon"
         android:paddingTop="8dp"
         android:src="@drawable/ic_person"
-        android:contentDescription="Player Icon"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/playerLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/playerLevel"
+        android:layout_marginTop="2dp"
         android:text="Player Level 1"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
-        android:textColor="@color/common_google_signin_btn_text_dark_default" />
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 
     <ProgressBar
         android:id="@+id/healthBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_width="225dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="6dp"
+        android:max="50"
         android:paddingTop="8dp"
         android:progress="100"
-        android:max="50"
-        android:progressTint="@color/colorAccent" />
+        android:progressTint="@color/colorAccent"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/playerLevel" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:text="Health"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
-        android:textColor="@color/common_google_signin_btn_text_dark_default" />
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/healthBar" />
 
     <ProgressBar
         android:id="@+id/expBar"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
+        android:layout_width="225dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="6dp"
         android:paddingTop="8dp"
-        android:progress="0"
-        android:progressTint="@color/colorEXPBar" />
+        android:progress="20"
+        android:progressTint="@color/colorEXPBar"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
         android:text="Experience"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
-        android:textColor="@color/common_google_signin_btn_text_dark_default" />
+        android:textColor="@color/colorWhite"
+        app:layout_constraintStart_toStartOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/expBar" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/healthText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="50/50"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintEnd_toEndOf="@+id/healthBar"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/experienceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="10,000/10,000"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
+        android:textColor="@color/colorWhite"
+        app:layout_constraintEnd_toEndOf="@+id/expBar"
+        app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+</android.support.constraint.ConstraintLayout>
