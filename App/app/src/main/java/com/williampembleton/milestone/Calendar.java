@@ -16,10 +16,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
@@ -39,8 +41,11 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
     private DrawerLayout drawerLayout;
     ArrayList<Task> allTasksList = null;
     CompactCalendarView compactCalendarView;
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM- yyyy", Locale.getDefault());
     static SharedPreferences sharedPreferences = null;
+    static int health = 50;
+    static int exp = 0;
+    static int maxExp = 100;
+    static int level = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +62,6 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         setupCalendar();
         setupTodaySetter();
         setupArrows();
-
     }
 
     //sets up the fab in the calendar activity
@@ -91,6 +95,16 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = navigationView.getHeaderView(0);
+        ProgressBar healthBar = headerView.findViewById(R.id.healthBar);
+        ProgressBar expBar = headerView.findViewById(R.id.expBar);
+        TextView levelText = headerView.findViewById(R.id.playerLevel);
+        healthBar.setProgress(health,true);
+        expBar.setMax(maxExp);
+        expBar.setProgress(exp);
+        levelText.setText("Player level " + level);
+
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -304,5 +318,27 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+
+    public static void increaseExp(int amount)
+    {
+        exp = exp + amount;
+
+        if(exp + amount > maxExp)
+        {
+            while(exp > maxExp) {
+                //overflow
+                exp = exp - maxExp;
+                level++;
+                maxExp = (int) (Math.pow(level, 1.2) * 100);
+
+                health = health + 10;
+                if(health > 50)
+                    health = 50;
+            }
+        }
+
     }
 }

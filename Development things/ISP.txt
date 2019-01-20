@@ -13,3 +13,10 @@ Gradle Introduction: https://www.youtube.com/watch?v=OFUEb7pLLXw
 
 Look at later:
 Animation when hitting FAB: https://stackoverflow.com/questions/31624935/floatingactionbutton-expand-into-a-new-activity
+
+
+Animation
+https://www.youtube.com/watch?v=fqU4zc_XeX0
+https://developer.android.com/training/animation/overview
+https://youtu.be/Sy0tmwPJJfg?t=314
+https://developer.android.com/guide/topics/resources/animation-resource

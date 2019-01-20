@@ -18,6 +18,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -96,6 +98,15 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerView = navigationView.getHeaderView(0);
+        ProgressBar healthBar = headerView.findViewById(R.id.healthBar);
+        ProgressBar expBar = headerView.findViewById(R.id.expBar);
+        TextView levelText = headerView.findViewById(R.id.playerLevel);
+        healthBar.setProgress(Calendar.health,true);
+        expBar.setMax(Calendar.maxExp);
+        expBar.setProgress(Calendar.exp);
+        levelText.setText("Player level " + Calendar.level);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);

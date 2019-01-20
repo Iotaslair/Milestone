@@ -83,6 +83,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
                         }
 
                         public void onFinish() {
+                            Calendar.increaseExp(AllTasks.getTask(getAdapterPosition()).getExperience());
                             removeAt(getAdapterPosition());
                         }
                     }.start();
@@ -137,7 +138,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
         //adds one to the day so that players aren't punished as soon the day starts
         long plusOneDay = convertedDate.getTime() + (24*60*60*1000);
         Date convertedDatePlusOne=new Date(plusOneDay);
-        
+
         if (currentDate.after(convertedDatePlusOne)) {
             //past due
             viewHolder.date.setTextColor(Color.RED);
