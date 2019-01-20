@@ -83,8 +83,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
                         }
 
                         public void onFinish() {
-                            Calendar.increaseExp(AllTasks.getTask(getAdapterPosition()).getExperience());
+                            Player.increaseExp(AllTasks.getTask(getAdapterPosition()).getExperience());
                             removeAt(getAdapterPosition());
+                            Player.savePlayerInfo();
                         }
                     }.start();
 

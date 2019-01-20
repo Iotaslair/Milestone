@@ -31,26 +31,23 @@ public class AllTasks {
     public static void addTask(Task inTask)
     {
         tasks.add(inTask);
-
-        SharedPreferences sharedPreferences = Calendar.sharedPreferences;
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(tasks);
-        editor.putString("task list", json);
-        editor.apply();
-
+        saveTasks();
     }
 
-    public static void removeTask(Task inTask)
+    private static void saveTasks()
     {
-        tasks.remove(inTask);
-
         SharedPreferences sharedPreferences = Calendar.sharedPreferences;
         SharedPreferences.Editor editor =  sharedPreferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(AllTasks.getList());
         editor.putString("task list", json);
         editor.apply();
+    }
+
+    public static void removeTask(Task inTask)
+    {
+        tasks.remove(inTask);
+        saveTasks();
     }
 
     public static Task getTask(int position)

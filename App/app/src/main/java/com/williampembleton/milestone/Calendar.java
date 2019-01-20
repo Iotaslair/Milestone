@@ -42,10 +42,8 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
     ArrayList<Task> allTasksList = null;
     CompactCalendarView compactCalendarView;
     static SharedPreferences sharedPreferences = null;
-    static int health = 50;
-    static int exp = 0;
-    static int maxExp = 100;
-    static int level = 1;
+    ArrayList<Integer> playerInfo = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,6 +85,9 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         if (allTasksList == null)
             allTasksList = new ArrayList<>();
         AllTasks.setList(allTasksList);
+
+        Player.loadPlayerInfo();
+        playerInfo = Player.playerInfo;
     }
 
     //sets up the navigation drawer (thing you pull in from the left)
@@ -100,10 +101,10 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         ProgressBar healthBar = headerView.findViewById(R.id.healthBar);
         ProgressBar expBar = headerView.findViewById(R.id.expBar);
         TextView levelText = headerView.findViewById(R.id.playerLevel);
-        healthBar.setProgress(health,true);
-        expBar.setMax(maxExp);
-        expBar.setProgress(exp);
-        levelText.setText("Player level " + level);
+        healthBar.setProgress(playerInfo.get(0),true);
+        expBar.setProgress(playerInfo.get(1));
+        expBar.setMax(playerInfo.get(2));
+        levelText.setText("Player level " + playerInfo.get(3));
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
@@ -320,25 +321,4 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         return super.onOptionsItemSelected(item);
     }
 
-
-
-    public static void increaseExp(int amount)
-    {
-        exp = exp + amount;
-
-        if(exp + amount > maxExp)
-        {
-            while(exp > maxExp) {
-                //overflow
-                exp = exp - maxExp;
-                level++;
-                maxExp = (int) (Math.pow(level, 1.2) * 100);
-
-                health = health + 10;
-                if(health > 50)
-                    health = 50;
-            }
-        }
-
-    }
 }

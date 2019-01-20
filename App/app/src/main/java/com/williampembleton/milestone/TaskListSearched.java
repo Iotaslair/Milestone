@@ -99,14 +99,16 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        ArrayList<Integer> playerInfo = Player.playerInfo;
+
         View headerView = navigationView.getHeaderView(0);
         ProgressBar healthBar = headerView.findViewById(R.id.healthBar);
         ProgressBar expBar = headerView.findViewById(R.id.expBar);
         TextView levelText = headerView.findViewById(R.id.playerLevel);
-        healthBar.setProgress(Calendar.health,true);
-        expBar.setMax(Calendar.maxExp);
-        expBar.setProgress(Calendar.exp);
-        levelText.setText("Player level " + Calendar.level);
+        healthBar.setProgress(playerInfo.get(0),true);
+        expBar.setProgress(playerInfo.get(1));
+        expBar.setMax(playerInfo.get(2));
+        levelText.setText("Player level " + playerInfo.get(3));
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
