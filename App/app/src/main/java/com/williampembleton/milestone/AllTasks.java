@@ -1,32 +1,29 @@
 package com.williampembleton.milestone;
+import android.app.IntentService;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class AllTasks {
+public class AllTasks extends IntentService {
 
     static ArrayList<Task> tasks = new ArrayList<>();
     static ArrayList<Task> searchableTasks = new ArrayList<>();
-    static SharedPreferences sharedPreferences;
 
     static AllTasks allTasks = null;
 
-    private AllTasks()
+    public AllTasks()
     {
-
+        super("AllTasks");
     }
 
-    public static AllTasks getInstance()
-    {
-        if (allTasks == null)
-            allTasks =  new AllTasks();
-        return allTasks;
-    }
 
     public static void addTask(Task inTask)
     {
@@ -74,5 +71,17 @@ public class AllTasks {
     public static int size(){return tasks.size();}
 
     public static ArrayList<Task> getList(){return tasks;}
+
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        for(Task x: tasks)
+        {
+            if(x.getDate().after(new Date()))
+            {
+                Log.d("ME TESTING", "Decreased Health");
+                Player.decreaseHealth(1);
+            }
+        }
+    }
 }
 

@@ -20,3 +20,7 @@ https://www.youtube.com/watch?v=fqU4zc_XeX0
 https://developer.android.com/training/animation/overview
 https://youtu.be/Sy0tmwPJJfg?t=314
 https://developer.android.com/guide/topics/resources/animation-resource
+
+
+Nice way to make time picker
+https://www.youtube.com/watch?v=yrpimdBRk5Q

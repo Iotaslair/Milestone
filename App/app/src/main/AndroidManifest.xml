@@ -35,6 +35,16 @@
             android:label="Task List"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <receiver
+            android:name=".AlarmReceiver"
+            android:process=":remote" >
+        </receiver>
+
+        <service
+            android:name=".AllTasks"
+            android:exported="false" />
+
     </application>
 
 </manifest>

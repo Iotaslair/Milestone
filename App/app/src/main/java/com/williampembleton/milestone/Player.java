@@ -17,36 +17,48 @@ public class Player {
     static int level = 1;    //3
     static ArrayList<Integer> playerInfo = new ArrayList<>();
 
-    public static void increaseExp(int amount)
-    {
+    public static void increaseExp(int amount) {
         //increase xp by amount
-        playerInfo.set(1,playerInfo.get(1) + amount);
+        playerInfo.set(1, playerInfo.get(1) + amount);
 
         //if xp > maxExp
-        if(playerInfo.get(1) > playerInfo.get(2))
-        {
+        if (playerInfo.get(1) > playerInfo.get(2)) {
             //while xp > maxExp
-            while(playerInfo.get(1) > playerInfo.get(2)) {
+            while (playerInfo.get(1) > playerInfo.get(2)) {
                 //overflow
                 //subtract xp from max xp
-                playerInfo.set(1,playerInfo.get(1) - playerInfo.get(2));
+                playerInfo.set(1, playerInfo.get(1) - playerInfo.get(2));
                 //increase level
-                playerInfo.set(3,playerInfo.get(3) + 1);
+                playerInfo.set(3, playerInfo.get(3) + 1);
                 //sets maxExp
                 playerInfo.set(2, (int) (Math.pow(playerInfo.get(3), 1.2) * 100));
 
                 //increases health
-                playerInfo.set(0,playerInfo.get(0) + 10);
+                playerInfo.set(0, playerInfo.get(0) + 10);
                 //so it doesn't go too high
-                if(playerInfo.get(0) > 50)
-                    playerInfo.set(0,50);
+                if (playerInfo.get(0) > 50)
+                    playerInfo.set(0, 50);
             }
         }
         savePlayerInfo();
     }
 
-    public static void savePlayerInfo()
-    {
+    public static void decreaseHealth(int amount) {
+        playerInfo.set(0,playerInfo.get(0-amount));
+
+        //if your health is below or equal to 0
+        if(playerInfo.get(0) <= 0)
+        {
+            //decrease level by 5 if you die
+            playerInfo.set(3,playerInfo.get(3) - 5);
+            //sets health to max (50)
+            playerInfo.set(0,50);
+        }
+
+        savePlayerInfo();
+    }
+
+    public static void savePlayerInfo() {
         SharedPreferences sharedPreferences = Calendar.sharedPreferences;
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
@@ -56,12 +68,12 @@ public class Player {
         Log.d("ME TESTING", playerInfo.toString());
     }
 
-    public static void loadPlayerInfo()
-    {
+    public static void loadPlayerInfo() {
         SharedPreferences sharedPreferences = Calendar.sharedPreferences;
         Gson gson = new Gson();
         String json = sharedPreferences.getString("player info", null);
-        Type type = new TypeToken<ArrayList<Integer>>(){}.getType();
+        Type type = new TypeToken<ArrayList<Integer>>() {
+        }.getType();
         playerInfo = gson.fromJson(json, type);
         if (playerInfo == null) {
             playerInfo = new ArrayList<>();
