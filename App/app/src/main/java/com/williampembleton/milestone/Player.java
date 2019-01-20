@@ -44,7 +44,7 @@ public class Player {
     }
 
     public static void decreaseHealth(int amount) {
-        playerInfo.set(0,playerInfo.get(0-amount));
+        playerInfo.set(0,playerInfo.get(0) - amount);
 
         //if your health is below or equal to 0
         if(playerInfo.get(0) <= 0)
@@ -55,6 +55,15 @@ public class Player {
             playerInfo.set(0,50);
         }
 
+        savePlayerInfo();
+    }
+
+    public static void increaseHealth(int amount)
+    {
+        health = playerInfo.get(0) + amount;
+        if(health > 50)
+            health = 50;
+        playerInfo.set(0,health);
         savePlayerInfo();
     }
 
