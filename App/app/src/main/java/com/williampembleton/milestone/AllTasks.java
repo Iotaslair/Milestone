@@ -76,7 +76,7 @@ public class AllTasks extends IntentService {
     protected void onHandleIntent(Intent intent) {
         for(Task x: tasks)
         {
-            if(x.getDate().after(new Date()))
+            if(x.getDate().before(new Date()))
             {
                 Log.d("ME TESTING", "Decreased Health");
                 Player.decreaseHealth(1);
