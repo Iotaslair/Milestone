@@ -82,6 +82,8 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         TextView levelText = headerView.findViewById(R.id.playerLevel);
         TextView healthText = headerView.findViewById(R.id.healthText);
         TextView expText = headerView.findViewById(R.id.experienceText);
+        TextView streak = headerView.findViewById(R.id.streak);
+
         healthBar.setProgress(Player.playerInfo.get(0));
         expBar.setProgress(Player.playerInfo.get(1),false);
         expBar.setMax(Player.playerInfo.get(2));
@@ -89,6 +91,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         healthText.setText("" + Player.playerInfo.get(0)+"/50");
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
         expText.setText("" + numberFormat.format(Player.playerInfo.get(1)) + "/" + numberFormat.format(Player.playerInfo.get(2)));
+        streak.setText("Streak: " + Player.playerInfo.get(4));
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);

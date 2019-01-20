@@ -15,6 +15,7 @@ public class Player {
     static int exp = 0;      //1
     static int maxExp = 100; //2
     static int level = 1;    //3
+    static int streak = 0;   //4
     static ArrayList<Integer> playerInfo = new ArrayList<>();
 
     public static void increaseExp(int amount) {
@@ -54,7 +55,8 @@ public class Player {
             //sets health to max (50)
             playerInfo.set(0,50);
         }
-
+        //sets streak to 0
+        playerInfo.set(4,0);
         savePlayerInfo();
     }
 
@@ -65,6 +67,11 @@ public class Player {
             health = 50;
         playerInfo.set(0,health);
         savePlayerInfo();
+    }
+
+    public static void increaseStreak()
+    {
+        playerInfo.set(4,playerInfo.get(4) + 1);
     }
 
     public static void savePlayerInfo() {
@@ -90,7 +97,9 @@ public class Player {
             playerInfo.add(exp);
             playerInfo.add(maxExp);
             playerInfo.add(level);
+            playerInfo.add(streak);
         }
+
         Log.d("Loading player info", playerInfo.toString());
     }
 

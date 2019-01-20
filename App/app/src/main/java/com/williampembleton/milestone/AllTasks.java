@@ -74,14 +74,19 @@ public class AllTasks extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
+        boolean goodDay = true;
         for(Task x: tasks)
         {
             if(x.getDate().before(new Date()))
             {
                 Log.d("ME TESTING", "Decreased Health");
                 Player.decreaseHealth(1);
+                goodDay = false;
             }
         }
+
+        if(goodDay)
+            Player.increaseStreak();
     }
 }
 
