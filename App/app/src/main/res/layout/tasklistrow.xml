@@ -1,135 +1,174 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- This is a single row of the task list activity (This is replicated and changed to show tasks to the user) -->
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?><!-- This is a single row of the task list activity (This is replicated and changed to show tasks to the user) -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="4dp"
-    android:layout_marginTop="3dp"
-    android:layout_marginBottom="2dp">
+    android:orientation="vertical">
 
-    <android.support.constraint.ConstraintLayout
+    <RelativeLayout
+        android:id="@+id/view_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="@color/colorAccent">
 
-        <TextView
-            android:id="@+id/Title"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/delete_icon"
+            android:layout_width="25dp"
             android:layout_height="25dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_weight="1"
-            android:text="Title"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_delete" />
 
         <TextView
-            android:id="@+id/TimeToComplete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="TTC"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/Date"
-            app:layout_constraintTop_toTopOf="@+id/Difficulty" />
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_toStartOf="@id/delete_icon"
+            android:text="Delete"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1" />
 
-        <TextView
-            android:id="@+id/Tag1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Tag1"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Title" />
+    </RelativeLayout>
 
-        <TextView
-            android:id="@+id/Tag2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Tag2"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/Tag1"
-            app:layout_constraintTop_toBottomOf="@+id/Title" />
 
-        <TextView
-            android:id="@+id/Experience"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="xp"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="@+id/Date"
-            app:layout_constraintTop_toBottomOf="@+id/Date" />
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/view_foreground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="2dp"
+        app:cardCornerRadius="4dp">
 
-        <TextView
-            android:id="@+id/Tag3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Tag3"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            android:textSize="18sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Tag1" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/Tag4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Tag4"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/Tag3"
-            app:layout_constraintTop_toBottomOf="@+id/Tag2" />
+            <TextView
+                android:id="@+id/Title"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                android:text="Title"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/Date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="1/1/1970"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toStartOf="@+id/checkBox"
-            app:layout_constraintTop_toBottomOf="@+id/TimeToComplete" />
+            <TextView
+                android:id="@+id/TimeToComplete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TTC"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/Date"
+                app:layout_constraintTop_toTopOf="@+id/Difficulty" />
 
-        <TextView
-            android:id="@+id/Difficulty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="Difficulty"
-            android:textColor="@color/common_google_signin_btn_text_dark_focused"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/Title"
-            app:layout_constraintTop_toTopOf="@+id/Title" />
+            <TextView
+                android:id="@+id/Tag1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Tag1"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Title" />
 
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="33dp"
-            android:layout_marginEnd="16dp"
-            android:scaleX="2"
-            android:scaleY="2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/Tag2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Tag2"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/Tag1"
+                app:layout_constraintTop_toBottomOf="@+id/Title" />
 
-</android.support.v7.widget.CardView>
+            <TextView
+                android:id="@+id/Experience"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="xp"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="@+id/Date"
+                app:layout_constraintTop_toBottomOf="@+id/Date" />
+
+            <TextView
+                android:id="@+id/Tag3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Tag3"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Tag1" />
+
+            <TextView
+                android:id="@+id/Tag4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Tag4"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/Tag3"
+                app:layout_constraintTop_toBottomOf="@+id/Tag2" />
+
+            <TextView
+                android:id="@+id/Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="1/1/1970"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toStartOf="@+id/checkBox"
+                app:layout_constraintTop_toBottomOf="@+id/TimeToComplete" />
+
+            <TextView
+                android:id="@+id/Difficulty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Difficulty"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/Title"
+                app:layout_constraintTop_toTopOf="@+id/Title" />
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="33dp"
+                android:layout_marginEnd="16dp"
+                android:scaleX="2"
+                android:scaleY="2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

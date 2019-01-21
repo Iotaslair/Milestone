@@ -1,6 +1,7 @@
 package com.williampembleton.milestone;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -15,6 +16,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,11 +29,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
-public class TaskListSearched extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class TaskListSearched extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
     private DrawerLayout drawerLayout;
     FloatingActionButton fab = null;
+    TaskAdapter mAdapter = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,24 +64,23 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
             tasksAL.add(iterator.next());
         }
 
-        TaskAdapter adapter = new TaskAdapter(tasksAL);
+        mAdapter = new TaskAdapter(tasksAL);
 
         recyclerView.setLayoutManager(layoutManager);
-        adapter.setViewAndContext(drawerLayout,getApplicationContext());
-        recyclerView.setAdapter(adapter);
+        mAdapter.setViewAndContext(drawerLayout, getApplicationContext());
+        recyclerView.setAdapter(mAdapter);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx,int dy){
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if (dy >0) {
+                if (dy > 0) {
                     // Scroll Down
                     if (fab.isShown()) {
                         fab.hide();
                     }
-                }
-                else if (dy <0) {
+                } else if (dy < 0) {
                     // Scroll Up
                     if (!fab.isShown()) {
                         fab.show();
@@ -84,11 +88,13 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
                 }
             }
         });
+
+        ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
     }
 
     //sets up the fab in the calendar activity
-    public void setupFab()
-    {
+    public void setupFab() {
         fab = findViewById(R.id.fabToNewTask);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,8 +106,7 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
     }
 
     //sets up the navigation drawer (thing you pull in from the left)
-    public void setupDrawer(Bundle savedInstanceState,Toolbar toolbar)
-    {
+    public void setupDrawer(Bundle savedInstanceState, Toolbar toolbar) {
         drawerLayout = findViewById(R.id.drawer_layout);
         final NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -118,14 +123,13 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
         expBar.setMax((int) (Player.playerInfo.get(2) + 0));
         expBar.setProgress((int) (Player.playerInfo.get(1) + 0));
         levelText.setText("Player Level " + Player.playerInfo.get(3));
-        healthText.setText("" + Player.playerInfo.get(0)+"/50");
+        healthText.setText("" + Player.playerInfo.get(0) + "/50");
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
         expText.setText("" + numberFormat.format(Player.playerInfo.get(1)) + "/" + numberFormat.format(Player.playerInfo.get(2)));
         streak.setText("Streak: " + Player.playerInfo.get(4));
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        {
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -141,7 +145,7 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
                 expBar.setMax((int) (Player.playerInfo.get(2) + 0));
                 expBar.setProgress((int) (Player.playerInfo.get(1) + 0));
                 levelText.setText("Player Level " + Player.playerInfo.get(3));
-                healthText.setText("" + Player.playerInfo.get(0)+"/50");
+                healthText.setText("" + Player.playerInfo.get(0) + "/50");
                 NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
                 expText.setText("" + numberFormat.format(Player.playerInfo.get(1)) + "/" + numberFormat.format(Player.playerInfo.get(2)));
                 streak.setText("Streak: " + Player.playerInfo.get(4));
@@ -149,32 +153,31 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
         };
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             navigationView.setCheckedItem(R.id.nav_task_list);
         }
     }
 
-    public void setupStreaks()
-    {
+    public void setupStreaks() {
         Date today = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/ddd/yyyy");;
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/ddd/yyyy");
         String todayString = formatter.format(today);
         Date today2 = null;
         try {
             today2 = formatter.parse(todayString);
-        }catch (Exception e)
-        { Log.d("ME TESTING", "Parse failure in Calendar"); }
+        } catch (Exception e) {
+            Log.d("ME TESTING", "Parse failure in Calendar");
+        }
 
-        if(Player.playerInfo.get(5) != today2.getTime()) {
+        if (Player.playerInfo.get(5) != today2.getTime()) {
             long diff = today2.getTime() - Player.playerInfo.get(5);
             long diffDays = diff / (24 * 60 * 60 * 1000);
-            while(diffDays != 0) {
+            while (diffDays != 0) {
                 AllTasks.streak(getApplicationContext());
                 Log.d("ME TESTING", "Changed streak");
                 diffDays--;
             }
-        }
-        else
+        } else
             Log.d("ME TESTING", "Didn't change streak");
 
         Player.setLastDayIn(today2.getTime());
@@ -225,20 +228,14 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
                 ArrayList<Task> foundTasks = new ArrayList<>();
                 Iterator<Task> allTasks = AllTasks.iterator();
 
-                while(allTasks.hasNext())
-                {
+                while (allTasks.hasNext()) {
                     Task temp = allTasks.next();
-                    if(temp.getTitle().contains(s))
-                    {
+                    if (temp.getTitle().contains(s)) {
                         foundTasks.add(temp);
-                    }
-                    else
-                    {
+                    } else {
                         ArrayList<String> tags = temp.getTags();
-                        for(String tag: tags)
-                        {
-                            if(tag.contains(s))
-                            {
+                        for (String tag : tags) {
+                            if (tag.contains(s)) {
                                 foundTasks.add(temp);
                                 break;
                             }
@@ -246,10 +243,9 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
                     }
                 }
 
-                if(foundTasks.isEmpty())
+                if (foundTasks.isEmpty())
                     Snackbar.make(drawerLayout, "Couldn't find any tasks with that name or tasks with that tag", Snackbar.LENGTH_LONG).show();
-                else
-                {
+                else {
                     AllTasks.setSearchableTasks(foundTasks);
                     Intent intent = new Intent(TaskListSearched.this, TaskListSearched.class);
                     startActivity(intent);
@@ -283,5 +279,33 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
+        if (viewHolder instanceof TaskAdapter.ViewHolder) {
 
+            // get the removed item name to display it in snack bar
+            List<Task> cartList = AllTasks.getList();
+            String name = cartList.get(viewHolder.getAdapterPosition()).getTitle();
+
+            // backup of removed item for undo purpose
+            final Task deletedItem = cartList.get(viewHolder.getAdapterPosition());
+            final int deletedIndex = viewHolder.getAdapterPosition();
+
+            // remove the item from recycler view
+            mAdapter.removeAt(viewHolder.getAdapterPosition());
+
+            // showing snack bar with Undo option
+            Snackbar snackbar = Snackbar.make(drawerLayout, name + " removed from Task List", Snackbar.LENGTH_LONG);
+            snackbar.setAction("UNDO", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // undo is selected, restore the deleted item
+                    mAdapter.restoreItem(deletedItem, deletedIndex);
+                }
+            });
+            snackbar.setActionTextColor(Color.RED);
+            snackbar.show();
+        }
+    }
 }

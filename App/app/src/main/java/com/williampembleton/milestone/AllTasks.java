@@ -32,6 +32,12 @@ public class AllTasks {
         saveTasks();
     }
 
+    public static void addTask(int position, Task inTask)
+    {
+        tasks.add(position, inTask);
+        saveTasks();
+    }
+
     private static void saveTasks()
     {
         SharedPreferences sharedPreferences = Calendar.sharedPreferences;

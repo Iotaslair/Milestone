@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +24,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
     private OnItemClickListener mListener;
     private View view = null;
     private Context context = null;
-
+    ArrayList<Task> tasks = null;
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -36,9 +38,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
         TextView tag3;
         TextView tag4;
         CheckBox checkBox;
+        public RelativeLayout viewBackground;
+        public CardView viewForeground;
 
         public ViewHolder(@NonNull View itemView, final OnItemClickListener listener) {
             super(itemView);
+
             title = itemView.findViewById(R.id.Title);
             date = itemView.findViewById(R.id.Date);
             ttc = itemView.findViewById(R.id.TimeToComplete);
@@ -49,6 +54,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
             tag3 = itemView.findViewById(R.id.Tag3);
             tag4 = itemView.findViewById(R.id.Tag4);
             checkBox = itemView.findViewById(R.id.checkBox);
+            viewBackground = itemView.findViewById(R.id.view_background);
+            viewForeground = itemView.findViewById(R.id.view_foreground);
+
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -102,11 +110,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
             });
         }
 
-        public void removeAt(int position)
-        {
-            AllTasks.removeTask(AllTasks.getTask(position));
-            notifyItemRemoved(position);
-        }
+
     }
 
     public interface OnItemClickListener {
@@ -116,8 +120,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
-
-    ArrayList<Task> tasks = null;
 
     @NonNull
     @Override
@@ -169,12 +171,24 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
         try {viewHolder.tag4.setText(task[8]); } catch (Exception e) {viewHolder.tag4.setText(""); }
     }
 
-
-
     public TaskAdapter(ArrayList<Task> tasks) { this.tasks = tasks;}
 
     @Override
     public int getItemCount() {return AllTasks.size();}
+
+    public void removeAt(int position)
+    {
+        tasks.remove(AllTasks.getTask(position));
+        AllTasks.removeTask(AllTasks.getTask(position));
+        notifyItemRemoved(position);
+    }
+
+    public void restoreItem(Task item, int position) {
+        AllTasks.addTask(position, item);
+        tasks.add(position,item);
+        // notify item added by position
+        notifyItemInserted(position);
+    }
 
 
 }
