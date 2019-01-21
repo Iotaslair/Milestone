@@ -50,8 +50,12 @@ public class Player {
         //if your health is below or equal to 0
         if(playerInfo.get(0) <= 0)
         {
-            //decrease level by 5 if you die
-            playerInfo.set(3,playerInfo.get(3) - 5);
+            if(playerInfo.get(3) > 5) {
+                //decrease level by 5 if you die
+                playerInfo.set(3, playerInfo.get(3) - 5);
+            }else {
+                playerInfo.set(3, 1);
+            }
             //sets health to max (50)
             playerInfo.set(0,50);
         }
@@ -72,6 +76,9 @@ public class Player {
     public static void increaseStreak()
     {
         playerInfo.set(4,playerInfo.get(4) + 1);
+        Log.d("ME TESTING", "Increased Streak");
+        savePlayerInfo();
+
     }
 
     public static void savePlayerInfo() {
