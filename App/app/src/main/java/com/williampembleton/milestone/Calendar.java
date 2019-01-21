@@ -63,7 +63,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         setupCalendar();
         setupTodaySetter();
         setupArrows();
-        scheduleAlarm();
+        setupStreaks();
     }
 
     //sets up the fab in the calendar activity
@@ -108,9 +108,9 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         TextView expText = headerView.findViewById(R.id.experienceText);
         TextView streak = headerView.findViewById(R.id.streak);
 
-        healthBar.setProgress(Player.playerInfo.get(0));
-        expBar.setProgress(Player.playerInfo.get(1),false);
-        expBar.setMax(Player.playerInfo.get(2));
+        healthBar.setProgress((int) (Player.playerInfo.get(0) + 0));
+        expBar.setProgress((int) (Player.playerInfo.get(1) + 0),false);
+        expBar.setMax((int) (Player.playerInfo.get(2) + 0));
         levelText.setText("Player Level " + Player.playerInfo.get(3));
         healthText.setText("" + Player.playerInfo.get(0)+"/50");
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
@@ -229,20 +229,23 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         });
     }
 
-    // Setup a recurring alarm every half hour
-    public void scheduleAlarm() {
-        // Construct an intent that will execute the AlarmReceiver
-        Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
-        // Create a PendingIntent to be triggered when the alarm goes off
-        final PendingIntent pIntent = PendingIntent.getBroadcast(this, AlarmReceiver.REQUEST_CODE,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        // Setup periodic alarm every day from this point onwards
-        long firstMillis = System.currentTimeMillis(); // alarm is set right away
-        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        // First parameter is the type: ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC_WAKEUP
-        // Interval can be INTERVAL_FIFTEEN_MINUTES, INTERVAL_HALF_HOUR, INTERVAL_HOUR, INTERVAL_DAY
-        alarm.setInexactRepeating(AlarmManager.RTC_WAKEUP, firstMillis,
-                AlarmManager.INTERVAL_FIFTEEN_MINUTES, pIntent);
+    public void setupStreaks()
+    {
+        Date today = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/ddd/yyyy");;
+        String todayString = formatter.format(today);
+        Date today2 = null;
+        try {
+            today2 = formatter.parse(todayString);
+        }catch (Exception e)
+        { Log.d("ME TESTING", "Parse failure in Calendar"); }
+
+        if(Player.playerInfo.get(5) != today2.getTime()) {
+            AllTasks.streak();
+        }
+
+        Player.setLastDayIn(today2.getTime());
+
     }
 
 

@@ -12,7 +12,7 @@ import java.util.Iterator;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class AllTasks extends IntentService {
+public class AllTasks {
 
     static ArrayList<Task> tasks = new ArrayList<>();
     static ArrayList<Task> searchableTasks = new ArrayList<>();
@@ -21,7 +21,6 @@ public class AllTasks extends IntentService {
 
     public AllTasks()
     {
-        super("AllTasks");
     }
 
 
@@ -72,8 +71,7 @@ public class AllTasks extends IntentService {
 
     public static ArrayList<Task> getList(){return tasks;}
 
-    @Override
-    protected void onHandleIntent(Intent intent) {
+    public static void streak() {
         boolean goodDay = true;
         for(Task x: tasks)
         {

@@ -109,9 +109,9 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
         TextView expText = headerView.findViewById(R.id.experienceText);
         TextView streak = headerView.findViewById(R.id.streak);
 
-        healthBar.setProgress(Player.playerInfo.get(0));
-        expBar.setProgress(Player.playerInfo.get(1),false);
-        expBar.setMax(Player.playerInfo.get(2));
+        healthBar.setProgress((int) (Player.playerInfo.get(0) + 0));
+        expBar.setProgress((int) (Player.playerInfo.get(1) + 0),false);
+        expBar.setMax((int) (Player.playerInfo.get(2) + 0));
         levelText.setText("Player Level " + Player.playerInfo.get(3));
         healthText.setText("" + Player.playerInfo.get(0)+"/50");
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
