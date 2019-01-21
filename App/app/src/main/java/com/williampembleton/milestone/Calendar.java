@@ -241,8 +241,13 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         { Log.d("ME TESTING", "Parse failure in Calendar"); }
 
         if(Player.playerInfo.get(5) != today2.getTime()) {
-            AllTasks.streak();
-            Log.d("ME TESTING", "Changed streak");
+            long diff = today2.getTime() - Player.playerInfo.get(5);
+            long diffDays = diff / (24 * 60 * 60 * 1000);
+            while(diffDays != 0) {
+                AllTasks.streak(getApplicationContext());
+                Log.d("ME TESTING", "Changed streak");
+                diffDays--;
+            }
         }
         else
             Log.d("ME TESTING", "Didn't change streak");

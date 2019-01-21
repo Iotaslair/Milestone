@@ -1,8 +1,10 @@
 package com.williampembleton.milestone;
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -71,20 +73,23 @@ public class AllTasks {
 
     public static ArrayList<Task> getList(){return tasks;}
 
-    public static void streak() {
-        boolean goodDay = true;
+    public static void streak(Context context) {
+        int goodDay = 0;
         for(Task x: tasks)
         {
             if(x.getDate().before(new Date()))
             {
                 Log.d("ME TESTING", "Decreased Health");
                 Player.decreaseHealth(1);
-                goodDay = false;
+                goodDay++;
             }
         }
 
-        if(goodDay)
+        if(goodDay == 0)
             Player.increaseStreak();
+        else
+            Toast.makeText(context, "You take " + goodDay + " damage from failed tasks", Toast.LENGTH_LONG).show();
+
     }
 }
 

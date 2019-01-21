@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -45,6 +46,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         setupDate();
         setupSpinner();
         setupDrawer(savedInstanceState,toolbar);
+        setupStreaks();
 
     }
 
@@ -100,6 +102,33 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         if(savedInstanceState == null) {
             navigationView.setCheckedItem(R.id.nav_new_task);
         }
+    }
+
+    public void setupStreaks()
+    {
+        Date today = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/ddd/yyyy");;
+        String todayString = formatter.format(today);
+        Date today2 = null;
+        try {
+            today2 = formatter.parse(todayString);
+        }catch (Exception e)
+        { Log.d("ME TESTING", "Parse failure in New Task"); }
+
+        if(Player.playerInfo.get(5) != today2.getTime()) {
+            long diff = today2.getTime() - Player.playerInfo.get(5);
+            long diffDays = diff / (24 * 60 * 60 * 1000);
+            while(diffDays != 0) {
+                AllTasks.streak(getApplicationContext());
+                Log.d("ME TESTING", "Changed streak");
+                diffDays--;
+            }
+        }
+        else
+            Log.d("ME TESTING", "Didn't change streak");
+
+        Player.setLastDayIn(today2.getTime());
+
     }
 
     //this is what happens when someone clicks the save button (does a bunch of checks to make sure the task is valid

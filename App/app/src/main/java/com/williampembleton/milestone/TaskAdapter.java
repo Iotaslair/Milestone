@@ -85,13 +85,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
                         public void onFinish() {
                             Player.increaseExp(AllTasks.getTask(getAdapterPosition()).getExperience());
                             removeAt(getAdapterPosition());
-                            Player.savePlayerInfo();
                             if((int) (Math.random() * 25 ) == 0)
                             {
                                 int heal = (int) (Math.random() * 5 + 2);
                                 Toast.makeText(context, "You found a health potion and healed " + heal + " health", Toast.LENGTH_SHORT).show();
                                 Player.increaseHealth(heal);
                             }
+                            Player.savePlayerInfo();
                         }
                     }.start();
 

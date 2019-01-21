@@ -72,7 +72,6 @@ public class Player {
         if(health > 50)
             health = 50;
         playerInfo.set(0,(long) health);
-        savePlayerInfo();
     }
 
     public static void increaseStreak()

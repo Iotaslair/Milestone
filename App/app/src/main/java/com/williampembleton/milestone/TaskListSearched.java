@@ -15,6 +15,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +23,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Locale;
 
@@ -40,6 +43,7 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
         setupRecyclerView();
         setupFab();
         setupDrawer(savedInstanceState, toolbar);
+        setupStreaks();
 
     }
 
@@ -126,6 +130,34 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
             navigationView.setCheckedItem(R.id.nav_task_list);
         }
     }
+
+    public void setupStreaks()
+    {
+        Date today = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/ddd/yyyy");;
+        String todayString = formatter.format(today);
+        Date today2 = null;
+        try {
+            today2 = formatter.parse(todayString);
+        }catch (Exception e)
+        { Log.d("ME TESTING", "Parse failure in Calendar"); }
+
+        if(Player.playerInfo.get(5) != today2.getTime()) {
+            long diff = today2.getTime() - Player.playerInfo.get(5);
+            long diffDays = diff / (24 * 60 * 60 * 1000);
+            while(diffDays != 0) {
+                AllTasks.streak(getApplicationContext());
+                Log.d("ME TESTING", "Changed streak");
+                diffDays--;
+            }
+        }
+        else
+            Log.d("ME TESTING", "Didn't change streak");
+
+        Player.setLastDayIn(today2.getTime());
+
+    }
+
     //used for navigation menu so when something is clicked I can do stuff with it
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
