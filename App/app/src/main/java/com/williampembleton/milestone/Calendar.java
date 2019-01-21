@@ -242,7 +242,10 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
 
         if(Player.playerInfo.get(5) != today2.getTime()) {
             AllTasks.streak();
+            Log.d("ME TESTING", "Changed streak");
         }
+        else
+            Log.d("ME TESTING", "Didn't change streak");
 
         Player.setLastDayIn(today2.getTime());
 

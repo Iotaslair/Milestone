@@ -97,7 +97,7 @@ public class Player {
         SharedPreferences sharedPreferences = Calendar.sharedPreferences;
         Gson gson = new Gson();
         String json = sharedPreferences.getString("player info", null);
-        Type type = new TypeToken<ArrayList<Integer>>() {
+        Type type = new TypeToken<ArrayList<Long>>() {
         }.getType();
         playerInfo = gson.fromJson(json, type);
         if (playerInfo == null) {
@@ -118,6 +118,4 @@ public class Player {
         playerInfo.set(5,time);
         savePlayerInfo();
     }
-
-
 }
