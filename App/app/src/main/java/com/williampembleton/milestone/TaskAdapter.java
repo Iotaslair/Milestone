@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,6 +85,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
 
                         public void onFinish() {
                             Player.increaseExp(AllTasks.getTask(getAdapterPosition()).getExperience());
+                            Log.d("ME TESTING", "Completed Task " + AllTasks.getTask(getAdapterPosition()).getTitle());
                             removeAt(getAdapterPosition());
                             if((int) (Math.random() * 25 ) == 0)
                             {
@@ -92,6 +94,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
                                 Player.increaseHealth(heal);
                             }
                             Player.savePlayerInfo();
+
                         }
                     }.start();
 

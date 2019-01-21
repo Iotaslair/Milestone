@@ -100,7 +100,8 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     //sets up the navigation drawer (thing you pull in from the left)
-    public void setupDrawer(Bundle savedInstanceState, Toolbar toolbar) {
+    public void setupDrawer(Bundle savedInstanceState,Toolbar toolbar)
+    {
         drawerLayout = findViewById(R.id.drawer_layout);
         final NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -114,8 +115,8 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
         TextView streak = headerView.findViewById(R.id.streak);
 
         healthBar.setProgress((int) (Player.playerInfo.get(0) + 0));
-        expBar.setProgress((int) (Player.playerInfo.get(1) + 0),false);
         expBar.setMax((int) (Player.playerInfo.get(2) + 0));
+        expBar.setProgress((int) (Player.playerInfo.get(1) + 0));
         levelText.setText("Player Level " + Player.playerInfo.get(3));
         healthText.setText("" + Player.playerInfo.get(0)+"/50");
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
@@ -123,10 +124,32 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
         streak.setText("Streak: " + Player.playerInfo.get(4));
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                View headerView = navigationView.getHeaderView(0);
+                ProgressBar healthBar = headerView.findViewById(R.id.healthBar);
+                ProgressBar expBar = headerView.findViewById(R.id.expBar);
+                TextView levelText = headerView.findViewById(R.id.playerLevel);
+                TextView healthText = headerView.findViewById(R.id.healthText);
+                TextView expText = headerView.findViewById(R.id.experienceText);
+                TextView streak = headerView.findViewById(R.id.streak);
+
+                healthBar.setProgress((int) (Player.playerInfo.get(0) + 0));
+                expBar.setMax((int) (Player.playerInfo.get(2) + 0));
+                expBar.setProgress((int) (Player.playerInfo.get(1) + 0));
+                levelText.setText("Player Level " + Player.playerInfo.get(3));
+                healthText.setText("" + Player.playerInfo.get(0)+"/50");
+                NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
+                expText.setText("" + numberFormat.format(Player.playerInfo.get(1)) + "/" + numberFormat.format(Player.playerInfo.get(2)));
+                streak.setText("Streak: " + Player.playerInfo.get(4));
+            }
+        };
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        if (savedInstanceState == null) {
+        if(savedInstanceState == null) {
             navigationView.setCheckedItem(R.id.nav_task_list);
         }
     }

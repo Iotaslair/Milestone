@@ -17,7 +17,7 @@ public class Player {
     static int maxExp = 100; //2
     static int level = 1;    //3
     static int streak = 0;   //4
-    static long lastDayIn = 0;//5
+    static long lastDayIn = new Date().getTime();//5
     static ArrayList<Long> playerInfo = new ArrayList<>();
 
     public static void increaseExp(int amount) {
@@ -93,6 +93,9 @@ public class Player {
     }
 
     public static void loadPlayerInfo() {
+        //SharedPreferences settings = Calendar.sharedPreferences;
+        //settings.edit().clear().commit();
+
         SharedPreferences sharedPreferences = Calendar.sharedPreferences;
         Gson gson = new Gson();
         String json = sharedPreferences.getString("player info", null);

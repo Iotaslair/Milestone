@@ -87,8 +87,8 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         TextView streak = headerView.findViewById(R.id.streak);
 
         healthBar.setProgress((int) (Player.playerInfo.get(0) + 0));
-        expBar.setProgress((int) (Player.playerInfo.get(1) + 0),false);
         expBar.setMax((int) (Player.playerInfo.get(2) + 0));
+        expBar.setProgress((int) (Player.playerInfo.get(1) + 0));
         levelText.setText("Player Level " + Player.playerInfo.get(3));
         healthText.setText("" + Player.playerInfo.get(0)+"/50");
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
@@ -96,7 +96,29 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         streak.setText("Streak: " + Player.playerInfo.get(4));
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+        {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                View headerView = navigationView.getHeaderView(0);
+                ProgressBar healthBar = headerView.findViewById(R.id.healthBar);
+                ProgressBar expBar = headerView.findViewById(R.id.expBar);
+                TextView levelText = headerView.findViewById(R.id.playerLevel);
+                TextView healthText = headerView.findViewById(R.id.healthText);
+                TextView expText = headerView.findViewById(R.id.experienceText);
+                TextView streak = headerView.findViewById(R.id.streak);
+
+                healthBar.setProgress((int) (Player.playerInfo.get(0) + 0));
+                expBar.setMax((int) (Player.playerInfo.get(2) + 0));
+                expBar.setProgress((int) (Player.playerInfo.get(1) + 0));
+                levelText.setText("Player Level " + Player.playerInfo.get(3));
+                healthText.setText("" + Player.playerInfo.get(0)+"/50");
+                NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
+                expText.setText("" + numberFormat.format(Player.playerInfo.get(1)) + "/" + numberFormat.format(Player.playerInfo.get(2)));
+                streak.setText("Streak: " + Player.playerInfo.get(4));
+            }
+        };
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         if(savedInstanceState == null) {
@@ -206,8 +228,8 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             double TTC = 0.0;
             try {
                 TTC = Double.parseDouble(timeString);
-                if(TTC > 3) {
-                    Snackbar.make(drawerLayout, "Try separating this task into separate tasks", Snackbar.LENGTH_LONG).show();
+                if(TTC > 8) {
+                    Snackbar.make(drawerLayout, "Task is too long, either try separating this task into smaller chunks or using a tag", Snackbar.LENGTH_LONG).show();
                     //Toast.makeText(getApplicationContext(), "Try separating this task into separate tasks", Toast.LENGTH_LONG).show();
                     return;
                 }
