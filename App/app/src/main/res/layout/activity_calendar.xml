@@ -30,14 +30,14 @@
             app:layout_constraintTop_toBottomOf="@+id/app_bar" />
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
             android:id="@+id/today"
+            android:layout_width="27dp"
+            android:layout_height="27dp"
             android:layout_marginEnd="24dp"
+            android:contentDescription="Button to go to today on the calendar"
             android:src="@drawable/ic_today"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/month"
-            android:contentDescription="Button to go to today on the calendar"/>
+            app:layout_constraintTop_toTopOf="@+id/month" />
 
         <com.github.sundeepk.compactcalendarview.CompactCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/compactcalendar_view"
