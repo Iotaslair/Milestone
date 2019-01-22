@@ -50,11 +50,11 @@ Today I spent most of the morning tracking down a weird bug that healed you when
 To Do: 
 Health potion 
 
+Firebase
 Refactor
-Google Play achievements
 Roboto font everywhere
+Achievements?
 Write Readme
-check difference between TaskList and TaskListScheduled
 Release app
 
 TELL PEOPLE TO NOT CHANGE DATE ON PHONE, WILL BRICK APP
