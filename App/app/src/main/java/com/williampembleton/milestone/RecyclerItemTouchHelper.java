@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
+//I don't know how everything works in here but it's used to delete tasks when swiped
+//https://www.androidhive.info/2017/09/android-recyclerview-swipe-delete-undo-using-itemtouchhelper/
 public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback{
 
     private RecyclerItemTouchHelperListener listener;

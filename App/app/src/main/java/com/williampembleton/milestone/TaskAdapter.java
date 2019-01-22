@@ -4,14 +4,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,14 +19,15 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
+//sets up the rows for the recyclerview on TaskList and TaskListSearched
+public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     private OnItemClickListener mListener;
     private View view = null;
     private Context context = null;
     ArrayList<Task> tasks = null;
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView title;
         TextView date;
         TextView ttc;
@@ -74,7 +74,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
                 public void onClick(View view) {
 
                     /*
-                    How to do animations, turn out I couldn't get them done
+                    How to do animations, turn out I couldn't get them done in time
                     Animation meme = AnimationUtils.loadAnimation(context,R.anim.mixed_anim);
                     Animation animation = AnimationUtils.loadAnimation(context,R.anim.zoomout);
 
@@ -95,10 +95,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
                             Player.increaseExp(AllTasks.getTask(getAdapterPosition()).getExperience());
                             Log.d("ME TESTING", "Completed Task " + AllTasks.getTask(getAdapterPosition()).getTitle());
                             removeAt(getAdapterPosition());
-                            if((int) (Math.random() * 25 ) == 0)
-                            {
+                            if ((int) (Math.random() * 25) == 0) {
                                 int heal = (int) (Math.random() * 5 + 2);
-                                Toast.makeText(context, "You found a health potion and healed " + heal + " health", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "You found a health potion and healed " + heal + " health", Toast.LENGTH_LONG).show();
                                 Player.increaseHealth(heal);
                             }
                             Player.savePlayerInfo();
@@ -129,6 +128,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
         return vh;
     }
 
+
     public void setViewAndContext(View view, Context context) {
         this.view = view;
         this.context = context;
@@ -148,14 +148,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
         Date currentDate = new Date();
         Date convertedDate = currentItem.getDate();
         //adds one to the day so that players aren't punished as soon the day starts
-        long plusOneDay = convertedDate.getTime() + (24*60*60*1000);
-        Date convertedDatePlusOne=new Date(plusOneDay);
+        long plusOneDay = convertedDate.getTime() + (24 * 60 * 60 * 1000);
+        Date convertedDatePlusOne = new Date(plusOneDay);
 
         if (currentDate.after(convertedDatePlusOne)) {
             //past due
             viewHolder.date.setTextColor(Color.RED);
-        }
-        else {
+        } else {
             //on time
             viewHolder.date.setTextColor(Color.BLACK);
         }
@@ -171,22 +170,26 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder>{
         try {viewHolder.tag4.setText(task[8]); } catch (Exception e) {viewHolder.tag4.setText(""); }
     }
 
-    public TaskAdapter(ArrayList<Task> tasks) { this.tasks = tasks;}
+    public TaskAdapter(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
 
     @Override
-    public int getItemCount() {return AllTasks.size();}
+    public int getItemCount() {
+        return AllTasks.size();
+    }
 
-    public void removeAt(int position)
-    {
+    //removes a task at that position (used when deleting a task and the task is marked as completed)
+    public void removeAt(int position) {
         tasks.remove(AllTasks.getTask(position));
         AllTasks.removeTask(AllTasks.getTask(position));
         notifyItemRemoved(position);
     }
 
-    public void restoreItem(Task item, int position) {
-        AllTasks.addTask(position, item);
-        tasks.add(position,item);
-        // notify item added by position
+    //restores a task (used for undo when a task is deleted then undo is clicked
+    public void restoreItem(Task task, int position) {
+        AllTasks.addTask(position, task);
+        tasks.add(position, task);
         notifyItemInserted(position);
     }
 

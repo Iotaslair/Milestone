@@ -158,6 +158,7 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
         }
     }
 
+    //does some logic to see if today is a different day than the last time the app opened
     public void setupStreaks() {
         Date today = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("MM/ddd/yyyy");
@@ -215,6 +216,7 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
             super.onBackPressed();
     }
 
+    //sets up the little search icon and launches TaskList when a search is found
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -264,6 +266,7 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
         return true;
     }
 
+    //needed to get search working
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -279,6 +282,7 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
         return super.onOptionsItemSelected(item);
     }
 
+    //run when a user swipes a task and tries to delete it
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
         if (viewHolder instanceof TaskAdapter.ViewHolder) {

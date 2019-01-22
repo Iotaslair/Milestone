@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Task{
+public class Task {
     private String title;
     private Date date;
     private ArrayList<String> tags;
@@ -15,8 +15,7 @@ public class Task{
     private double timeToComplete;
     private int experience;
 
-    public Task(String title, Date date, ArrayList<String> tags, String difficulty, double timeToComplete)
-    {
+    public Task(String title, Date date, ArrayList<String> tags, String difficulty, double timeToComplete) {
         this.title = title;
         this.date = date;
         this.tags = tags;
@@ -28,40 +27,20 @@ public class Task{
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public Date getDate() {
         return date;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
     }
 
     public ArrayList<String> getTags() {
         return tags;
     }
 
-    public void setTags(ArrayList<String> tags) {
-        this.tags = tags;
-    }
-
     public String getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(String difficulty) {
-        this.difficulty = difficulty;
-    }
-
     public double getTimeToComplete() {
         return timeToComplete;
-    }
-
-    public void setTimeToComplete(double timeToComplete) {
-        this.timeToComplete = timeToComplete;
     }
 
     public int getExperience() {
@@ -72,10 +51,9 @@ public class Task{
         this.experience = experience;
     }
 
-    public int getIntDifficulty(Context context)
-    {
-        switch (difficulty)
-        {
+    //gets an integer version of difficulty, used in calculations for xp
+    public int getIntDifficulty(Context context) {
+        switch (difficulty) {
             case "Easy":
                 return 1;
             case "Semi-Easy":
@@ -92,17 +70,16 @@ public class Task{
         }
     }
 
-    public String toString()
-    {
+    //used in a few different places, mostly used to transfer data between activities about a task
+    public String toString() {
         String datePattern = "MM/dd/yy";
         SimpleDateFormat formatter = new SimpleDateFormat(datePattern);
         String str = getTitle() + "∟";
         Date dueDate = getDate();
         str = str + formatter.format(dueDate);
-        str = str + "∟"+ getTimeToComplete() + "∟" + getDifficulty() + "∟" + getExperience() + "∟";
-        for(int i = 0; i < tags.size(); i++)
-        {
-            str = str + tags.get(i) +"∟";
+        str = str + "∟" + getTimeToComplete() + "∟" + getDifficulty() + "∟" + getExperience() + "∟";
+        for (int i = 0; i < tags.size(); i++) {
+            str = str + tags.get(i) + "∟";
         }
         return str;
     }

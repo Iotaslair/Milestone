@@ -20,6 +20,7 @@ public class Player {
     static long lastDayIn = new Date().getTime();//5
     static ArrayList<Long> playerInfo = new ArrayList<>();
 
+    //increases the player's xp (called when task is checked off
     public static void increaseExp(int amount) {
         //increase xp by amount
         playerInfo.set(1, playerInfo.get(1) + amount);
@@ -37,7 +38,7 @@ public class Player {
                 playerInfo.set(2, (long) (Math.pow(playerInfo.get(3), 1.2) * 100));
 
                 //increases health
-                playerInfo.set(0, playerInfo.get(0) + 10);
+                increaseHealth(10);
                 //so it doesn't go too high
                 if (playerInfo.get(0) > 50)
                     playerInfo.set(0, (long) 50);
@@ -46,42 +47,44 @@ public class Player {
         savePlayerInfo();
     }
 
+    //decreases the player's health, called by AllTasks.streak to punish players for failing tasks
     public static void decreaseHealth(int amount) {
-        playerInfo.set(0,playerInfo.get(0) - amount);
+        //decreases the health amount
+        playerInfo.set(0, playerInfo.get(0) - amount);
 
         //if your health is below or equal to 0
-        if(playerInfo.get(0) <= 0)
-        {
-            if(playerInfo.get(3) > 5) {
+        if (playerInfo.get(0) <= 0) {
+            if (playerInfo.get(3) > 5) {
                 //decrease level by 5 if you die
                 playerInfo.set(3, playerInfo.get(3) - 5);
-            }else {
+            } else {
+                //if you're below lvl 5 sets your level to 1
                 playerInfo.set(3, (long) 1);
             }
             //sets health to max (50)
-            playerInfo.set(0,(long) 50);
+            playerInfo.set(0, (long) 50);
         }
         //sets streak to 0
-        playerInfo.set(4,(long) 0);
+        playerInfo.set(4, (long) 0);
         savePlayerInfo();
     }
 
-    public static void increaseHealth(int amount)
-    {
+    //increases the player's health
+    public static void increaseHealth(int amount) {
         health = (int) (playerInfo.get(0) + amount);
-        if(health > 50)
+        if (health > 50)
             health = 50;
-        playerInfo.set(0,(long) health);
+        playerInfo.set(0, (long) health);
     }
 
-    public static void increaseStreak()
-    {
-        playerInfo.set(4,playerInfo.get(4) + 1);
-        Log.d("ME TESTING", "Increased Streak " + new Date());
+    //increases the player's streak (days they had no tasks past due
+    public static void increaseStreak() {
+        playerInfo.set(4, playerInfo.get(4) + 1);
         savePlayerInfo();
 
     }
 
+    //saves the player's info so when the app closes it keeps the information saved
     public static void savePlayerInfo() {
         SharedPreferences sharedPreferences = Calendar.sharedPreferences;
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -92,6 +95,7 @@ public class Player {
         Log.d("Saving player info", playerInfo.toString());
     }
 
+    //loads the players info into playerInfo
     public static void loadPlayerInfo() {
         //SharedPreferences settings = Calendar.sharedPreferences;
         //settings.edit().clear().commit();
@@ -115,9 +119,9 @@ public class Player {
         Log.d("Loading player info", playerInfo.toString());
     }
 
-    public static void setLastDayIn(long time)
-    {
-        playerInfo.set(5,time);
+    //called by ActivityName.setupStreak to change the last time the player logged in
+    public static void setLastDayIn(long time) {
+        playerInfo.set(5, time);
         savePlayerInfo();
     }
 }

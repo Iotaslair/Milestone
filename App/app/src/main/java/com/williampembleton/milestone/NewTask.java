@@ -30,7 +30,7 @@ import java.util.GregorianCalendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class NewTask extends AppCompatActivity implements AdapterView.OnItemSelectedListener, NavigationView.OnNavigationItemSelectedListener{
+public class NewTask extends AppCompatActivity implements AdapterView.OnItemSelectedListener, NavigationView.OnNavigationItemSelectedListener {
 
     String difficulty = "";
     private DrawerLayout drawerLayout;
@@ -45,13 +45,13 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
 
         setupDate();
         setupSpinner();
-        setupDrawer(savedInstanceState,toolbar);
+        setupDrawer(savedInstanceState, toolbar);
         setupStreaks();
 
     }
 
-    public void setupDate()
-    {
+    //sets up the date text to tomorrow
+    public void setupDate() {
         EditText dueDate = findViewById(R.id.DueDate);
         java.util.Calendar currentDate = GregorianCalendar.getInstance();
         String dueDateString = "" + (1 + currentDate.get(java.util.Calendar.MONTH)) + "/";
@@ -61,19 +61,17 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
     }
 
     //sets up the spinner (difficulty)
-    public void setupSpinner()
-    {
+    public void setupSpinner() {
         //sets up the spinner
         Spinner spinner = findViewById(R.id.DifficultySelector);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.difficultyList,android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.difficultyList, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
     }
 
     //sets up the navigation drawer (thing you pull in from the left)
-    public void setupDrawer(Bundle savedInstanceState,Toolbar toolbar)
-    {
+    public void setupDrawer(Bundle savedInstanceState, Toolbar toolbar) {
         drawerLayout = findViewById(R.id.drawer_layout);
         final NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -90,14 +88,13 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         expBar.setMax((int) (Player.playerInfo.get(2) + 0));
         expBar.setProgress((int) (Player.playerInfo.get(1) + 0));
         levelText.setText("Player Level " + Player.playerInfo.get(3));
-        healthText.setText("" + Player.playerInfo.get(0)+"/50");
+        healthText.setText("" + Player.playerInfo.get(0) + "/50");
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
         expText.setText("" + numberFormat.format(Player.playerInfo.get(1)) + "/" + numberFormat.format(Player.playerInfo.get(2)));
         streak.setText("Streak: " + Player.playerInfo.get(4));
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        {
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -113,7 +110,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
                 expBar.setMax((int) (Player.playerInfo.get(2) + 0));
                 expBar.setProgress((int) (Player.playerInfo.get(1) + 0));
                 levelText.setText("Player Level " + Player.playerInfo.get(3));
-                healthText.setText("" + Player.playerInfo.get(0)+"/50");
+                healthText.setText("" + Player.playerInfo.get(0) + "/50");
                 NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
                 expText.setText("" + numberFormat.format(Player.playerInfo.get(1)) + "/" + numberFormat.format(Player.playerInfo.get(2)));
                 streak.setText("Streak: " + Player.playerInfo.get(4));
@@ -121,32 +118,32 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         };
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             navigationView.setCheckedItem(R.id.nav_new_task);
         }
     }
 
-    public void setupStreaks()
-    {
+    //does some logic to see if today is a different day than the last time the app opened
+    public void setupStreaks() {
         Date today = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/ddd/yyyy");;
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/ddd/yyyy");
         String todayString = formatter.format(today);
         Date today2 = null;
         try {
             today2 = formatter.parse(todayString);
-        }catch (Exception e)
-        { Log.d("ME TESTING", "Parse failure in New Task"); }
+        } catch (Exception e) {
+            Log.d("ME TESTING", "Parse failure in New Task");
+        }
 
-        if(Player.playerInfo.get(5) != today2.getTime()) {
+        if (Player.playerInfo.get(5) != today2.getTime()) {
             long diff = today2.getTime() - Player.playerInfo.get(5);
             long diffDays = diff / (24 * 60 * 60 * 1000);
-            while(diffDays != 0) {
+            while (diffDays != 0) {
                 AllTasks.streak(getApplicationContext());
                 Log.d("ME TESTING", "Changed streak");
                 diffDays--;
             }
-        }
-        else
+        } else
             Log.d("ME TESTING", "Didn't change streak");
 
         Player.setLastDayIn(today2.getTime());
@@ -154,98 +151,89 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
     }
 
     //this is what happens when someone clicks the save button (does a bunch of checks to make sure the task is valid
-    public void saveTask(View view)
-    {
+    public void saveTask(View view) {
         //Title
-            TextView titleView = findViewById(R.id.TaskName);
-            String title =  titleView.getText().toString();
-            if(TextUtils.isEmpty(title))
-            {
-                Snackbar.make(drawerLayout, "Title empty", Snackbar.LENGTH_LONG).show();
-                //Toast.makeText(getApplicationContext(), "Title empty", Toast.LENGTH_LONG).show();
-                return;
-            }
+        TextView titleView = findViewById(R.id.TaskName);
+        String title = titleView.getText().toString();
+        if (TextUtils.isEmpty(title)) {
+            Snackbar.make(drawerLayout, "Title empty", Snackbar.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Title empty", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         //Date work and checking for reasonable dates
-            EditText dueDate = findViewById(R.id.DueDate);
-            String stringDateFormat = dueDate.getText().toString();
-            SimpleDateFormat formatter = null;
-            Date convertedDate = null;
-            try {
-                formatter = new SimpleDateFormat("MM/ddd/yyyy");
-                formatter.setLenient(false);
-                convertedDate = formatter.parse(stringDateFormat);
-            } catch (Exception e) {
-                Snackbar.make(drawerLayout, "Insert a valid date", Snackbar.LENGTH_LONG).show();
-                //Toast.makeText(getApplicationContext(), "Insert a valid date", Toast.LENGTH_LONG).show();
-                return;
-            }
+        EditText dueDate = findViewById(R.id.DueDate);
+        String stringDateFormat = dueDate.getText().toString();
+        SimpleDateFormat formatter = null;
+        Date convertedDate = null;
+        try {
+            formatter = new SimpleDateFormat("MM/ddd/yyyy");
+            formatter.setLenient(false);
+            convertedDate = formatter.parse(stringDateFormat);
+        } catch (Exception e) {
+            Snackbar.make(drawerLayout, "Insert a valid date", Snackbar.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Insert a valid date", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         //Tags
-            TextView tagsView = findViewById(R.id.Tags);
-            String tags =  tagsView.getText().toString();
-            String[] tagArray = tags.split(",");
+        TextView tagsView = findViewById(R.id.Tags);
+        String tags = tagsView.getText().toString();
+        String[] tagArray = tags.split(",");
 
-            for(int i = 0; i < tagArray.length; i++)
-            {
-                if(!tagArray[i].isEmpty()) {
-                    if (tagArray[i].charAt(0) == ' ') {
-                        tagArray[i] = tagArray[i].substring(1);
-                    }
-                    if (tagArray[i].charAt(tagArray[i].length() - 1) == ' ') {
-                        tagArray[i] = tagArray[i].substring(0, tagArray[i].length() - 1);
-                    }
+        for (int i = 0; i < tagArray.length; i++) {
+            if (!tagArray[i].isEmpty()) {
+                if (tagArray[i].charAt(0) == ' ') {
+                    tagArray[i] = tagArray[i].substring(1);
+                }
+                if (tagArray[i].charAt(tagArray[i].length() - 1) == ' ') {
+                    tagArray[i] = tagArray[i].substring(0, tagArray[i].length() - 1);
                 }
             }
-            ArrayList<String> tagList = new ArrayList<>();
-            Collections.addAll(tagList,tagArray);
+        }
+        ArrayList<String> tagList = new ArrayList<>();
+        Collections.addAll(tagList, tagArray);
 
 
         //Difficulty
-            //done in onItemSelected
-
+        //done in onItemSelected
 
 
         //Time To Complete
-            TextView TTCView = findViewById(R.id.TimeToComplete);
-            String timeString = TTCView.getText().toString();
-            //if non-numerical exit and return toast failure message
-            if(TextUtils.isEmpty(timeString))
-            {
-                Snackbar.make(drawerLayout, "Time to Complete is empty", Snackbar.LENGTH_LONG).show();
-                //Toast.makeText(getApplicationContext(), "Time to Complete is empty", Toast.LENGTH_SHORT).show();
+        TextView TTCView = findViewById(R.id.TimeToComplete);
+        String timeString = TTCView.getText().toString();
+        //if non-numerical exit and return toast failure message
+        if (TextUtils.isEmpty(timeString)) {
+            Snackbar.make(drawerLayout, "Time to Complete is empty", Snackbar.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Time to Complete is empty", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        //checks to see if time is in hours (includes things like 2.5 hours
+        String regExp = "[\\x00-\\x20]*[+-]?(((((\\p{Digit}+)(\\.)?((\\p{Digit}+)?)([eE][+-]?(\\p{Digit}+))?)|(\\.((\\p{Digit}+))([eE][+-]?(\\p{Digit}+))?)|(((0[xX](\\p{XDigit}+)(\\.)?)|(0[xX](\\p{XDigit}+)?(\\.)(\\p{XDigit}+)))[pP][+-]?(\\p{Digit}+)))[fFdD]?))[\\x00-\\x20]*";
+        boolean matches = timeString.matches(regExp);
+        if (!matches) {
+            Snackbar.make(drawerLayout, "Time to Complete not a number or negative", Snackbar.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Time to Complete not a number or negative", Toast.LENGTH_LONG).show();
+            return;
+        }
+        double TTC = 0.0;
+        try {
+            TTC = Double.parseDouble(timeString);
+            if (TTC > 8) {
+                Snackbar.make(drawerLayout, "Task is too long, either try separating this task into smaller chunks or using a tag", Snackbar.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Try separating this task into separate tasks", Toast.LENGTH_LONG).show();
                 return;
             }
-            //checks to see if time is in hours (includes things like 2.5 hours
-            String regExp = "[\\x00-\\x20]*[+-]?(((((\\p{Digit}+)(\\.)?((\\p{Digit}+)?)([eE][+-]?(\\p{Digit}+))?)|(\\.((\\p{Digit}+))([eE][+-]?(\\p{Digit}+))?)|(((0[xX](\\p{XDigit}+)(\\.)?)|(0[xX](\\p{XDigit}+)?(\\.)(\\p{XDigit}+)))[pP][+-]?(\\p{Digit}+)))[fFdD]?))[\\x00-\\x20]*";
-            boolean matches = timeString.matches(regExp);
-            if(!matches)
-            {
-                Snackbar.make(drawerLayout, "Time to Complete not a number or negative", Snackbar.LENGTH_LONG).show();
-                //Toast.makeText(getApplicationContext(), "Time to Complete not a number or negative", Toast.LENGTH_LONG).show();
-                return;
-            }
-            double TTC = 0.0;
-            try {
-                TTC = Double.parseDouble(timeString);
-                if(TTC > 8) {
-                    Snackbar.make(drawerLayout, "Task is too long, either try separating this task into smaller chunks or using a tag", Snackbar.LENGTH_LONG).show();
-                    //Toast.makeText(getApplicationContext(), "Try separating this task into separate tasks", Toast.LENGTH_LONG).show();
-                    return;
-                }
-            }
-            catch (Exception e)
-            {
-                Snackbar.make(drawerLayout, "Insert a valid Time To Complete", Snackbar.LENGTH_LONG).show();
-                //Toast.makeText(getApplicationContext(), "Insert a valid Time To Complete", Toast.LENGTH_LONG).show();
-            }
-
+        } catch (Exception e) {
+            Snackbar.make(drawerLayout, "Insert a valid Time To Complete", Snackbar.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "Insert a valid Time To Complete", Toast.LENGTH_LONG).show();
+        }
 
 
         //Experience calculation
-            Task newTask = new Task(title,convertedDate,tagList,difficulty,TTC);
-            double experience = 100 * (newTask.getIntDifficulty( getApplicationContext()) ) * (Math.pow(TTC,.5) + (.2*TTC) );
-            newTask.setExperience( (int) experience);
+        Task newTask = new Task(title, convertedDate, tagList, difficulty, TTC);
+        double experience = 100 * (newTask.getIntDifficulty(getApplicationContext())) * (Math.pow(TTC, .5) + (.2 * TTC));
+        newTask.setExperience((int) experience);
 
         AllTasks.addTask(newTask);
 
@@ -263,10 +251,9 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         difficulty = adapterView.getItemAtPosition(i).toString();
     }
 
-    //used for difficulty but not used
+    //needs to be overridden but not changed
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {}
-
 
 
     //used for navigation menu so when something is clicked I can do stuff with it

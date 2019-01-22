@@ -44,7 +44,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
     CompactCalendarView compactCalendarView;
     static SharedPreferences sharedPreferences = null;
 
-
+    //run when the app starts
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +56,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
 
         setupFab();
         loadData();
-        setupDrawer(savedInstanceState,toolbar);
+        setupDrawer(savedInstanceState, toolbar);
         setupCalendar();
         setupTodaySetter();
         setupArrows();
@@ -64,8 +64,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     //sets up the fab in the calendar activity
-    public void setupFab()
-    {
+    public void setupFab() {
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +80,8 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("task list", null);
-        Type type = new TypeToken<ArrayList<Task>>(){}.getType();
+        Type type = new TypeToken<ArrayList<Task>>() {
+        }.getType();
         allTasksList = gson.fromJson(json, type);
         if (allTasksList == null)
             allTasksList = new ArrayList<>();
@@ -91,8 +91,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
     }
 
     //sets up the navigation drawer (thing you pull in from the left)
-    public void setupDrawer(Bundle savedInstanceState,Toolbar toolbar)
-    {
+    public void setupDrawer(Bundle savedInstanceState, Toolbar toolbar) {
         drawerLayout = findViewById(R.id.drawer_layout);
         final NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -115,8 +114,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         streak.setText("Streak: " + Player.playerInfo.get(4));
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        {
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
@@ -132,7 +130,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
                 expBar.setMax((int) (Player.playerInfo.get(2) + 0));
                 expBar.setProgress((int) (Player.playerInfo.get(1) + 0));
                 levelText.setText("Player Level " + Player.playerInfo.get(3));
-                healthText.setText("" + Player.playerInfo.get(0)+"/50");
+                healthText.setText("" + Player.playerInfo.get(0) + "/50");
                 NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
                 expText.setText("" + numberFormat.format(Player.playerInfo.get(1)) + "/" + numberFormat.format(Player.playerInfo.get(2)));
                 streak.setText("Streak: " + Player.playerInfo.get(4));
@@ -140,13 +138,13 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         };
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             navigationView.setCheckedItem(R.id.nav_calendar);
         }
     }
 
-    public void setupCalendar()
-    {
+    //sets up the calendar and does the events
+    public void setupCalendar() {
         compactCalendarView = findViewById(R.id.compactcalendar_view);
         compactCalendarView.setUseThreeLetterAbbreviation(true);
 
@@ -156,8 +154,8 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         SimpleDateFormat monthFormatter = new SimpleDateFormat("MMMM YYYY");
         monthTextView.setText(monthFormatter.format(currentDate));
 
-                //setup events
-        for(Task x : allTasksList) {
+        //setup events
+        for (Task x : allTasksList) {
             String[] task = x.toString().split("∟");
 
             String dateString = task[1];
@@ -184,7 +182,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
                 //sets current day to normal color to stop it appearing that it's selected
                 compactCalendarView.setCurrentDayBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorAccent));
                 List<Event> events = compactCalendarView.getEvents(dateClicked);
-                if(!events.isEmpty()) {
+                if (!events.isEmpty()) {
                     ArrayList<Task> finalTasks = new ArrayList<>();
                     Iterator<Task> tempTasks = AllTasks.iterator();
                     for (Event event : events) {
@@ -214,8 +212,8 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         });
     }
 
-    public void setupTodaySetter()
-    {
+    //sets up the little icon that moves the calendar to today when you're on a weird month
+    public void setupTodaySetter() {
         ImageView today = findViewById(R.id.today);
         today.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,8 +228,8 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         });
     }
 
-    public void setupArrows()
-    {
+    //sets up the little arrows that move the calendar's month
+    public void setupArrows() {
         ImageView left = findViewById(R.id.left);
         left.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,27 +246,27 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         });
     }
 
-    public void setupStreaks()
-    {
+    //does some logic to see if today is a different day than the last time the app opened
+    public void setupStreaks() {
         Date today = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("MM/ddd/yyyy");;
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/ddd/yyyy");
         String todayString = formatter.format(today);
         Date today2 = null;
         try {
             today2 = formatter.parse(todayString);
-        }catch (Exception e)
-        { Log.d("ME TESTING", "Parse failure in Calendar"); }
+        } catch (Exception e) {
+            Log.d("ME TESTING", "Parse failure in Calendar");
+        }
 
-        if(Player.playerInfo.get(5) != today2.getTime()) {
+        if (Player.playerInfo.get(5) != today2.getTime()) {
             long diff = today2.getTime() - Player.playerInfo.get(5);
             long diffDays = diff / (24 * 60 * 60 * 1000);
-            while(diffDays != 0) {
+            while (diffDays != 0) {
                 AllTasks.streak(getApplicationContext());
                 Log.d("ME TESTING", "Changed streak");
                 diffDays--;
             }
-        }
-        else
+        } else
             Log.d("ME TESTING", "Didn't change streak");
 
         Player.setLastDayIn(today2.getTime());
@@ -306,6 +304,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
             super.onBackPressed();
     }
 
+    //sets up the little search icon and launches TaskList when a search is found
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -319,20 +318,14 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
                 ArrayList<Task> foundTasks = new ArrayList<>();
                 Iterator<Task> allTasks = AllTasks.iterator();
 
-                while(allTasks.hasNext())
-                {
+                while (allTasks.hasNext()) {
                     Task temp = allTasks.next();
-                    if(temp.getTitle().contains(s))
-                    {
+                    if (temp.getTitle().contains(s)) {
                         foundTasks.add(temp);
-                    }
-                    else
-                    {
+                    } else {
                         ArrayList<String> tags = temp.getTags();
-                        for(String tag: tags)
-                        {
-                            if(tag.contains(s))
-                            {
+                        for (String tag : tags) {
+                            if (tag.contains(s)) {
                                 foundTasks.add(temp);
                                 break;
                             }
@@ -340,10 +333,9 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
                     }
                 }
 
-                if(foundTasks.isEmpty())
+                if (foundTasks.isEmpty())
                     Snackbar.make(drawerLayout, "Couldn't find any tasks with that name or tasks with that tag", Snackbar.LENGTH_LONG).show();
-                else
-                {
+                else {
                     AllTasks.setSearchableTasks(foundTasks);
                     Intent intent = new Intent(Calendar.this, TaskListSearched.class);
                     startActivity(intent);
@@ -362,6 +354,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         return true;
     }
 
+    //needed to get search working
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

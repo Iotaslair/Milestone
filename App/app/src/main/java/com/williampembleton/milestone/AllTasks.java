@@ -19,11 +19,7 @@ public class AllTasks {
     static ArrayList<Task> tasks = new ArrayList<>();
     static ArrayList<Task> searchableTasks = new ArrayList<>();
 
-    static AllTasks allTasks = null;
-
-    public AllTasks()
-    {
-    }
+    public AllTasks() {}
 
 
     public static void addTask(Task inTask)
@@ -38,6 +34,7 @@ public class AllTasks {
         saveTasks();
     }
 
+    //saves all your tasks so they are saved when you exit the app
     private static void saveTasks()
     {
         SharedPreferences sharedPreferences = Calendar.sharedPreferences;
@@ -69,16 +66,17 @@ public class AllTasks {
         return tasks.iterator();
     }
 
-    public static ArrayList<Task> getSearchableTasks() { return searchableTasks; }
-
+    //used when searching and TaskListSearched
     public static void setSearchableTasks(ArrayList<Task> searchableTasks) { AllTasks.searchableTasks = searchableTasks; }
 
+    //used when searching and TaskListSearched
     public static Iterator<Task> searchableIterator(){return searchableTasks.iterator();}
 
     public static int size(){return tasks.size();}
 
     public static ArrayList<Task> getList(){return tasks;}
 
+    //called by Calendar and checks if players have completed all their tasks
     public static void streak(Context context) {
         int goodDay = 0;
         for(Task x: tasks)
