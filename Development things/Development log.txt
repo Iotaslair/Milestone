@@ -50,7 +50,6 @@ Today I spent most of the morning tracking down a weird bug that healed you when
 To Do: 
 Health potion 
 
-Firebase
 Refactor
 Roboto font everywhere
 Achievements?
@@ -62,4 +61,4 @@ TELL PEOPLE TO NOT CHANGE DATE ON PHONE, WILL BRICK APP
 
 Wishes:
 Do animations when a task is completed.
-Use fragments instead of activities
+Use fragments instead of activities for speed increase and not have to load tons of stuff when starting activity
