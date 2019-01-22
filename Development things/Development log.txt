@@ -45,20 +45,17 @@ Today the main thing that I completed was making it so that tasks can be complet
 1/20/18
 I made a health bar and exp bar where the health bar heals every level and you level up by gaining xp. Player info saved after app closed. I tried to make it so that when a player completes a task the xp bar fills up when they watch it but for some reason this doesn't happen. It does the animation every time you close the activity and re-open it the animation plays again. Made a 1/25 chance that players find health potions when a task is complete. Made textual version of health and xp bars. Implemented a streak system.
 1/21/18
-Today I spent most of the morning tracking down a weird bug that healed you when you completed a task, turns out the player just leveled up and I didn't recognize it for a long time.
-I also revamped the system that damages players for tasks that they failed. Also told the player when they failed a task. Fixed EXP bar so it works when drawer opens. Needed to set max xp before setting actual xp. Made a swipe to delete feature
+Today I spent most of the morning tracking down a weird bug that healed you when you completed a task, turns out the player just leveled up and I didn't recognize it for a long time. Lesson learned to use more print statments (like saying the player leveled up) I also revamped the system that damages players for tasks that they failed. Also told the player when they failed a task. Fixed EXP bar so it works when drawer opens. Needed to set max xp before setting actual xp. Made a swipe to delete feature in TaskList. Made it so that NewTask can now scroll.
 
 To Do: 
 Health potion 
-
-make a function that refreshes the calendar when deleteing the task
-make new task scrollable (so it works in landscape)
 
 Refactor
 Google Play achievements
 Roboto font everywhere
 Write Readme
 check difference between TaskList and TaskListScheduled
+Release app
 
 TELL PEOPLE TO NOT CHANGE DATE ON PHONE, WILL BRICK APP
 
