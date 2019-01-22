@@ -71,7 +71,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             });
             checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(final View view) {
 
                     /*
                     How to do animations, turn out I couldn't get them done in time
@@ -94,6 +94,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                         public void onFinish() {
                             Player.increaseExp(AllTasks.getTask(getAdapterPosition()).getExperience());
                             Log.d("ME TESTING", "Completed Task " + AllTasks.getTask(getAdapterPosition()).getTitle());
+                            Snackbar.make(view, "You gained " + AllTasks.getTask(getAdapterPosition()).getExperience() + " experience!", Snackbar.LENGTH_LONG).show();
                             removeAt(getAdapterPosition());
                             if ((int) (Math.random() * 25) == 0) {
                                 int heal = (int) (Math.random() * 5 + 2);

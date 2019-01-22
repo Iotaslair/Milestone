@@ -52,13 +52,16 @@ Health potion
 
 Refactor
 Roboto font everywhere
-Achievements?
 Write Readme
-Release app
 
+Do Icon
+Text
+Release app
 TELL PEOPLE TO NOT CHANGE DATE ON PHONE, WILL BRICK APP
 
 
 Wishes:
 Do animations when a task is completed.
 Use fragments instead of activities for speed increase and not have to load tons of stuff when starting activity
+Edit tasks once made
+Repeatable tasksz
