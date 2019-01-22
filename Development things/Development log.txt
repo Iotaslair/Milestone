@@ -60,4 +60,6 @@ Release app
 TELL PEOPLE TO NOT CHANGE DATE ON PHONE, WILL BRICK APP
 
 
-Maybe let people change name and upload image for profile
+Wishes:
+Do animations when a task is completed.
+Use fragments instead of activities
