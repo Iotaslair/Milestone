@@ -194,7 +194,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
                         }
                     }
                     AllTasks.setSearchableTasks(finalTasks);
-                    Intent intent = new Intent(Calendar.this, TaskList.class);
+                    Intent intent = new Intent(Calendar.this, TaskListSearched.class);
                     startActivity(intent);
 
                 }

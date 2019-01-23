@@ -49,17 +49,9 @@ Today I spent most of the morning tracking down a weird bug that healed you when
 
 To Do: 
 Health potion 
-
-Do Icon
-Text
-Completely offline
-No ads so no distractions 
-Screen shots
-Small description
-Long Description
 Release app
 Write paper
-TELL PEOPLE TO NOT CHANGE DATE ON PHONE, WILL BRICK APP
+
 
 
 Wishes:
