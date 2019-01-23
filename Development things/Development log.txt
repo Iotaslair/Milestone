@@ -50,7 +50,6 @@ Today I spent most of the morning tracking down a weird bug that healed you when
 To Do: 
 Health potion 
 
-Roboto font everywhere
 Write Readme
 
 Do Icon
