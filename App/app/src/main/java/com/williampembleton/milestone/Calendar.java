@@ -255,9 +255,10 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         try {
             today2 = formatter.parse(todayString);
         } catch (Exception e) {
-            Log.d("ME TESTING", "Parse failure in Calendar");
+            Log.d("ME TESTING", "Parse failure in Calendar in setupStreaks");
         }
 
+        //if today's time is the same as the last time a person logged in
         if (Player.playerInfo.get(5) != today2.getTime()) {
             long diff = today2.getTime() - Player.playerInfo.get(5);
             long diffDays = diff / (24 * 60 * 60 * 1000);
@@ -340,11 +341,8 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
                     Intent intent = new Intent(Calendar.this, TaskListSearched.class);
                     startActivity(intent);
                 }
-
-
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String s) {
                 return false;

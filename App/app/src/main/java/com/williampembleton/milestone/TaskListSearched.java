@@ -45,11 +45,23 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
         Toolbar toolbar = findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
 
-        setupRecyclerView();
         setupFab();
+        setupRecyclerView();
         setupDrawer(savedInstanceState, toolbar);
         setupStreaks();
 
+    }
+
+    //sets up the fab in the calendar activity
+    public void setupFab() {
+        fab = findViewById(R.id.fabToNewTask);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(TaskListSearched.this, NewTask.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //sets up the list of all the tasks
@@ -91,18 +103,6 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
 
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
-    }
-
-    //sets up the fab in the calendar activity
-    public void setupFab() {
-        fab = findViewById(R.id.fabToNewTask);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(TaskListSearched.this, NewTask.class);
-                startActivity(intent);
-            }
-        });
     }
 
     //sets up the navigation drawer (thing you pull in from the left)
@@ -285,31 +285,27 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
     //run when a user swipes a task and tries to delete it
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        if (viewHolder instanceof TaskAdapter.ViewHolder) {
+        // get the removed item name to display it in snack bar
+        List<Task> taskList = AllTasks.getList();
+        String name = AllTasks.getTask(viewHolder.getAdapterPosition()).getTitle();
 
-            // get the removed item name to display it in snack bar
-            List<Task> cartList = AllTasks.getList();
-            String name = cartList.get(viewHolder.getAdapterPosition()).getTitle();
+        // backup of removed item for undo purpose
+        final Task deletedItem = taskList.get(viewHolder.getAdapterPosition());
+        final int deletedIndex = viewHolder.getAdapterPosition();
 
-            // backup of removed item for undo purpose
-            final Task deletedItem = cartList.get(viewHolder.getAdapterPosition());
-            final int deletedIndex = viewHolder.getAdapterPosition();
+        mAdapter.removeAt(deletedIndex);
 
-            // remove the item from recycler view
-            mAdapter.removeAt(viewHolder.getAdapterPosition());
+        // shows snackbar with Undo option
+        Snackbar snackbar = Snackbar.make(drawerLayout, name + " removed from Task List", Snackbar.LENGTH_LONG);
+        snackbar.setAction("UNDO", new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-            // showing snack bar with Undo option
-            Snackbar snackbar = Snackbar.make(drawerLayout, name + " removed from Task List", Snackbar.LENGTH_LONG);
-            snackbar.setAction("UNDO", new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    // undo is selected, restore the deleted item
-                    mAdapter.restoreItem(deletedItem, deletedIndex);
-                }
-            });
-            snackbar.setActionTextColor(Color.RED);
-            snackbar.show();
-        }
+                // undo is selected, restore the deleted item
+                mAdapter.restoreItem(deletedItem, deletedIndex);
+            }
+        });
+        snackbar.setActionTextColor(Color.RED);
+        snackbar.show();
     }
 }

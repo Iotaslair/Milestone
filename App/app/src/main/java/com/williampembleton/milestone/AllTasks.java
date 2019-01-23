@@ -1,7 +1,5 @@
 package com.williampembleton.milestone;
-import android.app.IntentService;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
@@ -11,8 +9,6 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-
-import static android.content.Context.MODE_PRIVATE;
 
 public class AllTasks {
 
@@ -81,7 +77,9 @@ public class AllTasks {
         int goodDay = 0;
         for(Task x: tasks)
         {
-            if(x.getDate().before(new Date()))
+            long plusOneDay = x.getDate().getTime() + (24 * 60 * 60 * 1000);
+            Date convertedDatePlusOne = new Date(plusOneDay);
+            if(convertedDatePlusOne.before(new Date()))
             {
                 Log.d("ME TESTING", "Decreased Health");
                 Player.decreaseHealth(1);

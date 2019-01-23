@@ -85,11 +85,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                         checkBox.startAnimation(animation);
                     */
 
+                    //used to allow the animation to play before deleting the task
                     new CountDownTimer(100, 100) {
 
-                        public void onTick(long millisUntilFinished) {
-
-                        }
+                        public void onTick(long millisUntilFinished) {}
 
                         public void onFinish() {
                             Player.increaseExp(AllTasks.getTask(getAdapterPosition()).getExperience());
@@ -129,7 +128,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         return vh;
     }
 
-
+    //used by various things in this class, like making messages
     public void setViewAndContext(View view, Context context) {
         this.view = view;
         this.context = context;
@@ -160,7 +159,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             viewHolder.date.setTextColor(Color.BLACK);
         }
         viewHolder.date.setText("Due: " + task[1]);
-
         viewHolder.ttc.setText(task[2] + " hours");
         viewHolder.difficulty.setText(task[3]);
         viewHolder.exp.setText(task[4] + " xp");
@@ -177,7 +175,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return AllTasks.size();
+        return tasks.size();
     }
 
     //removes a task at that position (used when deleting a task and the task is marked as completed)

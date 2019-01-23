@@ -65,7 +65,7 @@ public class Task {
             case "Difficult":
                 return 5;
             default:
-                Toast.makeText(context, "You forgot to change the strings for difficulty in getIntDifficulty in Task.java", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Tell the programmer they forgot to change the strings for difficulty in getIntDifficulty in Task.java", Toast.LENGTH_SHORT).show();
                 return 0;
         }
     }
