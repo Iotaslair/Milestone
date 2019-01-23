@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="Player Level 1"
+        android:text="Level 1"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Body1"
         android:textColor="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintStart_toStartOf="@+id/imageView"

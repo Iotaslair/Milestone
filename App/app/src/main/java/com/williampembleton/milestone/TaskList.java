@@ -122,7 +122,7 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
         healthBar.setProgress((int) (Player.playerInfo.get(0) + 0));
         expBar.setMax((int) (Player.playerInfo.get(2) + 0));
         expBar.setProgress((int) (Player.playerInfo.get(1) + 0));
-        levelText.setText("Player Level " + Player.playerInfo.get(3));
+        levelText.setText("Level " + Player.playerInfo.get(3));
         healthText.setText("" + Player.playerInfo.get(0) + "/50");
         NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
         expText.setText("" + numberFormat.format(Player.playerInfo.get(1)) + "/" + numberFormat.format(Player.playerInfo.get(2)));
@@ -144,7 +144,7 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
                 healthBar.setProgress((int) (Player.playerInfo.get(0) + 0));
                 expBar.setMax((int) (Player.playerInfo.get(2) + 0));
                 expBar.setProgress((int) (Player.playerInfo.get(1) + 0));
-                levelText.setText("Player Level " + Player.playerInfo.get(3));
+                levelText.setText("Level " + Player.playerInfo.get(3));
                 healthText.setText("" + Player.playerInfo.get(0) + "/50");
                 NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
                 expText.setText("" + numberFormat.format(Player.playerInfo.get(1)) + "/" + numberFormat.format(Player.playerInfo.get(2)));

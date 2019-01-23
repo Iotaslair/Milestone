@@ -1,0 +1,12 @@
+Short:
+Task Manager with Gamification. That's all
+
+Long:
+This is an application I made for my ISP (Independent Study Project) in the month of January 2019. 
+
+Milestone is a simple task management app that incorporates lessons from games like leveling systems. For an explanation of what gamification is I recommend checking out this youtube video: https://www.youtube.com/watch?v=1dLK9MW-9sY .The video is a little bit old but still really helpful.
+
+This app works without the need for an internet connection, nor requires you to make accounts.
+This app also doesn't include any advertisements for you're enjoyment.
+
+If you ever want to contact me for feature requests or anything else you can do so at pembletonwilliam@gmail.com

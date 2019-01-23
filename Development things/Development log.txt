@@ -50,11 +50,15 @@ Today I spent most of the morning tracking down a weird bug that healed you when
 To Do: 
 Health potion 
 
-Write Readme
-
 Do Icon
 Text
+Completely offline
+No ads so no distractions 
+Screen shots
+Small description
+Long Description
 Release app
+Write paper
 TELL PEOPLE TO NOT CHANGE DATE ON PHONE, WILL BRICK APP
 
 
@@ -62,4 +66,4 @@ Wishes:
 Do animations when a task is completed.
 Use fragments instead of activities for speed increase and not have to load tons of stuff when starting activity
 Edit tasks once made
-Repeatable tasksz
+Repeatable tasks
