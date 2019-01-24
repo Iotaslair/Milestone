@@ -15,7 +15,7 @@ Found out about Firebase and logged into Android Studio. Watched some of a gentl
 12/23/18-1/5/19
 Nothing due to vacation
 1/6/18
-Worked on adding and hooking up a lot more labels in the new task activity. I also started making a new class called Task which holds what the tasks are and also made a static class that holds all tasks that have not been completed (singleton).
+Worked on adding and hooking up a lot more labels in the new task activity. I also started making a new class called Task which holds what the tasks are and also made a static class that holds all tasks that have not been completed (singleton) (EDIT: since changed no longer singleton).
 1/7/18
 Changed the due date to tomorrow instead of today. Completed Difficulty. Time To Complete completed. Added error messages if a title is empty and such. Considered doing scaling xp by level but considered it unnessary. Made a numerical version of difficulty in Task.java. Made up formula for Exp and implemented it. Sent back to main activity when a new task was made.
 1/8/18
@@ -31,7 +31,7 @@ Made a few small changes like making fab on task list work and small changes to 
 1/13/18
 Got rid of app bar for a custom one. Learned a lot about how toolbars works and the power of building a general thing and allowing the other acivities to use the general thing. Learned how to save data in the app (so when a user closes the app it doesn't restart). Made a SharedData object and used Gson (google's library to help with json) to convert the array of tasks into json then saved that as a string that SharedData can handle. 
 1/14/18
-Nothing happened because I went on a 20k bike ride
+Nothing happened because I went on a 20k bike ride and was too physically tired to do anything
 1/15/18
 Converted ListView in tasklist for a RecyclerView which works a lot faster and has a better design. 
 1/16/18
@@ -46,16 +46,15 @@ Today the main thing that I completed was making it so that tasks can be complet
 I made a health bar and exp bar where the health bar heals every level and you level up by gaining xp. Player info saved after app closed. I tried to make it so that when a player completes a task the xp bar fills up when they watch it but for some reason this doesn't happen. It does the animation every time you close the activity and re-open it the animation plays again. Made a 1/25 chance that players find health potions when a task is complete. Made textual version of health and xp bars. Implemented a streak system.
 1/21/18
 Today I spent most of the morning tracking down a weird bug that healed you when you completed a task, turns out the player just leveled up and I didn't recognize it for a long time. Lesson learned to use more print statments (like saying the player leveled up) I also revamped the system that damages players for tasks that they failed. Also told the player when they failed a task. Fixed EXP bar so it works when drawer opens. Needed to set max xp before setting actual xp. Made a swipe to delete feature in TaskList. Made it so that NewTask can now scroll.
-
-To Do: 
-Health potion 
-Release app
-Write paper
-
+1/22/18
+Today I mostly did refactoring of the code, changing a quite a bit of minor things and added comments on the methods since the last refactor. 
+1/23/18
+Today's the day the app was uploaded to Google Play. I did a few other maintenance things like making the readme and make the icon and banner used for uploading the app. 
 
 
-Wishes:
+Wishes for the app that didn't get done:
 Do animations when a task is completed.
 Use fragments instead of activities for speed increase and not have to load tons of stuff when starting activity
 Edit tasks once made
 Repeatable tasks
+Achievements 
