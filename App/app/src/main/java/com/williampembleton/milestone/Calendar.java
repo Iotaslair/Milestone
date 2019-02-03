@@ -44,6 +44,10 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
     ArrayList<Task> allTasksList = null;
     CompactCalendarView compactCalendarView;
     static SharedPreferences sharedPreferences = null;
+    ProgressBar level10;
+    ProgressBar level25;
+    ProgressBar level50;
+    ProgressBar level100;
 
     //run when the app starts
     @Override
@@ -114,6 +118,29 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         expText.setText("" + numberFormat.format(Player.playerInfo.get(1)) + "/" + numberFormat.format(Player.playerInfo.get(2)));
         streak.setText("Streak: " + Player.playerInfo.get(4));
 
+        /*
+        MenuItem mlevel10 = navigationView.findViewById(R.id.level10);
+        MenuItem mlevel25 = navigationView.findViewById(R.id.level25);
+        MenuItem mlevel50 = navigationView.findViewById(R.id.level50);
+        MenuItem mlevel100 = navigationView.findViewById(R.id.level100);
+
+        ProgressBar level10 = (ProgressBar) mlevel10.getActionView();
+        ProgressBar level25 = (ProgressBar) mlevel25.getActionView();
+        ProgressBar level50 = (ProgressBar) mlevel50.getActionView();
+        ProgressBar level100 = (ProgressBar) mlevel100.getActionView();
+        */
+
+        level10.setMax(10);
+        level10.setProgress((int) (Player.playerInfo.get(3) + 0));
+        level25.setMax(25);
+        level25.setProgress((int) (Player.playerInfo.get(3) + 0));
+        level50.setMax(50);
+        level50.setProgress((int) (Player.playerInfo.get(3) + 0));
+        level100.setMax(100);
+        level100.setProgress((int) (Player.playerInfo.get(3) + 0));
+
+
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
@@ -135,6 +162,21 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
                 NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
                 expText.setText("" + numberFormat.format(Player.playerInfo.get(1)) + "/" + numberFormat.format(Player.playerInfo.get(2)));
                 streak.setText("Streak: " + Player.playerInfo.get(4));
+                /*
+                ProgressBar level10 = navigationView.findViewById(R.id.level10);
+                ProgressBar level25 = navigationView.findViewById(R.id.level25);
+                ProgressBar level50 = navigationView.findViewById(R.id.level50);
+                ProgressBar level100 = navigationView.findViewById(R.id.level100);
+
+                level10.setMax(10);
+                level10.setProgress((int) (Player.playerInfo.get(3) + 0));
+                level25.setMax(25);
+                level25.setProgress((int) (Player.playerInfo.get(3) + 0));
+                level50.setMax(50);
+                level50.setProgress((int) (Player.playerInfo.get(3) + 0));
+                level100.setMax(100);
+                level100.setProgress((int) (Player.playerInfo.get(3) + 0));
+                */
             }
         };
         drawerLayout.addDrawerListener(toggle);
@@ -300,6 +342,46 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
                 startActivity(intent);
                 break;
             }
+            case R.id.level10: {
+                long value = 10 - Player.playerInfo.get(3);
+                if(value < 1) {
+                    Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+
+                Toast.makeText(getApplicationContext(), "You're " + value + " levels away from Level 10", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case R.id.level25: {
+                long value = 25 - Player.playerInfo.get(3);
+                if(value < 1) {
+                    Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+
+                Toast.makeText(getApplicationContext(), "You're " + value + " levels away from Level 25", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case R.id.level50: {
+                long value = 50 - Player.playerInfo.get(3);
+                if(value < 1) {
+                    Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+
+                Toast.makeText(getApplicationContext(), "You're " + value + " levels away from Level 50", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case R.id.level100: {
+                long value = 100 - Player.playerInfo.get(3);
+                if(value < 1) {
+                    Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+
+                Toast.makeText(getApplicationContext(), "You're " + value + " levels away from Level 100", Toast.LENGTH_SHORT).show();
+                break;
+            }
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
@@ -357,6 +439,18 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
                 return false;
             }
         });
+
+
+
+        MenuItem mlevel10 = menu.findItem(R.id.level10);
+        MenuItem mlevel25 = menu.findItem(R.id.level25);
+        MenuItem mlevel50 = menu.findItem(R.id.level50);
+        MenuItem mlevel100 = menu.findItem(R.id.level100);
+
+        level10 = (ProgressBar) mlevel10.getActionView();
+        level25 = (ProgressBar) mlevel25.getActionView();
+        level50 = (ProgressBar) mlevel50.getActionView();
+        level100 = (ProgressBar) mlevel100.getActionView();
 
         return true;
     }

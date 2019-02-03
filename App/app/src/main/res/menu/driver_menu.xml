@@ -19,13 +19,31 @@
             android:title="New Task" />
     </group>
 
-    <group android:checkableBehavior="none">
-        <item
-            android:id="@+id/menu_pick_color"
-            android:title="Heck"
-            app:actionLayout="@layout/achievements"
-            app:showAsAction="always" />
-    </group>
+    <item android:title="Achievements">
+        <menu>
+            <item
+                android:id="@+id/level10"
+                app:actionLayout="@layout/achievements"
+                android:title="Level 10"
+                app:showAsAction="always" />
+            <item
+                android:id="@+id/level25"
+                app:actionLayout="@layout/achievements"
+                android:title="Level 25"
+                app:showAsAction="always" />
+            <item
+                android:id="@+id/level50"
+                app:actionLayout="@layout/achievements"
+                android:title="Level 50"
+                app:showAsAction="always" />
+            <item
+                android:id="@+id/level100"
+                app:actionLayout="@layout/achievements"
+                android:title="Level 100"
+                app:showAsAction="always" />
+
+        </menu>
+    </item>
 
 
 </menu>

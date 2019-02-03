@@ -7,11 +7,16 @@
     android:layout_height="match_parent">
 
     <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:progressBarStyleHorizontal"
         android:layout_width="25dp"
         android:layout_height="25dp"
-
+        android:layout_marginTop="8dp"
+        android:progress="80"
+        android:progressDrawable="@drawable/circle_progress_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 
 
 
