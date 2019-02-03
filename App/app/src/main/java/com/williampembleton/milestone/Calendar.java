@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
@@ -260,6 +261,12 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
 
         //if today's time is the same as the last time a person logged in
         if (Player.playerInfo.get(5) != today2.getTime()) {
+            if(Player.playerInfo.get(5) > today2.getTime())
+            {
+                Toast.makeText(getApplicationContext(), "You cheated by playing around with changing time. Resetting streaks", Toast.LENGTH_LONG).show();
+                Player.setStreakToZero();
+            }
+
             long diff = today2.getTime() - Player.playerInfo.get(5);
             long diffDays = diff / (24 * 60 * 60 * 1000);
             while (diffDays != 0) {

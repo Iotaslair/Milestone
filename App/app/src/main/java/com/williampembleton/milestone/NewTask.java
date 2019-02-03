@@ -132,10 +132,17 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         try {
             today2 = formatter.parse(todayString);
         } catch (Exception e) {
-            Log.d("ME TESTING", "Parse failure in New Task");
+            Log.d("ME TESTING", "Parse failure in Calendar in setupStreaks");
         }
 
+        //if today's time is the same as the last time a person logged in
         if (Player.playerInfo.get(5) != today2.getTime()) {
+            if(Player.playerInfo.get(5) > today2.getTime())
+            {
+                Toast.makeText(getApplicationContext(), "You cheated by playing around with changing time. Resetting streaks", Toast.LENGTH_LONG).show();
+                Player.setStreakToZero();
+            }
+
             long diff = today2.getTime() - Player.playerInfo.get(5);
             long diffDays = diff / (24 * 60 * 60 * 1000);
             while (diffDays != 0) {

@@ -81,7 +81,12 @@ public class Player {
     public static void increaseStreak() {
         playerInfo.set(4, playerInfo.get(4) + 1);
         savePlayerInfo();
+    }
 
+    public static void setStreakToZero()
+    {
+        playerInfo.set(4,(long)0);
+        savePlayerInfo();
     }
 
     //saves the player's info so when the app closes it keeps the information saved

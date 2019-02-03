@@ -23,6 +23,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -167,10 +168,17 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
         try {
             today2 = formatter.parse(todayString);
         } catch (Exception e) {
-            Log.d("ME TESTING", "Parse failure in Calendar");
+            Log.d("ME TESTING", "Parse failure in Calendar in setupStreaks");
         }
 
+        //if today's time is the same as the last time a person logged in
         if (Player.playerInfo.get(5) != today2.getTime()) {
+            if(Player.playerInfo.get(5) > today2.getTime())
+            {
+                Toast.makeText(getApplicationContext(), "You cheated by playing around with changing time. Resetting streaks", Toast.LENGTH_LONG).show();
+                Player.setStreakToZero();
+            }
+
             long diff = today2.getTime() - Player.playerInfo.get(5);
             long diffDays = diff / (24 * 60 * 60 * 1000);
             while (diffDays != 0) {
