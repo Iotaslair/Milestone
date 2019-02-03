@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- This is a list of all items in the navigation drawer-->
+<?xml version="1.0" encoding="utf-8"?><!-- This is a list of all items in the navigation drawer-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
@@ -10,13 +10,22 @@
             android:icon="@drawable/ic_calendar"
             android:title="Calendar" />
         <item
-        android:id="@+id/nav_task_list"
-        android:icon="@drawable/ic_task_list"
-        android:title="Task List" />
+            android:id="@+id/nav_task_list"
+            android:icon="@drawable/ic_task_list"
+            android:title="Task List" />
         <item
             android:id="@+id/nav_new_task"
             android:icon="@drawable/ic_new_task"
             android:title="New Task" />
     </group>
+
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/menu_pick_color"
+            android:title="Heck"
+            app:actionLayout="@layout/achievements"
+            app:showAsAction="always" />
+    </group>
+
 
 </menu>
