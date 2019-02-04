@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -93,6 +94,26 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         expText.setText("" + numberFormat.format(Player.playerInfo.get(1)) + "/" + numberFormat.format(Player.playerInfo.get(2)));
         streak.setText("Streak: " + Player.playerInfo.get(4));
 
+        Menu menu = navigationView.getMenu();
+        MenuItem mlevel10 = menu.findItem(R.id.level10);
+        MenuItem mlevel25 = menu.findItem(R.id.level25);
+        MenuItem mlevel50 = menu.findItem(R.id.level50);
+        MenuItem mlevel100 = menu.findItem(R.id.level100);
+
+        ProgressBar level10 =  mlevel10.getActionView().findViewById(R.id.progressBar);
+        ProgressBar level25 =  mlevel25.getActionView().findViewById(R.id.progressBar);
+        ProgressBar level50 =  mlevel50.getActionView().findViewById(R.id.progressBar);
+        ProgressBar level100 =  mlevel100.getActionView().findViewById(R.id.progressBar);
+
+        level10.setMax(10);
+        level10.setProgress((int) (Player.playerInfo.get(3) + 0));
+        level25.setMax(25);
+        level25.setProgress((int) (Player.playerInfo.get(3) + 0));
+        level50.setMax(50);
+        level50.setProgress((int) (Player.playerInfo.get(3) + 0));
+        level100.setMax(100);
+        level100.setProgress((int) (Player.playerInfo.get(3) + 0));
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close) {
             @Override
@@ -114,6 +135,26 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
                 NumberFormat numberFormat = NumberFormat.getNumberInstance(Locale.US);
                 expText.setText("" + numberFormat.format(Player.playerInfo.get(1)) + "/" + numberFormat.format(Player.playerInfo.get(2)));
                 streak.setText("Streak: " + Player.playerInfo.get(4));
+
+                Menu menu = navigationView.getMenu();
+                MenuItem mlevel10 = menu.findItem(R.id.level10);
+                MenuItem mlevel25 = menu.findItem(R.id.level25);
+                MenuItem mlevel50 = menu.findItem(R.id.level50);
+                MenuItem mlevel100 = menu.findItem(R.id.level100);
+
+                ProgressBar level10 =  mlevel10.getActionView().findViewById(R.id.progressBar);
+                ProgressBar level25 =  mlevel25.getActionView().findViewById(R.id.progressBar);
+                ProgressBar level50 =  mlevel50.getActionView().findViewById(R.id.progressBar);
+                ProgressBar level100 =  mlevel100.getActionView().findViewById(R.id.progressBar);
+
+                level10.setMax(10);
+                level10.setProgress((int) (Player.playerInfo.get(3) + 0));
+                level25.setMax(25);
+                level25.setProgress((int) (Player.playerInfo.get(3) + 0));
+                level50.setMax(50);
+                level50.setProgress((int) (Player.playerInfo.get(3) + 0));
+                level100.setMax(100);
+                level100.setProgress((int) (Player.playerInfo.get(3) + 0));
             }
         };
         drawerLayout.addDrawerListener(toggle);
@@ -280,6 +321,42 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             case R.id.nav_task_list: {
                 Intent intent = new Intent(NewTask.this, TaskList.class);
                 startActivity(intent);
+                break;
+            }
+            case R.id.level10: {
+                long value = 10 - Player.playerInfo.get(3);
+                if(value < 1) {
+                    Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                Toast.makeText(getApplicationContext(), "You're " + value + " levels away from Level 10", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case R.id.level25: {
+                long value = 25 - Player.playerInfo.get(3);
+                if(value < 1) {
+                    Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                Toast.makeText(getApplicationContext(), "You're " + value + " levels away from Level 25", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case R.id.level50: {
+                long value = 50 - Player.playerInfo.get(3);
+                if(value < 1) {
+                    Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                Toast.makeText(getApplicationContext(), "You're " + value + " levels away from Level 50", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case R.id.level100: {
+                long value = 100 - Player.playerInfo.get(3);
+                if(value < 1) {
+                    Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                Toast.makeText(getApplicationContext(), "You're " + value + " levels away from Level 100", Toast.LENGTH_SHORT).show();
                 break;
             }
         }
