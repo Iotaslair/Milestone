@@ -83,9 +83,8 @@ public class Player {
         savePlayerInfo();
     }
 
-    public static void setStreakToZero()
-    {
-        playerInfo.set(4,(long)0);
+    public static void setStreakToZero() {
+        playerInfo.set(4, (long) 0);
         savePlayerInfo();
     }
 

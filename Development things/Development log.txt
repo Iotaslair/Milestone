@@ -52,12 +52,8 @@ Today I mostly did refactoring of the code, changing a quite a bit of minor thin
 Today's the day the app was uploaded to Google Play. I did a few other maintenance things like making the readme and make the icon and banner used for uploading the app. 
 
 
-Play around with circle things
-
-
 Wishes for the app that didn't get done:
 Do animations when a task is completed.
 Use fragments instead of activities for speed increase and not have to load tons of stuff when starting activity
 Edit tasks once made
 Repeatable tasks
-Achievements 

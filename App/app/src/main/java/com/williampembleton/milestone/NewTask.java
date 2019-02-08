@@ -214,11 +214,10 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         //Date work and checking for reasonable dates
         EditText dueDate = findViewById(R.id.DueDate);
         String stringDateFormat = dueDate.getText().toString();
-        SimpleDateFormat formatter = null;
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/ddd/yyyy");
+        formatter.setLenient(false);
         Date convertedDate = null;
         try {
-            formatter = new SimpleDateFormat("MM/ddd/yyyy");
-            formatter.setLenient(false);
             convertedDate = formatter.parse(stringDateFormat);
         } catch (Exception e) {
             Snackbar.make(drawerLayout, "Insert a valid date", Snackbar.LENGTH_LONG).show();
