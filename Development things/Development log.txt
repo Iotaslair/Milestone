@@ -57,3 +57,7 @@ Do animations when a task is completed.
 Use fragments instead of activities for speed increase and not have to load tons of stuff when starting activity
 Edit tasks once made
 Repeatable tasks
+
+
+To do:
+Delete task when editing it 

@@ -135,10 +135,10 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
         MenuItem mlevel50 = menu.findItem(R.id.level50);
         MenuItem mlevel100 = menu.findItem(R.id.level100);
 
-        ProgressBar level10 =  mlevel10.getActionView().findViewById(R.id.progressBar);
-        ProgressBar level25 =  mlevel25.getActionView().findViewById(R.id.progressBar);
-        ProgressBar level50 =  mlevel50.getActionView().findViewById(R.id.progressBar);
-        ProgressBar level100 =  mlevel100.getActionView().findViewById(R.id.progressBar);
+        ProgressBar level10 = mlevel10.getActionView().findViewById(R.id.progressBar);
+        ProgressBar level25 = mlevel25.getActionView().findViewById(R.id.progressBar);
+        ProgressBar level50 = mlevel50.getActionView().findViewById(R.id.progressBar);
+        ProgressBar level100 = mlevel100.getActionView().findViewById(R.id.progressBar);
 
         level10.setMax(10);
         level10.setProgress((int) (Player.playerInfo.get(3) + 0));
@@ -177,10 +177,10 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
                 MenuItem mlevel50 = menu.findItem(R.id.level50);
                 MenuItem mlevel100 = menu.findItem(R.id.level100);
 
-                ProgressBar level10 =  mlevel10.getActionView().findViewById(R.id.progressBar);
-                ProgressBar level25 =  mlevel25.getActionView().findViewById(R.id.progressBar);
-                ProgressBar level50 =  mlevel50.getActionView().findViewById(R.id.progressBar);
-                ProgressBar level100 =  mlevel100.getActionView().findViewById(R.id.progressBar);
+                ProgressBar level10 = mlevel10.getActionView().findViewById(R.id.progressBar);
+                ProgressBar level25 = mlevel25.getActionView().findViewById(R.id.progressBar);
+                ProgressBar level50 = mlevel50.getActionView().findViewById(R.id.progressBar);
+                ProgressBar level100 = mlevel100.getActionView().findViewById(R.id.progressBar);
 
                 level10.setMax(10);
                 level10.setProgress((int) (Player.playerInfo.get(3) + 0));
@@ -216,7 +216,7 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
             long diff = today2.getTime() - Player.playerInfo.get(5);
             long diffDays = diff / (24 * 60 * 60 * 1000);
             while (diffDays != 0) {
-                if(diffDays < 0) {
+                if (diffDays < 0) {
                     Toast.makeText(getApplicationContext(), "You cheated by playing around with changing time. Resetting streaks", Toast.LENGTH_LONG).show();
                     Player.setStreakToZero();
                     Player.setLastDayIn(today2.getTime());
@@ -254,7 +254,7 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
             }
             case R.id.level10: {
                 long value = 10 - Player.playerInfo.get(3);
-                if(value < 1) {
+                if (value < 1) {
                     Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -263,7 +263,7 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
             }
             case R.id.level25: {
                 long value = 25 - Player.playerInfo.get(3);
-                if(value < 1) {
+                if (value < 1) {
                     Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -272,7 +272,7 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
             }
             case R.id.level50: {
                 long value = 50 - Player.playerInfo.get(3);
-                if(value < 1) {
+                if (value < 1) {
                     Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -281,7 +281,7 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
             }
             case R.id.level100: {
                 long value = 100 - Player.playerInfo.get(3);
-                if(value < 1) {
+                if (value < 1) {
                     Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -371,27 +371,50 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
     //run when a user swipes a task and tries to delete it
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction, int position) {
-        // get the removed item name to display it in snack bar
-        List<Task> taskList = AllTasks.getList();
-        String name = AllTasks.getTask(viewHolder.getAdapterPosition()).getTitle();
+        if (direction == ItemTouchHelper.RIGHT) {
+            List<Task> taskList = AllTasks.getList();
+            Task task = taskList.get(viewHolder.getAdapterPosition());
+            NewTask.setEditAppBarTitle("Edit Task");
+            NewTask.setEditDifficulty(task.getDifficulty());
+            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+            NewTask.setEditDueDate(formatter.format(task.getDate()));
+            ArrayList<String> listTags = task.getTags();
+            String tags = "";
+            if (!listTags.isEmpty())
+                for (String x : listTags)
+                    tags = tags + x + ", ";
+            NewTask.setEditTags(tags);
+            NewTask.setEditTimeToComplete(task.getTimeToComplete());
+            NewTask.setEditTitle(task.getTitle());
+            NewTask.setEditPreviousTask(task);
 
-        // backup of removed item for undo purpose
-        final Task deletedItem = taskList.get(viewHolder.getAdapterPosition());
-        final int deletedIndex = viewHolder.getAdapterPosition();
+            Intent intent = new Intent(TaskListSearched.this, NewTask.class);
+            startActivity(intent);
+        } else {
 
-        mAdapter.removeAt(deletedIndex);
 
-        // shows snackbar with Undo option
-        Snackbar snackbar = Snackbar.make(drawerLayout, name + " removed from Task List", Snackbar.LENGTH_LONG);
-        snackbar.setAction("UNDO", new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+            // get the removed item name to display it in snack bar
+            List<Task> taskList = AllTasks.getList();
+            String name = AllTasks.getTask(viewHolder.getAdapterPosition()).getTitle();
 
-                // undo is selected, restore the deleted item
-                mAdapter.restoreItem(deletedItem, deletedIndex);
-            }
-        });
-        snackbar.setActionTextColor(Color.RED);
-        snackbar.show();
+            // backup of removed item for undo purpose
+            final Task deletedItem = taskList.get(viewHolder.getAdapterPosition());
+            final int deletedIndex = viewHolder.getAdapterPosition();
+
+            mAdapter.removeAt(deletedIndex);
+
+            // shows snackbar with Undo option
+            Snackbar snackbar = Snackbar.make(drawerLayout, name + " removed from Task List", Snackbar.LENGTH_LONG);
+            snackbar.setAction("UNDO", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    // undo is selected, restore the deleted item
+                    mAdapter.restoreItem(deletedItem, deletedIndex);
+                }
+            });
+            snackbar.setActionTextColor(Color.RED);
+            snackbar.show();
+        }
     }
 }

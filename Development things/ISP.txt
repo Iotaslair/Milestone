@@ -24,3 +24,6 @@ https://developer.android.com/guide/topics/resources/animation-resource
 
 Nice way to make time picker
 https://www.youtube.com/watch?v=yrpimdBRk5Q
+
+Swipe recycler view
+https://www.androidhive.info/2017/09/android-recyclerview-swipe-delete-undo-using-itemtouchhelper/

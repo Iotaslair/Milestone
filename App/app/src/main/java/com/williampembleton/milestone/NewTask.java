@@ -35,6 +35,14 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
 
     String difficulty = "";
     private DrawerLayout drawerLayout;
+    //used for editing a task
+    static String editDifficulty = "";
+    static String editAppBarTitle = "New Task";
+    static String editTitle = "";
+    static String editDueDate = "";
+    static String editTags = "";
+    static double editTimeToComplete = 0.0;
+    static Task editPreviousTask = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,33 +50,60 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         setContentView(R.layout.activity_new_task);
         //sets up toolBar
         Toolbar toolbar = findViewById(R.id.app_bar);
+        toolbar.setTitle(editAppBarTitle);
         setSupportActionBar(toolbar);
 
-        setupDate();
-        setupSpinner();
-        setupDrawer(savedInstanceState, toolbar);
-        setupStreaks();
-
+        //used to see if we're editing a task right now
+        if (editPreviousTask == null) {
+            setupDate();
+            setupSpinner(0);
+            setupDrawer(savedInstanceState, toolbar);
+            setupStreaks();
+        } else {
+            String[] difficulty = getResources().getStringArray(R.array.difficultyList);
+            for (int i = 0; i < difficulty.length; i++)
+                if (difficulty[i].equals(editDifficulty))
+                    setupSpinner(i);
+            setupDrawer(savedInstanceState, toolbar);
+            setupStreaks();
+            setupRest();
+        }
     }
 
     //sets up the date text to tomorrow
     public void setupDate() {
-        EditText dueDate = findViewById(R.id.DueDate);
+        EditText dueDateBox = findViewById(R.id.DueDate);
         java.util.Calendar currentDate = GregorianCalendar.getInstance();
         String dueDateString = "" + (1 + currentDate.get(java.util.Calendar.MONTH)) + "/";
         dueDateString += (1 + currentDate.get(java.util.Calendar.DAY_OF_MONTH)) + "/";
         dueDateString += currentDate.get(java.util.Calendar.YEAR);
-        dueDate.setText(dueDateString);
+        if (editDueDate.equals(""))
+            dueDateBox.setText(dueDateString);
+        else
+            dueDateBox.setText(editDueDate);
     }
 
     //sets up the spinner (difficulty)
-    public void setupSpinner() {
+    public void setupSpinner(int selection) {
         //sets up the spinner
         Spinner spinner = findViewById(R.id.DifficultySelector);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.difficultyList, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+        spinner.setSelection(selection);
+    }
+
+    //sets up the other boxes with information from the task we're editing
+    public void setupRest() {
+        EditText titleBox = findViewById(R.id.TaskName);
+        titleBox.setText(editTitle);
+        EditText dueBox = findViewById(R.id.DueDate);
+        dueBox.setText(editDueDate);
+        EditText tagsBox = findViewById(R.id.Tags);
+        tagsBox.setText(editTags);
+        EditText timeToCompleteBox = findViewById(R.id.TimeToComplete);
+        timeToCompleteBox.setText("" + editTimeToComplete);
     }
 
     //sets up the navigation drawer (thing you pull in from the left)
@@ -100,10 +135,10 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         MenuItem mlevel50 = menu.findItem(R.id.level50);
         MenuItem mlevel100 = menu.findItem(R.id.level100);
 
-        ProgressBar level10 =  mlevel10.getActionView().findViewById(R.id.progressBar);
-        ProgressBar level25 =  mlevel25.getActionView().findViewById(R.id.progressBar);
-        ProgressBar level50 =  mlevel50.getActionView().findViewById(R.id.progressBar);
-        ProgressBar level100 =  mlevel100.getActionView().findViewById(R.id.progressBar);
+        ProgressBar level10 = mlevel10.getActionView().findViewById(R.id.progressBar);
+        ProgressBar level25 = mlevel25.getActionView().findViewById(R.id.progressBar);
+        ProgressBar level50 = mlevel50.getActionView().findViewById(R.id.progressBar);
+        ProgressBar level100 = mlevel100.getActionView().findViewById(R.id.progressBar);
 
         level10.setMax(10);
         level10.setProgress((int) (Player.playerInfo.get(3) + 0));
@@ -142,10 +177,10 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
                 MenuItem mlevel50 = menu.findItem(R.id.level50);
                 MenuItem mlevel100 = menu.findItem(R.id.level100);
 
-                ProgressBar level10 =  mlevel10.getActionView().findViewById(R.id.progressBar);
-                ProgressBar level25 =  mlevel25.getActionView().findViewById(R.id.progressBar);
-                ProgressBar level50 =  mlevel50.getActionView().findViewById(R.id.progressBar);
-                ProgressBar level100 =  mlevel100.getActionView().findViewById(R.id.progressBar);
+                ProgressBar level10 = mlevel10.getActionView().findViewById(R.id.progressBar);
+                ProgressBar level25 = mlevel25.getActionView().findViewById(R.id.progressBar);
+                ProgressBar level50 = mlevel50.getActionView().findViewById(R.id.progressBar);
+                ProgressBar level100 = mlevel100.getActionView().findViewById(R.id.progressBar);
 
                 level10.setMax(10);
                 level10.setProgress((int) (Player.playerInfo.get(3) + 0));
@@ -181,7 +216,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             long diff = today2.getTime() - Player.playerInfo.get(5);
             long diffDays = diff / (24 * 60 * 60 * 1000);
             while (diffDays != 0) {
-                if(diffDays < 0) {
+                if (diffDays < 0) {
                     Toast.makeText(getApplicationContext(), "You cheated by playing around with changing time. Resetting streaks", Toast.LENGTH_LONG).show();
                     Player.setStreakToZero();
                     Player.setLastDayIn(today2.getTime());
@@ -229,20 +264,28 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         TextView tagsView = findViewById(R.id.Tags);
         String tags = tagsView.getText().toString();
         String[] tagArray = tags.split(",");
-
-        for (int i = 0; i < tagArray.length; i++) {
-            if (!tagArray[i].isEmpty()) {
-                if (tagArray[i].charAt(0) == ' ') {
-                    tagArray[i] = tagArray[i].substring(1);
-                }
-                if (tagArray[i].charAt(tagArray[i].length() - 1) == ' ') {
-                    tagArray[i] = tagArray[i].substring(0, tagArray[i].length() - 1);
+        ArrayList<String> tagList = new ArrayList<>();
+        if (!tags.equals("")) {
+            for (int i = 0; i < tagArray.length; i++) {
+                if (!tagArray[i].isEmpty()) {
+                    if (tagArray[i].charAt(0) == ' ') {
+                        tagArray[i] = tagArray[i].substring(1);
+                    }
+                    if (!tagArray[i].equals("")) {
+                        if (tagArray[i].charAt(tagArray[i].length() - 1) == ' ') {
+                            tagArray[i] = tagArray[i].substring(0, tagArray[i].length() - 1);
+                        }
+                    } else {  //used for people adding extra commas
+                        tagArray[i] = "∟";
+                    }
                 }
             }
+            for (String x : tagArray) {
+                if (!x.equals("∟"))
+                    tagList.add(x);
+            }
+            //Collections.addAll(tagList, tagArray);
         }
-        ArrayList<String> tagList = new ArrayList<>();
-        Collections.addAll(tagList, tagArray);
-
 
         //Difficulty
         //done in onItemSelected
@@ -251,6 +294,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         //Time To Complete
         TextView TTCView = findViewById(R.id.TimeToComplete);
         String timeString = TTCView.getText().toString();
+
         //if non-numerical exit and return toast failure message
         if (TextUtils.isEmpty(timeString)) {
             Snackbar.make(drawerLayout, "Time to Complete is empty", Snackbar.LENGTH_LONG).show();
@@ -273,6 +317,11 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
                 //Toast.makeText(getApplicationContext(), "Try separating this task into separate tasks", Toast.LENGTH_LONG).show();
                 return;
             }
+            //Time can't be equal to 0
+            if (TTC == 0.0) {
+                Snackbar.make(drawerLayout, "Time to complete cannot be 0", Snackbar.LENGTH_LONG).show();
+                return;
+            }
         } catch (Exception e) {
             Snackbar.make(drawerLayout, "Insert a valid Time To Complete", Snackbar.LENGTH_LONG).show();
             //Toast.makeText(getApplicationContext(), "Insert a valid Time To Complete", Toast.LENGTH_LONG).show();
@@ -286,7 +335,12 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
 
         AllTasks.addTask(newTask);
 
-
+        //clears out the the task from list of tasks so it can be replaced
+        if (editPreviousTask != null) {
+            AllTasks.removeTask(editPreviousTask);
+        }
+        //used for editing tasks
+        clearVariables();
         //Says task made successfully and launches into Calendar
         //Snackbar.make(drawerLayout, "Task is worth " + (int) experience + " XP", Snackbar.LENGTH_SHORT).show();
         Toast.makeText(getApplicationContext(), "Task is worth " + (int) experience + " XP", Toast.LENGTH_SHORT).show();
@@ -302,14 +356,15 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
 
     //needs to be overridden but not changed
     @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {}
-
+    public void onNothingSelected(AdapterView<?> adapterView) {
+    }
 
     //used for navigation menu so when something is clicked I can do stuff with it
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_calendar: {
+                clearVariables();
                 Intent intent = new Intent(NewTask.this, Calendar.class);
                 startActivity(intent);
                 break;
@@ -318,13 +373,14 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
                 break;
             }
             case R.id.nav_task_list: {
+                clearVariables();
                 Intent intent = new Intent(NewTask.this, TaskList.class);
                 startActivity(intent);
                 break;
             }
             case R.id.level10: {
                 long value = 10 - Player.playerInfo.get(3);
-                if(value < 1) {
+                if (value < 1) {
                     Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -333,7 +389,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             }
             case R.id.level25: {
                 long value = 25 - Player.playerInfo.get(3);
-                if(value < 1) {
+                if (value < 1) {
                     Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -342,7 +398,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             }
             case R.id.level50: {
                 long value = 50 - Player.playerInfo.get(3);
-                if(value < 1) {
+                if (value < 1) {
                     Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -351,7 +407,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             }
             case R.id.level100: {
                 long value = 100 - Player.playerInfo.get(3);
-                if(value < 1) {
+                if (value < 1) {
                     Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -370,5 +426,44 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             drawerLayout.closeDrawer(GravityCompat.START);
         } else
             super.onBackPressed();
+    }
+
+    public static void setEditDifficulty(String meditDifficulty) {
+        editDifficulty = meditDifficulty;
+    }
+
+    public static void setEditAppBarTitle(String meditAppBarTitle) {
+        editAppBarTitle = meditAppBarTitle;
+    }
+
+    public static void setEditTitle(String meditTitle) {
+        editTitle = meditTitle;
+    }
+
+    public static void setEditDueDate(String meditDueDate) {
+        editDueDate = meditDueDate;
+    }
+
+    public static void setEditTags(String meditTags) {
+        editTags = meditTags;
+    }
+
+    public static void setEditTimeToComplete(double meditTimeToComplete) {
+        editTimeToComplete = meditTimeToComplete;
+    }
+
+    public static void setEditPreviousTask(Task meditPreviousTask) {
+        editPreviousTask = meditPreviousTask;
+    }
+
+    //clears variables that are used for editing tasks
+    public void clearVariables() {
+        editTitle = "";
+        editDueDate = "";
+        editAppBarTitle = "New Task";
+        editDifficulty = "";
+        editTags = "";
+        editTimeToComplete = 0.0;
+        editPreviousTask = null;
     }
 }
