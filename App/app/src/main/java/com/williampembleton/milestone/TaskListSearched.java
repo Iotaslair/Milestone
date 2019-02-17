@@ -104,6 +104,8 @@ public class TaskListSearched extends AppCompatActivity implements NavigationVie
 
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
+        ItemTouchHelper.SimpleCallback editItem = new RecyclerItemTouchHelper(0, ItemTouchHelper.RIGHT, this);
+        new ItemTouchHelper(editItem).attachToRecyclerView(recyclerView);
     }
 
     //sets up the navigation drawer (thing you pull in from the left)

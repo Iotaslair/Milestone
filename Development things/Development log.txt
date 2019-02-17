@@ -60,4 +60,6 @@ Repeatable tasks
 
 
 To do:
-Delete task when editing it 
+Icon and edit text 
+Color gradient in background?
+Clean up tasklistsearched
