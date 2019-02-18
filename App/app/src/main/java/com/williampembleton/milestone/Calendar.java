@@ -237,7 +237,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
                         }
                     }
                     AllTasks.setSearchableTasks(finalTasks);
-                    Intent intent = new Intent(Calendar.this, TaskListSearched.class);
+                    Intent intent = new Intent(Calendar.this, TaskList.class);
                     startActivity(intent);
 
                 }
@@ -425,7 +425,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
                     Snackbar.make(drawerLayout, "Couldn't find any tasks with that name or tasks with that tag", Snackbar.LENGTH_LONG).show();
                 else {
                     AllTasks.setSearchableTasks(foundTasks);
-                    Intent intent = new Intent(Calendar.this, TaskListSearched.class);
+                    Intent intent = new Intent(Calendar.this, TaskList.class);
                     startActivity(intent);
                 }
                 return false;

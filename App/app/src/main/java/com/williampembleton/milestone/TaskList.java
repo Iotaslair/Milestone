@@ -72,7 +72,13 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 
         ArrayList<Task> tasksAL = new ArrayList();
-        Iterator<Task> iterator = AllTasks.iterator();
+        Iterator<Task> searchable = AllTasks.searchableIterator();
+        Iterator<Task> iterator;
+        if (searchable.hasNext())
+            iterator = searchable;
+        else
+            iterator = AllTasks.iterator();
+
         while (iterator.hasNext()) {
             tasksAL.add(iterator.next());
         }
@@ -242,11 +248,13 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_calendar: {
+                AllTasks.clearSearchableIterator();
                 Intent intent = new Intent(TaskList.this, Calendar.class);
                 startActivity(intent);
                 break;
             }
             case R.id.nav_new_task: {
+                AllTasks.clearSearchableIterator();
                 Intent intent = new Intent(TaskList.this, NewTask.class);
                 startActivity(intent);
                 break;
