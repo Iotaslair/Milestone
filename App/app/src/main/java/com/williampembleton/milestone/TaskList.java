@@ -345,7 +345,7 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
                     Snackbar.make(drawerLayout, "Couldn't find any tasks with that name or tasks with that tag", Snackbar.LENGTH_LONG).show();
                 else {
                     AllTasks.setSearchableTasks(foundTasks);
-                    Intent intent = new Intent(TaskList.this, TaskListSearched.class);
+                    Intent intent = new Intent(TaskList.this, TaskList.class);
                     startActivity(intent);
                 }
 

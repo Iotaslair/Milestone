@@ -30,12 +30,6 @@
             android:label="Task List"
             android:theme="@style/AppTheme.NoActionBar" />
 
-        <activity
-            android:name=".TaskListSearched"
-            android:label="Task List"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-
     </application>
 
 </manifest>

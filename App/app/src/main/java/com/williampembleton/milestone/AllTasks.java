@@ -57,12 +57,12 @@ public class AllTasks {
         return tasks.iterator();
     }
 
-    //used when searching and TaskListSearched
+    //used when searching
     public static void setSearchableTasks(ArrayList<Task> searchableTasks) {
         AllTasks.searchableTasks = searchableTasks;
     }
 
-    //used when searching and TaskListSearched
+    //used when searching
     public static Iterator<Task> searchableIterator() {
         return searchableTasks.iterator();
     }

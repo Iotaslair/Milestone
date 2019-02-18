@@ -19,7 +19,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Date;
 
-//sets up the rows for the recyclerview on TaskList and TaskListSearched
+//sets up the rows for the recyclerview on TaskList
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     private OnItemClickListener mListener;
     private View view = null;
