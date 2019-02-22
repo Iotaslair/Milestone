@@ -56,8 +56,3 @@ Wishes for the app that didn't get done:
 Do animations when a task is completed.
 Use fragments instead of activities for speed increase and not have to load tons of stuff when starting activity
 Repeatable tasks
-Sounds when task completed
-
-
-To do:
-Clean up tasklistsearched
