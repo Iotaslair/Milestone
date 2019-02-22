@@ -25,6 +25,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     private View view = null;
     private Context context = null;
     ArrayList<Task> tasks = null;
+    TaskList taskList;
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -91,6 +92,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                         public void onTick(long millisUntilFinished) {}
 
                         public void onFinish() {
+
+                            taskList.playSound();
+
                             Player.increaseExp(AllTasks.getTask(getAdapterPosition()).getExperience());
                             Log.d("ME TESTING", "Completed Task " + AllTasks.getTask(getAdapterPosition()).getTitle());
                             Snackbar.make(view, "You gained " + AllTasks.getTask(getAdapterPosition()).getExperience() + " experience!", Snackbar.LENGTH_LONG).show();
@@ -163,14 +167,31 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         viewHolder.difficulty.setText(task[3]);
         viewHolder.exp.setText(task[4] + " xp");
 
-        try {viewHolder.tag1.setText(task[5]); } catch (Exception e) {viewHolder.tag1.setText("Tags go here"); }
-        try {viewHolder.tag2.setText(task[6]); } catch (Exception e) {viewHolder.tag2.setText(""); }
-        try {viewHolder.tag3.setText(task[7]); } catch (Exception e) {viewHolder.tag3.setText(""); }
-        try {viewHolder.tag4.setText(task[8]); } catch (Exception e) {viewHolder.tag4.setText(""); }
+        try {
+            viewHolder.tag1.setText(task[5]);
+        } catch (Exception e) {
+            viewHolder.tag1.setText("Tags go here");
+        }
+        try {
+            viewHolder.tag2.setText(task[6]);
+        } catch (Exception e) {
+            viewHolder.tag2.setText("");
+        }
+        try {
+            viewHolder.tag3.setText(task[7]);
+        } catch (Exception e) {
+            viewHolder.tag3.setText("");
+        }
+        try {
+            viewHolder.tag4.setText(task[8]);
+        } catch (Exception e) {
+            viewHolder.tag4.setText("");
+        }
     }
 
-    public TaskAdapter(ArrayList<Task> tasks) {
+    public TaskAdapter(ArrayList<Task> tasks, TaskList taskList) {
         this.tasks = tasks;
+        this.taskList = taskList;
     }
 
     @Override

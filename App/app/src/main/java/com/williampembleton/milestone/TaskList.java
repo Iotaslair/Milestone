@@ -2,6 +2,7 @@ package com.williampembleton.milestone;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -37,6 +38,7 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
     private DrawerLayout drawerLayout;
     FloatingActionButton fab = null;
     TaskAdapter mAdapter = null;
+    MediaPlayer soundPool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,7 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
         setupRecyclerView();
         setupDrawer(savedInstanceState, toolbar);
         setupStreaks();
-
+        setupSound();
     }
 
     //sets up the fab in the calendar activity
@@ -59,6 +61,7 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                releaseSounds();
                 Intent intent = new Intent(TaskList.this, NewTask.class);
                 startActivity(intent);
             }
@@ -83,7 +86,7 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
             tasksAL.add(iterator.next());
         }
 
-        mAdapter = new TaskAdapter(tasksAL);
+        mAdapter = new TaskAdapter(tasksAL, this);
 
         recyclerView.setLayoutManager(layoutManager);
         mAdapter.setViewAndContext(drawerLayout, getApplicationContext());
@@ -243,18 +246,25 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
 
     }
 
+    public void setupSound() {
+
+        soundPool = MediaPlayer.create(this, R.raw.victory);
+    }
+
     //used for navigation menu so when something is clicked I can do stuff with it
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_calendar: {
                 AllTasks.clearSearchableIterator();
+                releaseSounds();
                 Intent intent = new Intent(TaskList.this, Calendar.class);
                 startActivity(intent);
                 break;
             }
             case R.id.nav_new_task: {
                 AllTasks.clearSearchableIterator();
+                releaseSounds();
                 Intent intent = new Intent(TaskList.this, NewTask.class);
                 startActivity(intent);
                 break;
@@ -345,6 +355,7 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
                     Snackbar.make(drawerLayout, "Couldn't find any tasks with that name or tasks with that tag", Snackbar.LENGTH_LONG).show();
                 else {
                     AllTasks.setSearchableTasks(foundTasks);
+                    releaseSounds();
                     Intent intent = new Intent(TaskList.this, TaskList.class);
                     startActivity(intent);
                 }
@@ -398,6 +409,7 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
             NewTask.setEditTitle(task.getTitle());
             NewTask.setEditPreviousTask(task);
 
+            releaseSounds();
             Intent intent = new Intent(TaskList.this, NewTask.class);
             startActivity(intent);
         } else {
@@ -425,6 +437,21 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
             });
             snackbar.setActionTextColor(Color.RED);
             snackbar.show();
+        }
+    }
+
+
+    public void playSound() {
+        //int victory = soundPool.load(getApplicationContext(), R.raw.victory, 1);
+        soundPool.start();
+
+        //soundPool.play(victory,1, 1, 0, 0, 1);
+    }
+
+    public void releaseSounds() {
+        if (soundPool != null) {
+            soundPool.release();
+            soundPool = null;
         }
     }
 }
