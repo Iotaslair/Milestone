@@ -16,8 +16,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 //sets up the rows for the recyclerview on TaskList
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
@@ -89,7 +91,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                     //used to allow the animation to play before deleting the task
                     new CountDownTimer(100, 100) {
 
-                        public void onTick(long millisUntilFinished) {}
+                        public void onTick(long millisUntilFinished) {
+                        }
 
                         public void onFinish() {
 
@@ -98,6 +101,32 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                             Player.increaseExp(AllTasks.getTask(getAdapterPosition()).getExperience());
                             Log.d("ME TESTING", "Completed Task " + AllTasks.getTask(getAdapterPosition()).getTitle());
                             Snackbar.make(view, "You gained " + AllTasks.getTask(getAdapterPosition()).getExperience() + " experience!", Snackbar.LENGTH_LONG).show();
+                            if (AllTasks.getTask(getAdapterPosition()).getRepeat() != 0) {
+                                Task tempTask = AllTasks.getTask(getAdapterPosition());
+                                Date newDate = tempTask.getDate();
+                                GregorianCalendar calendar = new GregorianCalendar(newDate.getYear() + 1900, newDate.getMonth(), newDate.getDate() - 1);
+
+                                calendar.add(GregorianCalendar.DAY_OF_MONTH, tempTask.getRepeat());
+
+                                String dueDateString = "" + (1 + calendar.get(GregorianCalendar.MONTH)) + "/";
+                                dueDateString += (1 + calendar.get(GregorianCalendar.DAY_OF_MONTH)) + "/";
+                                dueDateString += calendar.get(GregorianCalendar.YEAR);
+                                
+                                SimpleDateFormat formatter = new SimpleDateFormat("MM/ddd/yyyy");
+                                formatter.setLenient(false);
+                                Date changedDate = null;
+                                try {
+                                    changedDate = formatter.parse(dueDateString);
+                                } catch (Exception e) {
+                                    Log.d("ME TESTING", "Failure parsing " + e.toString());
+                                }
+
+                                Task restoredTask = new Task(tempTask.getTitle(), changedDate, tempTask.getTags(), tempTask.getDifficulty(), tempTask.getTimeToComplete(), tempTask.getRepeat());
+                                restoredTask.setExperience(tempTask.getExperience());
+                                restoreItem(restoredTask, getItemCount());
+                            }
+
+
                             removeAt(getAdapterPosition());
                             if ((int) (Math.random() * 25) == 0) {
                                 int heal = (int) (Math.random() * 5 + 2);

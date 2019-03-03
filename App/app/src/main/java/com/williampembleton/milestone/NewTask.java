@@ -327,9 +327,23 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
             //Toast.makeText(getApplicationContext(), "Insert a valid Time To Complete", Toast.LENGTH_LONG).show();
         }
 
+        //Repeating task
+        int repeat;
+        try {
+            TextView repeatBox = findViewById(R.id.repeat);
+            repeat = Integer.parseInt(repeatBox.getText().toString());
+            if (repeat < 0) {
+                Snackbar.make(drawerLayout, "Repeating tasks should be a positive number", Snackbar.LENGTH_LONG).show();
+                return;
+            }
+        } catch (Exception e) {
+            Snackbar.make(drawerLayout, "Repeating task couldn't be parsed", Snackbar.LENGTH_LONG).show();
+            return;
+        }
+
 
         //Experience calculation
-        Task newTask = new Task(title, convertedDate, tagList, difficulty, TTC);
+        Task newTask = new Task(title, convertedDate, tagList, difficulty, TTC, repeat);
         double experience = 100 * (newTask.getIntDifficulty(getApplicationContext())) * (Math.pow(TTC, .5) + (.2 * TTC));
         newTask.setExperience((int) experience);
 

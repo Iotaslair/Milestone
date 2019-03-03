@@ -14,13 +14,15 @@ public class Task {
     private String difficulty;
     private double timeToComplete;
     private int experience;
+    private int repeat;
 
-    public Task(String title, Date date, ArrayList<String> tags, String difficulty, double timeToComplete) {
+    public Task(String title, Date date, ArrayList<String> tags, String difficulty, double timeToComplete, int repeat) {
         this.title = title;
         this.date = date;
         this.tags = tags;
         this.difficulty = difficulty;
         this.timeToComplete = timeToComplete;
+        this.repeat = repeat;
     }
 
     public String getTitle() {
@@ -49,6 +51,14 @@ public class Task {
 
     public void setExperience(int experience) {
         this.experience = experience;
+    }
+
+    public int getRepeat() {
+        return repeat;
+    }
+
+    public void setRepeat(int repeat) {
+        this.repeat = repeat;
     }
 
     //gets an integer version of difficulty, used in calculations for xp
