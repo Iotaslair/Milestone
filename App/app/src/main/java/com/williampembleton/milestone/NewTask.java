@@ -331,7 +331,11 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         int repeat;
         try {
             TextView repeatBox = findViewById(R.id.repeat);
-            repeat = Integer.parseInt(repeatBox.getText().toString());
+            if (TextUtils.isEmpty(repeatBox.getText().toString()))
+                repeat = 0;
+            else
+                repeat = Integer.parseInt(repeatBox.getText().toString());
+
             if (repeat < 0) {
                 Snackbar.make(drawerLayout, "Repeating tasks should be a positive number", Snackbar.LENGTH_LONG).show();
                 return;
