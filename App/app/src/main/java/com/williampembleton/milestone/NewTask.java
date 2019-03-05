@@ -42,6 +42,7 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
     static String editDueDate = "";
     static String editTags = "";
     static double editTimeToComplete = 0.0;
+    static int editRepeat = 0;
     static Task editPreviousTask = null;
 
     @Override
@@ -104,6 +105,8 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         tagsBox.setText(editTags);
         EditText timeToCompleteBox = findViewById(R.id.TimeToComplete);
         timeToCompleteBox.setText("" + editTimeToComplete);
+        EditText repeatBox = findViewById(R.id.repeat);
+        repeatBox.setText("" + editRepeat);
     }
 
     //sets up the navigation drawer (thing you pull in from the left)
@@ -474,6 +477,8 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         editPreviousTask = meditPreviousTask;
     }
 
+    public static void setEditRepeat(int repeat) {editRepeat = repeat;}
+
     //clears variables that are used for editing tasks
     public void clearVariables() {
         editTitle = "";
@@ -483,5 +488,6 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         editTags = "";
         editTimeToComplete = 0.0;
         editPreviousTask = null;
+        editRepeat = 0;
     }
 }

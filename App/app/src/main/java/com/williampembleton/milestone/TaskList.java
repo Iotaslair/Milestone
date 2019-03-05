@@ -407,6 +407,7 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
             NewTask.setEditTags(tags);
             NewTask.setEditTimeToComplete(task.getTimeToComplete());
             NewTask.setEditTitle(task.getTitle());
+            NewTask.setEditRepeat(task.getRepeat());
             NewTask.setEditPreviousTask(task);
 
             releaseSounds();
@@ -442,10 +443,7 @@ public class TaskList extends AppCompatActivity implements NavigationView.OnNavi
 
 
     public void playSound() {
-        //int victory = soundPool.load(getApplicationContext(), R.raw.victory, 1);
         soundPool.start();
-
-        //soundPool.play(victory,1, 1, 0, 0, 1);
     }
 
     public void releaseSounds() {

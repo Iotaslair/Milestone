@@ -57,8 +57,6 @@ Do animations when a task is completed.
 Use fragments instead of activities for speed increase and not have to load tons of stuff when starting activity
 
 Repeatable tasks
-(fill in repeat task when editing a task)
 See repeated task in calendar but not task list
-(Every time someone completes the task add another one in the set days away)
 
 Go back through design pictures and add things, also go through video 
