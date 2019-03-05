@@ -44,7 +44,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
     ArrayList<Task> allTasksList = null;
     CompactCalendarView compactCalendarView;
     static SharedPreferences sharedPreferences = null;
-    //run when the app starts
+    //runs when the app starts
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -191,7 +191,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         compactCalendarView = findViewById(R.id.compactcalendar_view);
         compactCalendarView.setUseThreeLetterAbbreviation(true);
 
-        //sets up month textview
+        //sets up month TextView
         TextView monthTextView = findViewById(R.id.month);
         Date currentDate = new Date();
         SimpleDateFormat monthFormatter = new SimpleDateFormat("MMMM YYYY");
