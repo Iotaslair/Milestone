@@ -1,4 +1,4 @@
-# Link to downnload the application
+# Link to download the application
 [Milestone](https://play.google.com/store/apps/details?id=com.williampembleton.milestone)
 
 ---
