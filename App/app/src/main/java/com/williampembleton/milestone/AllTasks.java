@@ -67,7 +67,7 @@ public class AllTasks {
         return searchableTasks.iterator();
     }
 
-    public static void clearSearchableIterator(){
+    public static void clearSearchableIterator() {
         searchableTasks.clear();
     }
 

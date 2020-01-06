@@ -477,7 +477,9 @@ public class NewTask extends AppCompatActivity implements AdapterView.OnItemSele
         editPreviousTask = meditPreviousTask;
     }
 
-    public static void setEditRepeat(int repeat) {editRepeat = repeat;}
+    public static void setEditRepeat(int repeat) {
+        editRepeat = repeat;
+    }
 
     //clears variables that are used for editing tasks
     public void clearVariables() {

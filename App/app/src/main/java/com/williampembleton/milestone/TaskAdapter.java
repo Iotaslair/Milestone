@@ -111,7 +111,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                                 String dueDateString = "" + (1 + calendar.get(GregorianCalendar.MONTH)) + "/";
                                 dueDateString += (1 + calendar.get(GregorianCalendar.DAY_OF_MONTH)) + "/";
                                 dueDateString += calendar.get(GregorianCalendar.YEAR);
-                                
+
                                 SimpleDateFormat formatter = new SimpleDateFormat("MM/ddd/yyyy");
                                 formatter.setLenient(false);
                                 Date changedDate = null;

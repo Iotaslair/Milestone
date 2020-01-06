@@ -44,6 +44,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
     ArrayList<Task> allTasksList = null;
     CompactCalendarView compactCalendarView;
     static SharedPreferences sharedPreferences = null;
+
     //runs when the app starts
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,10 +120,10 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         MenuItem mlevel50 = menu.findItem(R.id.level50);
         MenuItem mlevel100 = menu.findItem(R.id.level100);
 
-        ProgressBar level10 =  mlevel10.getActionView().findViewById(R.id.progressBar);
-        ProgressBar level25 =  mlevel25.getActionView().findViewById(R.id.progressBar);
-        ProgressBar level50 =  mlevel50.getActionView().findViewById(R.id.progressBar);
-        ProgressBar level100 =  mlevel100.getActionView().findViewById(R.id.progressBar);
+        ProgressBar level10 = mlevel10.getActionView().findViewById(R.id.progressBar);
+        ProgressBar level25 = mlevel25.getActionView().findViewById(R.id.progressBar);
+        ProgressBar level50 = mlevel50.getActionView().findViewById(R.id.progressBar);
+        ProgressBar level100 = mlevel100.getActionView().findViewById(R.id.progressBar);
 
 
         level10.setMax(10);
@@ -133,7 +134,6 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
         level50.setProgress((int) (Player.playerInfo.get(3) + 0));
         level100.setMax(100);
         level100.setProgress((int) (Player.playerInfo.get(3) + 0));
-
 
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar,
@@ -164,10 +164,10 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
                 MenuItem mlevel50 = menu.findItem(R.id.level50);
                 MenuItem mlevel100 = menu.findItem(R.id.level100);
 
-                ProgressBar level10 =  mlevel10.getActionView().findViewById(R.id.progressBar);
-                ProgressBar level25 =  mlevel25.getActionView().findViewById(R.id.progressBar);
-                ProgressBar level50 =  mlevel50.getActionView().findViewById(R.id.progressBar);
-                ProgressBar level100 =  mlevel100.getActionView().findViewById(R.id.progressBar);
+                ProgressBar level10 = mlevel10.getActionView().findViewById(R.id.progressBar);
+                ProgressBar level25 = mlevel25.getActionView().findViewById(R.id.progressBar);
+                ProgressBar level50 = mlevel50.getActionView().findViewById(R.id.progressBar);
+                ProgressBar level100 = mlevel100.getActionView().findViewById(R.id.progressBar);
 
                 level10.setMax(10);
                 level10.setProgress((int) (Player.playerInfo.get(3) + 0));
@@ -239,7 +239,18 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
                     AllTasks.setSearchableTasks(finalTasks);
                     Intent intent = new Intent(Calendar.this, TaskList.class);
                     startActivity(intent);
-
+                } else {
+                    ArrayList<Task> finalTasks = new ArrayList<>();
+                    for (Task t : allTasksList) {
+                        if (t.repeatOnThisDay(dateClicked)) {
+                            finalTasks.add(t);
+                        }
+                    }
+                    if (!finalTasks.isEmpty()) {
+                        AllTasks.setSearchableTasks(finalTasks);
+                        Intent intent = new Intent(Calendar.this, TaskList.class);
+                        startActivity(intent);
+                    }
                 }
             }
 
@@ -306,7 +317,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
             long diff = today2.getTime() - Player.playerInfo.get(5);
             long diffDays = diff / (24 * 60 * 60 * 1000);
             while (diffDays != 0) {
-                if(diffDays < 0) {
+                if (diffDays < 0) {
                     Toast.makeText(getApplicationContext(), "You cheated by playing around with changing time. Resetting streaks", Toast.LENGTH_LONG).show();
                     Player.setStreakToZero();
                     Player.setLastDayIn(today2.getTime());
@@ -328,7 +339,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
     //used for navigation menu so when something is clicked I can do stuff with it
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            switch (menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
             case R.id.nav_calendar: {
                 break;
             }
@@ -344,7 +355,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
             }
             case R.id.level10: {
                 long value = 10 - Player.playerInfo.get(3);
-                if(value < 1) {
+                if (value < 1) {
                     Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -353,7 +364,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
             }
             case R.id.level25: {
                 long value = 25 - Player.playerInfo.get(3);
-                if(value < 1) {
+                if (value < 1) {
                     Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -362,7 +373,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
             }
             case R.id.level50: {
                 long value = 50 - Player.playerInfo.get(3);
-                if(value < 1) {
+                if (value < 1) {
                     Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -371,7 +382,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
             }
             case R.id.level100: {
                 long value = 100 - Player.playerInfo.get(3);
-                if(value < 1) {
+                if (value < 1) {
                     Toast.makeText(getApplicationContext(), "You already got this achievement", Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -430,6 +441,7 @@ public class Calendar extends AppCompatActivity implements NavigationView.OnNavi
                 }
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String s) {
                 return false;

@@ -59,4 +59,6 @@ Use fragments instead of activities for speed increase and not have to load tons
 Repeatable tasks
 See repeated task in calendar but not task list
 
+When click on task make it larger in task list
 Go back through design pictures and add things, also go through video 
+Setup Firebase more into the app

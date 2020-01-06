@@ -1,11 +1,13 @@
 package com.williampembleton.milestone;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class Task {
     private String title;
@@ -92,6 +94,54 @@ public class Task {
             str = str + tags.get(i) + "∟";
         }
         return str;
+    }
+
+    public boolean repeatOnThisDay(Date testingDate) {
+        SimpleDateFormat monthFormatter = new SimpleDateFormat("MM/dd/YYYY");
+        monthFormatter.setLenient(false);
+        Log.d("Me Testing", "Date passed in " + monthFormatter.format(testingDate));
+        Date dueDate = getDate();
+
+        String dueDateString = monthFormatter.format(dueDate);
+        Date dueDateCopy = null;
+        try {
+            dueDateCopy = monthFormatter.parse(dueDateString);
+        } catch (Exception e) {
+            Log.d("TASK FORMATTING ERROR", "In repeat on this day");
+        }
+        Log.d("Me Testing", "Task's due date " + monthFormatter.format(dueDate));
+        Log.d("Me Testing", "dueDateString " + dueDateString);
+        Log.d("Me Testing ", "dueDateCopy " + monthFormatter.format(dueDateCopy));
+        /*
+        while (dueDateCopy.before(testingDate)) {
+            GregorianCalendar calendar = new GregorianCalendar(dueDateCopy.getYear() + 1900, dueDateCopy.getMonth(), dueDateCopy.getDate() - 1);
+            String convertedString = "" + (1 + calendar.get(GregorianCalendar.MONTH)) + "/";
+            convertedString += (1 + calendar.get(GregorianCalendar.DAY_OF_MONTH)) + "/";
+            convertedString += calendar.get(GregorianCalendar.YEAR);
+            //Log.d("Me Testing", "before adding " + convertedString);
+
+            calendar.add(GregorianCalendar.DAY_OF_MONTH, getRepeat());
+
+
+            String stringPlusRepeat = "" + (1 + calendar.get(GregorianCalendar.MONTH)) + "/";
+            stringPlusRepeat += (1 + calendar.get(GregorianCalendar.DAY_OF_MONTH)) + "/";
+            stringPlusRepeat += calendar.get(GregorianCalendar.YEAR);
+            //Log.d("Me Testing", "after adding " + stringPlusRepeat);
+
+            SimpleDateFormat formatter = new SimpleDateFormat("MM/ddd/yyyy");
+            formatter.setLenient(false);
+            try {
+                dueDateCopy = formatter.parse(stringPlusRepeat);
+                if (dueDateCopy.equals(testingDate))
+                    return true;
+            } catch (Exception e) {
+                //Log.d("ME TESTING", "Failure parsing " + e.toString());
+            }
+        }
+        */
+
+
+        return false;
     }
 
 }
