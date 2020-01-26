@@ -2,6 +2,8 @@
 [Milestone](https://play.google.com/store/apps/details?id=com.williampembleton.milestone) is an application that takes the idea of Gamification and applies it to a task management application. There's a really great video explaining what Gamification is by Extra Credits. 
 [Video](https://www.youtube.com/watch?v=1dLK9MW-9sY)
 
+[Click to download](https://play.google.com/store/apps/details?id=com.williampembleton.milestone)
+
 ---
 
 # Story behind the app
