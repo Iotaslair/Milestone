@@ -12,4 +12,4 @@
 ---
 
 # Story behind the app
-I made an app very similar to this in High School with a partner for the Congressional App Challenge [Link to application video](https://www.youtube.com/watch?v=1U2J2g1ke1Y) but I didn't enjoy the UI and I wanted to recreate the app because my partner did the development and I didn't learn anything about Android. So I recreated the application to learn about Android development, revamp the design and produce a deliverable that employers can see.
+I made an app very similar to this in High School with a partner for the Congressional App Challenge [Link to application video](https://www.youtube.com/watch?v=1U2J2g1ke1Y) but I didn't enjoy the UI and I wanted to recreate the app because my partner did the development. So I recreated the application to learn about Android development, revamp the design and produce a deliverable that employers can see.
